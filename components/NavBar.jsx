@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
@@ -9,11 +9,18 @@ import { Button } from 'primereact/button';
 import { SplitButton } from 'primereact/splitbutton';
 import { Badge } from 'primereact/badge';
 import { ProgressSpinner } from 'primereact/progressspinner';
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import { Toast } from 'primereact/toast';
 
 
 
 
 const NavBar = () => {
+
+    const [visible, setVisible] = useState(false);
+    const toast = useRef(null);
+    const [showCrewList, setShowCrewList] = useState(false);
+    const [showGridBody, setShowGridBody] = useState(false);
 
     const {
         isLoading,
@@ -35,30 +42,41 @@ const NavBar = () => {
 
     }
 
+    const accept = () => {
+        logout();
+        toast.current.show({ severity: 'info', summary: 'Confirmed', detail: 'You have signed out', life: 3000 });
+    }
+
+    const reject = () => {
+        toast.current.show({ severity: 'info', summary: 'Thank you', detail: 'Continue..', life: 1500 });
+    }
+
+
     const leftContents = (
         <React.Fragment>
             <img alt="logo" src="../components/Logo.png" height="40"></img>
-            <Button className="twitter p-p-0">
-                <i className="pi pi-twitter p-px-2"></i>
-                <span className="p-px-3">Twitter</span>
-            </Button>
-            <Button className="slack p-p-0">
-                <i className="pi pi-slack p-px-2"></i>
-                <span className="p-px-3">Slack</span>
-            </Button>
+            {isAuthenticated && <div>
+                <Button type="button" label="Manage crew list" icon="pi pi-users" className="p-button-raised p-button-rounded p-button-warning p-button-text p-mx-4" onClick={() => setShowCrewList(true)}>
+                </Button>
+                <Button type="button" label="Manage vessel list" icon="pi pi-flag-fill" className="p-button-raised p-button-rounded p-button-info p-button-text" onClick={() => console.log("VesselList clicked")}>
+                </Button></div>}
         </React.Fragment>
     );
 
     const rightContents = (
         <React.Fragment>
-            {isAuthenticated && <Button type="button" label={`Welcome  ${user.email}`} className="p-button-raised p-button-rounded p-mr-2"></Button>}
+
+            {isAuthenticated && <div> <ConfirmDialog visible={visible} onHide={() => setVisible(false)} message="Do you want to sign out of your account?"
+                header="Signing out" icon="pi pi-exclamation-triangle" accept={accept} reject={reject} />
+                <Button onClick={() => setVisible(true)} icon="pi pi-user" type="button" label={`:   ${user.email}`} className="p-button-raised p-button-rounded p-mr-2"></Button> </div>}
             <LoginButton />
-            <LogoutButton />
+            {/* <LogoutButton /> */}
         </React.Fragment>
     );
 
     return (
         <div>
+            <Toast ref={toast} />
             <Toolbar left={leftContents} right={rightContents} />
         </div>
     );
