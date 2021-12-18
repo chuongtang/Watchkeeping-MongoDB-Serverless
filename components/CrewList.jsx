@@ -8,8 +8,8 @@ import * as Realm from "realm-web";
 
 
 const CrewList = () => {
-  const REALM_APP_ID = "shiptime_backend-zjsnd";
-  // const REALM_APP_ID = import.meta.env.VITE_REALM_APP_ID;
+  // const REALM_APP_ID = "shiptime_backend-zjsnd";
+  const REALM_APP_ID = import.meta.env.VITE_REALM_APP_ID;
   console.log(REALM_APP_ID);
   console.log("dotHERE", dotenv.config)
   const [crews, setCrews] = useState([]);
