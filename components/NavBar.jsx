@@ -11,6 +11,8 @@ import { Badge } from 'primereact/badge';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { Toast } from 'primereact/toast';
+import { Dialog } from 'primereact/dialog';
+import CrewList from "./CrewList"
 
 
 
@@ -21,6 +23,7 @@ const NavBar = () => {
     const toast = useRef(null);
     const [showCrewList, setShowCrewList] = useState(false);
     const [showGridBody, setShowGridBody] = useState(false);
+    const [displayMaximizable, setDisplayMaximizable] = useState(false);
 
     const {
         isLoading,
@@ -51,13 +54,19 @@ const NavBar = () => {
         toast.current.show({ severity: 'info', summary: 'Thank you', detail: 'Continue..', life: 1500 });
     }
 
+    const onHide = (name) => {
+        setDisplayMaximizable(false);
+    }
 
     const leftContents = (
         <React.Fragment>
             <img alt="logo" src="../components/Logo.png" height="40"></img>
             {isAuthenticated && <div>
-                <Button type="button" label="Manage crew list" icon="pi pi-users" className="p-button-raised p-button-rounded p-button-warning p-button-text p-mx-4" onClick={() => setShowCrewList(true)}>
+                <Button type="button" label="Manage crew list" icon="pi pi-users" className="p-button-raised p-button-rounded p-button-warning p-button-text p-mx-4" onClick={() => setDisplayMaximizable(true)}>
                 </Button>
+                <Dialog visible={displayMaximizable} maximizable modal style={{ width: '80vw' }} onHide={() => onHide('displayMaximizable')}>
+                   <CrewList />
+                </Dialog>
                 <Button type="button" label="Manage vessel list" icon="pi pi-flag-fill" className="p-button-raised p-button-rounded p-button-info p-button-text" onClick={() => console.log("VesselList clicked")}>
                 </Button></div>}
         </React.Fragment>

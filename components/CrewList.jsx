@@ -42,6 +42,14 @@ const CrewList = () => {
 
   const leftToolbarTemplate = () => {
     return (
+      <h3>
+        Manage Crew list
+      </h3>
+    )
+  }
+
+  const rightToolbarTemplate = () => {
+    return (
       <React.Fragment>
         <Button label="New" icon="pi pi-plus" className="p-button-success p-mr-2" onClick={openNew} />
         <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={confirmDeleteSelected} disabled={!selectedCrews || !selectedCrews.length} />
@@ -49,19 +57,9 @@ const CrewList = () => {
     )
   }
 
-  const rightToolbarTemplate = () => {
-    return (
-      <React.Fragment>
-        {/* <FileUpload mode="basic" name="demo[]" auto url="https://primefaces.org/primereact/showcase/upload.php" accept=".csv" chooseLabel="Import" className="p-mr-2 p-d-inline-block" onUpload={importCSV} />
-        <Button label="Export" icon="pi pi-upload" className="p-button-help" onClick={exportCSV} /> */}
-        Right tool bar
-      </React.Fragment>
-    )
-  }
-
   const confirmDeleteSelected = () => {
     alert("Paid subcription is required for this advance feature")
-}
+  }
 
   let newCrewDetail = {
     id: null,
@@ -113,8 +111,8 @@ const CrewList = () => {
     <div>
       <div className="card">
         <Toolbar className="p-mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
-        <DataTable value={crews} responsiveLayout="scroll" showGridlines scrollable scrollHeight="400px" selection={selectedCrews} onSelectionChange={(e) => setSelectedCrews(e.value)}>
-        <Column selectionMode="single" style={{"maxWidth":"4rem"}} exportable={false}></Column>
+        <DataTable value={crews} responsiveLayout="scroll" showGridlines scrollable scrollHeight="70vh" selection={selectedCrews} onSelectionChange={(e) => setSelectedCrews(e.value)}>
+          <Column selectionMode="single" style={{ "maxWidth": "4rem" }} exportable={false}></Column>
           {dynamicColumns}
           <Column body={actionBodyTemplate} exportable={false} style={{ 'maxWidth': '6rem' }}></Column>
         </DataTable>
