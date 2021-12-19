@@ -1,7 +1,5 @@
 
 import React, { useState } from 'react';
-import { Sidebar } from 'primereact/sidebar';
-import { Button } from 'primereact/button';
 import "primeflex/primeflex.css";
 
 
@@ -11,7 +9,7 @@ const LearnMore = () => {
 
   return (
   
-    <div className="surface-0 text-center">
+    <div className="surface-0 text-center gradient-background">
       <div className="mb-3 font-bold text-2xl">
         <span className="text-900">User-friendly interface, </span>
         <span className="text-blue-600">Access anywhere</span>
