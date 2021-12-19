@@ -90,7 +90,7 @@ const NavBar = () => {
     return (
         <div>
             <Toast ref={toast} />
-            <Toolbar left={leftContents} right={rightContents} />
+            <Toolbar left={leftContents} right={rightContents} style={{width : "80vw"}}/>
         </div>
     );
 }
