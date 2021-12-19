@@ -68,7 +68,7 @@ const NavBar = () => {
 
                 <Button type="button" label="Create Time report" icon="pi pi-clock" className="p-button-raised p-button-rounded p-button-info p-button-text" onClick={() => setDisplayReportMaximizable(true)}>
                 </Button> 
-                <Dialog visible={displayReportMaximizable} maximizable modal style={{ width: '80vw' }} onHide={() => onHide()}>
+                <Dialog visible={displayReportMaximizable} maximizable modal style={{ width: '90vw' }} onHide={() => onHide()}>
                    <GridBody />
                 </Dialog></div>
                 }
