@@ -90,8 +90,7 @@ const NavBar = () => {
     return (
         <div className="p-d-flex">
             <Toast ref={toast} />
-            <Toolbar left={leftContents} right={rightContents} style={{width : "80vw"}}/>
-            <Toolbar left="Translation" right="component"  style={{width : "20vw"}}/>
+            <Toolbar left={leftContents} right={rightContents} style={{width : "100vw"}} />
            
         </div>
     );
