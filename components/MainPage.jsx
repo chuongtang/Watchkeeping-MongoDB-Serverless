@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from 'primereact/button';
 import "primeflex/primeflex.css";
-import North from "../src/images/North.svg";
+import North from "../src/images/North.png";
 import LearnMore from './LearnMore';
 import { Dialog } from 'primereact/dialog';
 import BG from "../src/images/shipMate.webp"
@@ -19,16 +19,19 @@ const MainPage = () => {
   }
 
   const oStyle ={
-    visibility: 'hidden',
-    maxWidth: '0.01rem',
-    marginLeft: "-1ch"
+  
+    marginRight: "-1.2ch",
+    maxHeight: "4rem",
+    zIndex: 9999,
+    
+
 }
 
   return (
     <div className="grid grid-nogutter surface-0 text-800">
       <div className="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center ">
         <section>
-          <span className="block text-6xl font-bold mb-1"><object type="image/svg+xml" data={North} style={{ "maxHeight": "4rem" }} className="North" alt="compass-logo"></object><span style={oStyle}>o</span>nline timesheet for Seafarers</span>
+          <span className="block text-6xl font-bold mb-1"><img src={North} style={oStyle}  alt="compass-logo"></img>online timesheet for Seafarers</span>
           <div className="text-6xl text-primary font-bold mb-3">Create report effortlessly</div>
           <p className="mt-0 mb-4 text-700 line-height-3">A modern website template with user-friendly tools, perfect for creating crew reports that Comply with STCW</p>
 
