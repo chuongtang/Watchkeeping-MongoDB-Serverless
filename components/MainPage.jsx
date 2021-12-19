@@ -4,6 +4,7 @@ import "primeflex/primeflex.css";
 import North from "../src/images/North.svg";
 import LearnMore from './LearnMore';
 import { Dialog } from 'primereact/dialog';
+import BG from "../src/images/shipMate.webp"
 
 
 const MainPage = () => {
@@ -38,7 +39,7 @@ const MainPage = () => {
         </section>
       </div>
       <div className="col-12 md:col-6 overflow-hidden">
-        <img src="../src/images/shipMate.webp" alt="hero1" className="md:ml-auto block md:h-full" style={{ clipPath: 'polygon(8% 0, 100% 0%, 100% 100%, 0 100%)' }} />
+        <img src={BG} alt="hero1" className="md:ml-auto block md:h-full" style={{ clipPath: 'polygon(8% 0, 100% 0%, 100% 100%, 0 100%)' }} />
       </div>
     </div>
   );

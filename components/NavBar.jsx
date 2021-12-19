@@ -11,6 +11,7 @@ import { Toast } from 'primereact/toast';
 import { Dialog } from 'primereact/dialog';
 import CrewList from "./CrewList";
 import GridBody from "./GridBody/GridBody";
+import Logo from "../src/images/Logo.png";
 
 
 
@@ -58,7 +59,7 @@ const NavBar = () => {
 
     const leftContents = (
         <React.Fragment>
-            <img alt="logo" src="../src/images/Logo.png" height="40"></img>
+            <img alt="logo" src={Logo} height="40"></img>
             {isAuthenticated && <div>
                 <Button type="button" label="Manage crew list" icon="pi pi-users" className="p-button-raised p-button-rounded p-button-warning p-button-text p-mx-4" onClick={() => setDisplayMaximizable(true)}>
                 </Button>
