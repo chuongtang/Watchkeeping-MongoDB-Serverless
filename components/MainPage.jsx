@@ -43,7 +43,7 @@ const MainPage = () => {
 
           <Button label="Live Demo" type="button" className="p-button-outlined" onClick={() => setDisplayDemo(true)} />
           <Dialog visible={displayDemo} maximizable modal style={{ width: '90vw' }} onHide={() => onHide()}>
-            <h3>This Component is being built... thanks for your patient!</h3>
+            <h3>This Component is being built... please visit again!</h3>
           </Dialog>
         </section>
       </div>
