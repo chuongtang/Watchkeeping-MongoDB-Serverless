@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from 'primereact/button';
 import "primeflex/primeflex.css";
-import North from "./North.svg";
+import North from "../src/images/North.svg";
 import LearnMore from './LearnMore';
 import { Dialog } from 'primereact/dialog';
 
@@ -38,7 +38,7 @@ const MainPage = () => {
         </section>
       </div>
       <div className="col-12 md:col-6 overflow-hidden">
-        <img src="../components/shipMate.webp" alt="hero1" className="md:ml-auto block md:h-full" style={{ clipPath: 'polygon(8% 0, 100% 0%, 100% 100%, 0 100%)' }} />
+        <img src="../src/images/shipMate.webp" alt="hero1" className="md:ml-auto block md:h-full" style={{ clipPath: 'polygon(8% 0, 100% 0%, 100% 100%, 0 100%)' }} />
       </div>
     </div>
   );

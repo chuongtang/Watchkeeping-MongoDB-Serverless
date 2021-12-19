@@ -1,13 +1,10 @@
 import React, { useState, useRef } from 'react';
 
 import LoginButton from './LoginButton';
-import LogoutButton from './LogoutButton';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Message } from 'primereact/message';
 import { Toolbar } from 'primereact/toolbar';
 import { Button } from 'primereact/button';
-import { SplitButton } from 'primereact/splitbutton';
-import { Badge } from 'primereact/badge';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { Toast } from 'primereact/toast';
@@ -22,8 +19,6 @@ const NavBar = () => {
 
     const [visible, setVisible] = useState(false);
     const toast = useRef(null);
-    const [showCrewList, setShowCrewList] = useState(false);
-    const [showGridBody, setShowGridBody] = useState(false);
     const [displayMaximizable, setDisplayMaximizable] = useState(false);
     const [displayReportMaximizable, setDisplayReportMaximizable] = useState(false);
 
@@ -63,7 +58,7 @@ const NavBar = () => {
 
     const leftContents = (
         <React.Fragment>
-            <img alt="logo" src="../components/Logo.png" height="40"></img>
+            <img alt="logo" src="../src/images/Logo.png" height="40"></img>
             {isAuthenticated && <div>
                 <Button type="button" label="Manage crew list" icon="pi pi-users" className="p-button-raised p-button-rounded p-button-warning p-button-text p-mx-4" onClick={() => setDisplayMaximizable(true)}>
                 </Button>
