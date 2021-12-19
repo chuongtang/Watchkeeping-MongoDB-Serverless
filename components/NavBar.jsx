@@ -12,7 +12,8 @@ import { ProgressSpinner } from 'primereact/progressspinner';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { Toast } from 'primereact/toast';
 import { Dialog } from 'primereact/dialog';
-import CrewList from "./CrewList"
+import CrewList from "./CrewList";
+import GridBody from "./GridBody/GridBody";
 
 
 
@@ -24,6 +25,7 @@ const NavBar = () => {
     const [showCrewList, setShowCrewList] = useState(false);
     const [showGridBody, setShowGridBody] = useState(false);
     const [displayMaximizable, setDisplayMaximizable] = useState(false);
+    const [displayReportMaximizable, setDisplayReportMaximizable] = useState(false);
 
     const {
         isLoading,
@@ -54,8 +56,9 @@ const NavBar = () => {
         toast.current.show({ severity: 'info', summary: 'Thank you', detail: 'Continue..', life: 1500 });
     }
 
-    const onHide = (name) => {
+    const onHide = () => {
         setDisplayMaximizable(false);
+        setDisplayReportMaximizable(false);
     }
 
     const leftContents = (
@@ -67,8 +70,13 @@ const NavBar = () => {
                 <Dialog visible={displayMaximizable} maximizable modal style={{ width: '80vw' }} onHide={() => onHide('displayMaximizable')}>
                    <CrewList />
                 </Dialog>
-                <Button type="button" label="Manage vessel list" icon="pi pi-flag-fill" className="p-button-raised p-button-rounded p-button-info p-button-text" onClick={() => console.log("VesselList clicked")}>
-                </Button></div>}
+
+                <Button type="button" label="Create Time report" icon="pi pi-clock" className="p-button-raised p-button-rounded p-button-info p-button-text" onClick={() => setDisplayReportMaximizable(true)}>
+                </Button> 
+                <Dialog visible={displayReportMaximizable} maximizable modal style={{ width: '80vw' }} onHide={() => onHide('displayReportMaximizable')}>
+                   <GridBody />
+                </Dialog></div>
+                }
         </React.Fragment>
     );
 
