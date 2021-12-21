@@ -20,7 +20,7 @@ const MainPage = () => {
 
   const oStyle ={
   
-    marginRight: "-1.2ch",
+    marginRight: "1.2ch",
     maxHeight: "4rem",
     zIndex: 9999,
     
@@ -31,9 +31,9 @@ const MainPage = () => {
     <div className="grid grid-nogutter surface-0 text-800">
       <div className="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center ">
         <section>
-          <span className="block text-6xl font-bold mb-1"><img src={North} style={oStyle}  alt="compass-logo"></img>online timesheet for Seafarers</span>
+          <span className="block text-6xl font-bold mb-1"><img src={North} style={oStyle}  alt="compass-logo" className="logo"></img>Online timesheet for Seafarers</span>
           <div className="text-6xl text-primary font-bold mb-3">Create report effortlessly</div>
-          <p className="mt-0 mb-4 text-700 line-height-3">A modern website template with user-friendly tools, perfect for creating crew reports that Comply with STCW</p>
+          <p className="mt-0 mb-4 text-700 line-height-3">A modern website template with user-friendly tools, perfect for creating seafarers reports that Comply with STCW</p>
 
           <Button label="Learn More" type="button" className="mr-3 p-button-raised" onClick={() => setDisplayLearnMore(true)} />
           <Dialog visible={displayLearnMore} maximizable modal style={{ width: '90vw' }} onHide={() => onHide()}>
