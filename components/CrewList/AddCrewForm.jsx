@@ -13,12 +13,15 @@ import { classNames } from 'primereact/utils';
 import { CountryService } from './CountryServices';
 import './CrewForm.css';
 import CountryNames from "./CountryNames";
+import { SelectButton } from 'primereact/selectbutton';
 
 const AddCrewForm = () => {
     const [countries, setCountries] = useState([]);
     const [showMessage, setShowMessage] = useState(false);
     const [formData, setFormData] = useState({});
     const countryservice = new CountryService();
+    const wkOptions = ['YES', 'NO'];
+    const [watchkeeper, setWatchkeeper] = useState('NO')
 
     useEffect(() => {
         // countryservice.getCountries().then(data => setCountries(data));
@@ -85,12 +88,12 @@ const AddCrewForm = () => {
 
             <div className="p-d-flex p-jc-center">
                 <div className="card">
-                    <h5 className="p-text-center">Register</h5>
+                    <h4 className="p-text-center">Add a new seafarer to database</h4>
                     <form onSubmit={formik.handleSubmit} className="p-fluid">
                         <div className="p-field">
                             <span className="p-float-label">
                                 <InputText id="fullname" name="fullname" value={formik.values.fullname} onChange={formik.handleChange} autoFocus className={classNames({ 'p-invalid': isFormFieldValid('fullname') })} />
-                                <label htmlFor="fullname" className={classNames({ 'p-error': isFormFieldValid('name') })}>Name*</label>
+                                <label htmlFor="fullname" className={classNames({ 'p-error': isFormFieldValid('name') })}>Fullname*</label>
                             </span>
                             {getFormErrorMessage('fullname')}
                         </div>
@@ -98,22 +101,19 @@ const AddCrewForm = () => {
                             <span className="p-float-label p-input-icon-right">
                                 <i className="pi pi-envelope" />
                                 <InputText id="rank" name="rank" value={formik.values.rank} onChange={formik.handleChange} className={classNames({ 'p-invalid': isFormFieldValid('rank') })} />
-                                <label htmlFor="rank" className={classNames({ 'p-error': isFormFieldValid('rank') })}>rank*</label>
+                                <label htmlFor="rank" className={classNames({ 'p-error': isFormFieldValid('rank') })}>Rank / Position*</label>
                             </span>
                             {getFormErrorMessage('rank')}
                         </div>
                         <div className="p-field">
-                            <span className="p-float-label p-input-icon-right">
-                                <i className="pi pi-envelope" />
-                                <InputText id="watchkeeper" name="watchkeeper" value={formik.values.watchkeeper} onChange={formik.handleChange} className={classNames({ 'p-invalid': isFormFieldValid('watchkeeper') })} />
-                                <label htmlFor="watchkeeper" className={classNames({ 'p-error': isFormFieldValid('watchkeeper') })}>watchkeeper*</label>
-                            </span>
-                            {getFormErrorMessage('watchkeeper')}
+                        <h5>Watchkeeping Duty?</h5>
+                        <SelectButton value={watchkeeper} options={wkOptions} onChange={(e) => setWatchkeeper(e.value)
+                        } />
                         </div>
                         <div className="p-field">
                             <span className="p-float-label">
                                 <Dropdown id="country" name="country" value={formik.values.country} onChange={formik.handleChange} options={countries} optionLabel="name" />
-                                <label htmlFor="country">Country</label>
+                                <label htmlFor="country">Nationality*</label>
                             </span>
                         </div>
                         <div className="p-field-checkbox">
