@@ -9,7 +9,7 @@ import { ProgressSpinner } from 'primereact/progressspinner';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { Toast } from 'primereact/toast';
 import { Dialog } from 'primereact/dialog';
-import CrewList from "./CrewList";
+import CrewList from "../components/CrewList/CrewList";
 import GridBody from "./GridBody/GridBody";
 import Logo from "../src/images/Logo.png";
 

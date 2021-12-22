@@ -4,6 +4,9 @@ import { Column } from 'primereact/column';
 import dotenv from 'dotenv';
 import { Button } from 'primereact/button';
 import { Toolbar } from 'primereact/toolbar';
+import { Dialog } from 'primereact/dialog';
+import AddCrewForm from './AddCrewForm';
+import { Sidebar } from 'primereact/sidebar';
 
 // dotenv/config();
 import * as Realm from "realm-web";
@@ -17,6 +20,7 @@ const CrewList = () => {
   const [crew, setCrew] = useState([]);
   const [crewDialog, setCrewDialog] = useState(false);
   const [selectedCrews, setSelectedCrews] = useState(null);
+  const [addCrewSidebar, setAddCrewSidebar] = useState(false);
 
   const columns = [
     { field: 'Fullname', header: 'Full Name' },
@@ -39,6 +43,13 @@ const CrewList = () => {
     );
   }
 
+  const openNew = () => {
+    // setCrew(newCrewDetail);
+    // setSubmitted(false);
+    console.log("openNew is clicked")
+    setAddCrewSidebar(true);
+    console.log("CREWDIALOG IS", crewDialog);
+  }
 
   const leftToolbarTemplate = () => {
     return (
@@ -51,7 +62,7 @@ const CrewList = () => {
   const rightToolbarTemplate = () => {
     return (
       <React.Fragment>
-        <Button label="New" icon="pi pi-plus" className="p-button-success p-mr-2" onClick={openNew} />
+        <Button label="New" icon="pi pi-plus" className="p-button-success p-mr-2" onClick={() => openNew()} />
         <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={confirmDeleteSelected} disabled={!selectedCrews || !selectedCrews.length} />
       </React.Fragment>
     )
@@ -61,24 +72,29 @@ const CrewList = () => {
     alert("Paid subcription is required for this advance feature")
   }
 
-  let newCrewDetail = {
-    id: null,
-    name: '',
-    image: null,
-    description: '',
-    category: null,
-    price: 0,
-    quantity: 0,
-    rating: 0,
-    inventoryStatus: 'INSTOCK'
+
+
+  const hideDialog = () => {
+    setSubmitted(false);
+    setCrewDialog(false);
   };
 
+  let newCrewDetail = {
 
-  const openNew = () => {
-    setCrew(newCrewDetail);
-    // setSubmitted(false);
-    // setProductDialog(true);
-  }
+    Fullname: '',
+    Rank: '',
+    Watchkeeper: '',
+    Nationality: ''
+  };
+
+  const crewDialogFooter = (
+    <React.Fragment>
+      <Button label="Cancel" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
+      {/* <Button label="Save" icon="pi pi-check" className="p-button-text" onClick={alert("OK was clicked")} /> */}
+    </React.Fragment>
+  );
+
+
 
   useEffect(async () => {
 
@@ -111,11 +127,20 @@ const CrewList = () => {
     <div>
       <div className="card">
         <Toolbar className="p-mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
+        <Sidebar visible={addCrewSidebar} onHide={() => setAddCrewSidebar(false)}>
+          <h3>Left Sidebar</h3>
+        </Sidebar>
+        {/* <Dialog visible={true} style={{ width: '450px' }} header="crew Details" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
+          <h3>HEre is the dialog</h3>
+          <AddCrewForm />
+        </Dialog> */}
         <DataTable value={crews} responsiveLayout="scroll" showGridlines scrollable scrollHeight="70vh" selection={selectedCrews} onSelectionChange={(e) => setSelectedCrews(e.value)}>
           <Column selectionMode="single" style={{ "maxWidth": "4rem" }} exportable={false}></Column>
           {dynamicColumns}
           <Column body={actionBodyTemplate} exportable={false} style={{ 'maxWidth': '6rem' }}></Column>
         </DataTable>
+
+
 
       </div>
     </div>
