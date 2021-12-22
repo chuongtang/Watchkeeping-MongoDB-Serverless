@@ -129,6 +129,7 @@ const CrewList = () => {
         <Toolbar className="p-mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
         <Sidebar visible={addCrewSidebar} onHide={() => setAddCrewSidebar(false)}>
           <h3>Left Sidebar</h3>
+          <AddCrewForm />
         </Sidebar>
         {/* <Dialog visible={true} style={{ width: '450px' }} header="crew Details" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
           <h3>HEre is the dialog</h3>

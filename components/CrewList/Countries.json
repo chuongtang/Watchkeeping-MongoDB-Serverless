@@ -1,5 +1,6 @@
 
-const Nations = [
+{
+  "data": [
       {"name": "Afghanistan", "code": "AF"},
       {"name": "Åland Islands", "code": "AX"},
       {"name": "Albania", "code": "AL"},
@@ -243,5 +244,6 @@ const Nations = [
       {"name": "Yemen", "code": "YE"},
       {"name": "Zambia", "code": "ZM"},
       {"name": "Zimbabwe", "code": "ZW"}
-  ];
-export default Nations
+  ]
+}
+   

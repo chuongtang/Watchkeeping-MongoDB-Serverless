@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { InputText } from 'primereact/inputtext';
@@ -9,52 +10,39 @@ import { Checkbox } from 'primereact/checkbox';
 import { Dialog } from 'primereact/dialog';
 import { Divider } from 'primereact/divider';
 import { classNames } from 'primereact/utils';
-import Nations from "./Nations"
+import { CountryService } from './CountryServices';
 import './CrewForm.css';
 
-export const AddCrewForm = () => {
+const AddCrewForm = () => {
     const [countries, setCountries] = useState([]);
     const [showMessage, setShowMessage] = useState(false);
     const [formData, setFormData] = useState({});
-    // const countries = Nations.data;
-
-    const initialState = () =>{
-        setCountries(Nations)
-    };
+    const countryservice = new CountryService();
 
     useEffect(() => {
-        
-        console.log(Nations);
-        // setCountries(Nations);
-        initialState();
-        console.log("countries", countries[2])
+        countryservice.getCountries().then(data => setCountries(data));
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const formik = useFormik({
         initialValues: {
-            name: '',
-            email: '',
-            password: '',
-            date: null,
+            fullname: '',
+            rank: '',
+            watchkeeper: '',
             country: null,
             accept: false
         },
         validate: (data) => {
             let errors = {};
 
-            if (!data.name) {
-                errors.name = 'Name is required.';
+            if (!data.fullname) {
+                errors.fullname = 'Fullname is required.';
             }
 
-            if (!data.email) {
-                errors.email = 'Email is required.';
+            if (!data.rank) {
+                errors.rank = 'Rank is required.';
             }
-            else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data.email)) {
-                errors.email = 'Invalid email address. E.g. example@email.com';
-            }
-
-            if (!data.password) {
-                errors.password = 'Password is required.';
+            if (!data.watchkeeper) {
+                errors.watchkeeper = 'Watchkeeper is required.';
             }
 
             if (!data.accept) {
@@ -71,29 +59,18 @@ export const AddCrewForm = () => {
         }
     });
 
-    const isFormFieldValid = (name) => !!(formik.touched[name] && formik.errors[name]);
-    const getFormErrorMessage = (name) => {
-        return isFormFieldValid(name) && <small className="p-error">{formik.errors[name]}</small>;
+    const isFormFieldValid = (fullname) => !!(formik.touched[fullname] && formik.errors[fullname]);
+    const getFormErrorMessage = (fullname) => {
+        return isFormFieldValid(fullname) && <small className="p-error">{formik.errors[fullname]}</small>;
     };
 
     const dialogFooter = <div className="p-d-flex p-jc-center"><Button label="OK" className="p-button-text" autoFocus onClick={() => setShowMessage(false)} /></div>;
-    const passwordHeader = <h6>Pick a password</h6>;
-    const passwordFooter = (
-        <React.Fragment>
-            <Divider />
-            <p className="p-mt-2">Suggestions</p>
-            <ul className="p-pl-2 p-ml-2 p-mt-0" style={{ lineHeight: '1.5' }}>
-                <li>At least one lowercase</li>
-                <li>At least one uppercase</li>
-                <li>At least one numeric</li>
-                <li>Minimum 8 characters</li>
-            </ul>
-        </React.Fragment>
-    );
+    
+ 
 
     return (
-        <div className="form-crew">
-            <Dialog visible={showMessage} onHide={() => setShowMessage(false)} position="top" footer={dialogFooter} showHeader={false} breakpoints={{ '960px': '80vw' }} style={{ width: '30vw' }}>
+        <div className="form-demo">
+            {/* <Dialog visible={showMessage} onHide={() => setShowMessage(false)} position="top" footer={dialogFooter} showHeader={false} breakpoints={{ '960px': '80vw' }} style={{ width: '30vw' }}> */}
                 <div className="p-d-flex p-ai-center p-dir-col p-pt-6 p-px-3">
                     <i className="pi pi-check-circle" style={{ fontSize: '5rem', color: 'var(--green-500)' }}></i>
                     <h5>Registration Successful!</h5>
@@ -101,7 +78,7 @@ export const AddCrewForm = () => {
                         Your account is registered under name <b>{formData.name}</b> ; it'll be valid next 30 days without activation. Please check <b>{formData.email}</b> for activation instructions.
                     </p>
                 </div>
-            </Dialog>
+            {/* </Dialog> */}
 
             <div className="p-d-flex p-jc-center">
                 <div className="card">
@@ -109,32 +86,26 @@ export const AddCrewForm = () => {
                     <form onSubmit={formik.handleSubmit} className="p-fluid">
                         <div className="p-field">
                             <span className="p-float-label">
-                                <InputText id="name" name="name" value={formik.values.name} onChange={formik.handleChange} autoFocus className={classNames({ 'p-invalid': isFormFieldValid('name') })} />
-                                <label htmlFor="name" className={classNames({ 'p-error': isFormFieldValid('name') })}>Name*</label>
+                                <InputText id="fullname" name="Fullname" value={formik.values.fullname} onChange={formik.handleChange} autoFocus className={classNames({ 'p-invalid': isFormFieldValid('fullname') })} />
+                                <label htmlFor="fullname" className={classNames({ 'p-error': isFormFieldValid('name') })}>Name*</label>
                             </span>
-                            {getFormErrorMessage('name')}
+                            {getFormErrorMessage('fullname')}
                         </div>
                         <div className="p-field">
                             <span className="p-float-label p-input-icon-right">
                                 <i className="pi pi-envelope" />
-                                <InputText id="email" name="email" value={formik.values.email} onChange={formik.handleChange} className={classNames({ 'p-invalid': isFormFieldValid('email') })} />
-                                <label htmlFor="email" className={classNames({ 'p-error': isFormFieldValid('email') })}>Email*</label>
+                                <InputText id="rank" name="rank" value={formik.values.rank} onChange={formik.handleChange} className={classNames({ 'p-invalid': isFormFieldValid('rank') })} />
+                                <label htmlFor="rank" className={classNames({ 'p-error': isFormFieldValid('rank') })}>rank*</label>
                             </span>
-                            {getFormErrorMessage('email')}
+                            {getFormErrorMessage('rank')}
                         </div>
                         <div className="p-field">
-                            <span className="p-float-label">
-                                <Password id="password" name="password" value={formik.values.password} onChange={formik.handleChange} toggleMask
-                                    className={classNames({ 'p-invalid': isFormFieldValid('password') })} header={passwordHeader} footer={passwordFooter} />
-                                <label htmlFor="password" className={classNames({ 'p-error': isFormFieldValid('password') })}>Password*</label>
+                            <span className="p-float-label p-input-icon-right">
+                                <i className="pi pi-envelope" />
+                                <InputText id="watchkeeping" name="watchkeeping" value={formik.values.watchkeeping} onChange={formik.handleChange} className={classNames({ 'p-invalid': isFormFieldValid('watchkeeping') })} />
+                                <label htmlFor="watchkeeping" className={classNames({ 'p-error': isFormFieldValid('watchkeeping') })}>watchkeeping*</label>
                             </span>
-                            {getFormErrorMessage('password')}
-                        </div>
-                        <div className="p-field">
-                            <span className="p-float-label">
-                                <Calendar id="date" name="date" value={formik.values.date} onChange={formik.handleChange} dateFormat="dd/mm/yy" mask="99/99/9999" showIcon />
-                                <label htmlFor="date">Birthday</label>
-                            </span>
+                            {getFormErrorMessage('watchkeeping')}
                         </div>
                         <div className="p-field">
                             <span className="p-float-label">
