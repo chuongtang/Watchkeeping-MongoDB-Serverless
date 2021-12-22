@@ -56,6 +56,7 @@ const AddCrewForm = () => {
         onSubmit: (data) => {
             setFormData(data);
             setShowMessage(true);
+            console.log("submitted form...onto url...")
 
             formik.resetForm();
         }
@@ -88,7 +89,7 @@ const AddCrewForm = () => {
                     <form onSubmit={formik.handleSubmit} className="p-fluid">
                         <div className="p-field">
                             <span className="p-float-label">
-                                <InputText id="fullname" name="Fullname" value={formik.values.fullname} onChange={formik.handleChange} autoFocus className={classNames({ 'p-invalid': isFormFieldValid('fullname') })} />
+                                <InputText id="fullname" name="fullname" value={formik.values.fullname} onChange={formik.handleChange} autoFocus className={classNames({ 'p-invalid': isFormFieldValid('fullname') })} />
                                 <label htmlFor="fullname" className={classNames({ 'p-error': isFormFieldValid('name') })}>Name*</label>
                             </span>
                             {getFormErrorMessage('fullname')}
@@ -104,10 +105,10 @@ const AddCrewForm = () => {
                         <div className="p-field">
                             <span className="p-float-label p-input-icon-right">
                                 <i className="pi pi-envelope" />
-                                <InputText id="watchkeeping" name="watchkeeping" value={formik.values.watchkeeping} onChange={formik.handleChange} className={classNames({ 'p-invalid': isFormFieldValid('watchkeeping') })} />
-                                <label htmlFor="watchkeeping" className={classNames({ 'p-error': isFormFieldValid('watchkeeping') })}>watchkeeping*</label>
+                                <InputText id="watchkeeper" name="watchkeeper" value={formik.values.watchkeeper} onChange={formik.handleChange} className={classNames({ 'p-invalid': isFormFieldValid('watchkeeper') })} />
+                                <label htmlFor="watchkeeper" className={classNames({ 'p-error': isFormFieldValid('watchkeeper') })}>watchkeeper*</label>
                             </span>
-                            {getFormErrorMessage('watchkeeping')}
+                            {getFormErrorMessage('watchkeeper')}
                         </div>
                         <div className="p-field">
                             <span className="p-float-label">
