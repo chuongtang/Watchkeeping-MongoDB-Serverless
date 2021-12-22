@@ -12,6 +12,7 @@ import { Divider } from 'primereact/divider';
 import { classNames } from 'primereact/utils';
 import { CountryService } from './CountryServices';
 import './CrewForm.css';
+import CountryNames from "./CountryNames";
 
 const AddCrewForm = () => {
     const [countries, setCountries] = useState([]);
@@ -20,7 +21,8 @@ const AddCrewForm = () => {
     const countryservice = new CountryService();
 
     useEffect(() => {
-        countryservice.getCountries().then(data => setCountries(data));
+        // countryservice.getCountries().then(data => setCountries(data));
+        setCountries(CountryNames);
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const formik = useFormik({
