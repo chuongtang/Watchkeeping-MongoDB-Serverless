@@ -4,29 +4,24 @@ import { useFormik } from 'formik';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
-import { Calendar } from 'primereact/calendar';
-import { Password } from 'primereact/password';
-import { Checkbox } from 'primereact/checkbox';
-import { Dialog } from 'primereact/dialog';
-import { Divider } from 'primereact/divider';
+import { Checkbox } from 'primereact/checkbox'
 import { classNames } from 'primereact/utils';
-import { CountryService } from './CountryServices';
+import { SelectButton } from 'primereact/selectbutton';
+
 import './CrewForm.css';
 import CountryNames from "./CountryNames";
-import { SelectButton } from 'primereact/selectbutton';
 
 const AddCrewForm = () => {
     const [countries, setCountries] = useState([]);
     const [showMessage, setShowMessage] = useState(false);
     const [formData, setFormData] = useState({});
-    const countryservice = new CountryService();
+    
     const wkOptions = ['YES', 'NO'];
     const [watchkeeper, setWatchkeeper] = useState('NO')
 
     useEffect(() => {
-        // countryservice.getCountries().then(data => setCountries(data));
         setCountries(CountryNames);
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    }, []); 
 
     const formik = useFormik({
         initialValues: {
@@ -47,7 +42,7 @@ const AddCrewForm = () => {
                 errors.rank = 'Rank is required.';
             }
             if (!data.watchkeeper) {
-                errors.watchkeeper = 'Watchkeeper is required.';
+                errors.watchkeeper = 'Watchkeeping Duty is required.';
             }
 
             if (!data.accept) {
@@ -56,12 +51,13 @@ const AddCrewForm = () => {
 
             return errors;
         },
-        onSubmit: (data) => {
+        onSubmit: (e, data) => {
+            e.preventDefault();
             setFormData(data);
             setShowMessage(true);
-            console.log("submitted form...onto url...")
+            console.log("submitted form...onto url...with data as", formData);
 
-            formik.resetForm();
+            // formik.resetForm();
         }
     });
 
@@ -76,15 +72,13 @@ const AddCrewForm = () => {
 
     return (
         <div className="form-demo">
-            {/* <Dialog visible={showMessage} onHide={() => setShowMessage(false)} position="top" footer={dialogFooter} showHeader={false} breakpoints={{ '960px': '80vw' }} style={{ width: '30vw' }}> */}
-                <div className="p-d-flex p-ai-center p-dir-col p-pt-6 p-px-3">
+                <div className="p-d-flex p-ai-center p-dir-col p-pt-6 p-px-3" visible ={showMessage}>
                     <i className="pi pi-check-circle" style={{ fontSize: '5rem', color: 'var(--green-500)' }}></i>
                     <h5>Registration Successful!</h5>
                     <p style={{ lineHeight: 1.5, textIndent: '1rem' }}>
                         Your account is registered under name <b>{formData.name}</b> ; it'll be valid next 30 days without activation. Please check <b>{formData.email}</b> for activation instructions.
                     </p>
                 </div>
-            {/* </Dialog> */}
 
             <div className="p-d-flex p-jc-center">
                 <div className="card">
@@ -109,6 +103,7 @@ const AddCrewForm = () => {
                         <h5>Watchkeeping Duty?</h5>
                         <SelectButton value={watchkeeper} options={wkOptions} onChange={(e) => setWatchkeeper(e.value)
                         } />
+                        <br/>
                         </div>
                         <div className="p-field">
                             <span className="p-float-label">
