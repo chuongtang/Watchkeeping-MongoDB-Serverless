@@ -53,17 +53,21 @@ const CrewList = () => {
 
   const leftToolbarTemplate = () => {
     return (
-      <h3>
-        Manage Crew list
-      </h3>
+
+      <div className="p-d-flex">
+        <h3 className="p-mr-2">
+          Manage Crew list
+        </h3>
+        <Button label="New" icon="pi pi-plus" className="p-button-success p-mr-2" onClick={() => openNew()} />
+        <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={confirmDeleteSelected} disabled={!selectedCrews || !selectedCrews.length} />
+      </div>
     )
   }
 
   const rightToolbarTemplate = () => {
     return (
       <React.Fragment>
-        <Button label="New" icon="pi pi-plus" className="p-button-success p-mr-2" onClick={() => openNew()} />
-        <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={confirmDeleteSelected} disabled={!selectedCrews || !selectedCrews.length} />
+        rightToolbarTemplate here
       </React.Fragment>
     )
   }
