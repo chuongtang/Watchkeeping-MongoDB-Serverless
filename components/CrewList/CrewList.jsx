@@ -58,8 +58,7 @@ const CrewList = () => {
         <h3 className="p-mr-2">
           Manage Crew list
         </h3>
-        <Button label="New" icon="pi pi-plus" className="p-button-success p-mr-2" onClick={() => openNew()} />
-        <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={confirmDeleteSelected} disabled={!selectedCrews || !selectedCrews.length} />
+
       </div>
     )
   }
@@ -67,7 +66,8 @@ const CrewList = () => {
   const rightToolbarTemplate = () => {
     return (
       <React.Fragment>
-        rightToolbarTemplate here
+        <Button label="New" icon="pi pi-plus" className="p-button-success p-mr-2" onClick={() => openNew()} />
+        <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={()=> confirmDeleteSelected} disabled={!selectedCrews || !selectedCrews.length} />
       </React.Fragment>
     )
   }
@@ -131,14 +131,14 @@ const CrewList = () => {
     <div>
       <div className="card">
         <Toolbar className="p-mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
-        <Sidebar visible={addCrewSidebar} onHide={() => setAddCrewSidebar(false)}>
+        {/* <Sidebar visible={addCrewSidebar} onHide={() => setAddCrewSidebar(false)}>
           <h3>Left Sidebar</h3>
           <AddCrewForm />
-        </Sidebar>
-        {/* <Dialog visible={true} style={{ width: '450px' }} header="crew Details" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
+        </Sidebar> */}
+        <Dialog visible={true} style={{ width: '450px' }} header="crew Details" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
           <h3>HEre is the dialog</h3>
           <AddCrewForm />
-        </Dialog> */}
+        </Dialog>
         <DataTable value={crews} responsiveLayout="scroll" showGridlines scrollable scrollHeight="70vh" selection={selectedCrews} onSelectionChange={(e) => setSelectedCrews(e.value)}>
           <Column selectionMode="single" style={{ "maxWidth": "4rem" }} exportable={false}></Column>
           {dynamicColumns}
