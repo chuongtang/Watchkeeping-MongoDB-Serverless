@@ -1,10 +1,13 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Form, Field } from 'react-final-form';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
 import { Calendar } from 'primereact/calendar';
+import { Message } from 'primereact/message';
+import { Messages } from 'primereact/messages';
+import { Toast } from 'primereact/toast';
 import { Password } from 'primereact/password';
 import { Checkbox } from 'primereact/checkbox';
 import { Dialog } from 'primereact/dialog';
@@ -17,7 +20,8 @@ const AddNewCrew = () => {
   const [countries, setCountries] = useState([]);
   const [showMessage, setShowMessage] = useState(false);
   const [formData, setFormData] = useState({});
-  // const countryservice = new CountryService();
+  const [textMsg, setTextMsg] = useState('...')
+  const toast = useRef(null);
 
   // useEffect(() => {
   //     countryservice.getCountries().then(data => setCountries(data));
@@ -52,9 +56,17 @@ const AddNewCrew = () => {
     return errors;
   };
 
+
+  const showSuccess = (displayMsg) => {
+    
+    toast.current.show({ severity: 'success', summary: 'Successfully added', detail: displayMsg, life: 3000 });
+  }
+
   const onSubmit = (data, form) => {
     setFormData(data);
     // setShowMessage(true);
+    // setTextMsg(`${data.fullname} detail has been added`);
+    showSuccess(data.name);
     console.log("form data detail", data);
     form.restart();
   };
@@ -65,22 +77,11 @@ const AddNewCrew = () => {
   };
 
   const dialogFooter = <div className="p-d-flex p-jc-center"><Button label="OK" className="p-button-text" autoFocus onClick={() => setShowMessage(false)} /></div>;
-  // const passwordHeader = <h6>Pick a password</h6>;
-  // const passwordFooter = (
-  //   <React.Fragment>
-  //     <Divider />
-  //     <p className="p-mt-2">Suggestions</p>
-  //     <ul className="p-pl-2 p-ml-2 p-mt-0" style={{ lineHeight: '1.5' }}>
-  //       <li>At least one lowercase</li>
-  //       <li>At least one uppercase</li>
-  //       <li>At least one numeric</li>
-  //       <li>Minimum 8 characters</li>
-  //     </ul>
-  //   </React.Fragment>
-  // );
 
   return (
     <div className="form">
+
+      <Toast ref={toast} />
       {/* <Dialog visible={showMessage} onHide={() => setShowMessage(false)} position="top" footer={dialogFooter} showHeader={false} breakpoints={{ '960px': '80vw' }} style={{ width: '30vw' }}>
         <div className="p-d-flex p-ai-center p-dir-col p-pt-6 p-px-3">
           <i className="pi pi-check-circle" style={{ fontSize: '5rem', color: 'var(--green-500)' }}></i>
@@ -90,10 +91,10 @@ const AddNewCrew = () => {
           </p>
         </div>
       </Dialog> */}
-
+      {/* <Messages ref={successMsg} /> */}
       <div className="p-d-flex p-jc-center">
         <div className="card">
-          <h5 className="p-text-center">Register</h5>
+          {/* <h5 className="p-text-center">Register</h5> */}
           <Form onSubmit={onSubmit} initialValues={{ name: '', email: '', rank: '', date: null, nationality: null }} validate={validate} render={({ handleSubmit }) => (
             <form onSubmit={handleSubmit} className="p-fluid">
               <Field name="name" render={({ input, meta }) => (
@@ -124,7 +125,7 @@ const AddNewCrew = () => {
                   {getFormErrorMessage(meta)}
                 </div>
               )} />
-              
+
               <Field name="date" render={({ input }) => (
                 <div className="p-field">
                   <span className="p-float-label">

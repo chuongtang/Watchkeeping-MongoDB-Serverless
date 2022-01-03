@@ -82,16 +82,16 @@ const CrewList = () => {
 
   const hideDialog = () => {
     // setSubmitted(false);
-    setCrewDialog(false);
+    setAddNewCrew(false);
   };
 
-  let newCrewDetail = {
+  // let newCrewDetail = {
 
-    Fullname: '',
-    Rank: '',
-    Watchkeeper: '',
-    Nationality: ''
-  };
+  //   Fullname: '',
+  //   Rank: '',
+  //   Watchkeeper: '',
+  //   Nationality: ''
+  // };
 
   const crewDialogFooter = (
     <React.Fragment>
@@ -140,9 +140,8 @@ const CrewList = () => {
           <h3>Left Sidebar</h3>
           <AddCrewForm />
         </Sidebar> */}
-        <Dialog visible={addNewCrew} style={{ width: '450px' }} header="Add new crew member" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
+        <Dialog visible={addNewCrew} style={{ width: '450px' }} header="👮 Add new crew member" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
           <AddNewCrew />
-          {/* <AddCrewForm /> */}
         </Dialog>
         <DataTable value={crews} responsiveLayout="scroll" showGridlines scrollable scrollHeight="70vh" selection={selectedCrews} onSelectionChange={(e) => setSelectedCrews(e.value)}>
           <Column selectionMode="single" style={{ "maxWidth": "4rem" }} exportable={false}></Column>
