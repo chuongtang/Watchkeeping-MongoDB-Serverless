@@ -10,6 +10,7 @@ import { Sidebar } from 'primereact/sidebar';
 
 // dotenv/config();
 import * as Realm from "realm-web";
+import AddNewCrew from './AddNewCrew';
 
 
 const CrewList = () => {
@@ -20,7 +21,7 @@ const CrewList = () => {
   const [crew, setCrew] = useState([]);
   const [crewDialog, setCrewDialog] = useState(false);
   const [selectedCrews, setSelectedCrews] = useState(null);
-  const [addCrewSidebar, setAddCrewSidebar] = useState(false);
+  const [addNewCrew, setAddNewCrew] = useState(false);
 
   const columns = [
     { field: 'Fullname', header: 'Full Name' },
@@ -47,7 +48,7 @@ const CrewList = () => {
     // setCrew(newCrewDetail);
     // setSubmitted(false);
     console.log("openNew is clicked")
-    setAddCrewSidebar(true);
+    setAddNewCrew(true);
     console.log("CREWDIALOG IS", crewDialog);
   }
 
@@ -79,7 +80,7 @@ const CrewList = () => {
 
 
   const hideDialog = () => {
-    setSubmitted(false);
+    // setSubmitted(false);
     setCrewDialog(false);
   };
 
@@ -135,9 +136,9 @@ const CrewList = () => {
           <h3>Left Sidebar</h3>
           <AddCrewForm />
         </Sidebar> */}
-        <Dialog visible={true} style={{ width: '450px' }} header="crew Details" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
-          <h3>HEre is the dialog</h3>
-          <AddCrewForm />
+        <Dialog visible={addNewCrew} style={{ width: '450px' }} header="Add new crew member" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
+          <AddNewCrew />
+          {/* <AddCrewForm /> */}
         </Dialog>
         <DataTable value={crews} responsiveLayout="scroll" showGridlines scrollable scrollHeight="70vh" selection={selectedCrews} onSelectionChange={(e) => setSelectedCrews(e.value)}>
           <Column selectionMode="single" style={{ "maxWidth": "4rem" }} exportable={false}></Column>
