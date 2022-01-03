@@ -5,13 +5,7 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
 import { Calendar } from 'primereact/calendar';
-import { Message } from 'primereact/message';
-import { Messages } from 'primereact/messages';
 import { Toast } from 'primereact/toast';
-import { Password } from 'primereact/password';
-import { Checkbox } from 'primereact/checkbox';
-import { Dialog } from 'primereact/dialog';
-import { Divider } from 'primereact/divider';
 import { classNames } from 'primereact/utils';
 import './CrewForm.css';
 import CountryNames from "./CountryNames";
@@ -20,7 +14,7 @@ const AddNewCrew = () => {
   const [countries, setCountries] = useState([]);
   const [showMessage, setShowMessage] = useState(false);
   const [formData, setFormData] = useState({});
-  const [textMsg, setTextMsg] = useState('...')
+
   const toast = useRef(null);
 
   // useEffect(() => {
@@ -65,7 +59,7 @@ const AddNewCrew = () => {
   const onSubmit = (data, form) => {
     setFormData(data);
    
-    showSuccess(data.name);
+    showSuccess(data.fullname);
     console.log("form data detail", data);
     form.restart();
   };
@@ -74,8 +68,6 @@ const AddNewCrew = () => {
   const getFormErrorMessage = (meta) => {
     return isFormFieldValid(meta) && <small className="p-error">{meta.error}</small>;
   };
-
-  const dialogFooter = <div className="p-d-flex p-jc-center"><Button label="OK" className="p-button-text" autoFocus onClick={() => setShowMessage(false)} /></div>;
 
   return (
     <div className="form">
