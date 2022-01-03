@@ -106,8 +106,6 @@ const CrewList = () => {
 
     const app = new Realm.App({ id: REALM_APP_ID });
 
-    // // this will give user anonymous access.
-    // const credentials = Realm.Credentials.anonymous();
 
     const credentials = Realm.Credentials.apiKey(REALM_APP_APIKEY);
     
