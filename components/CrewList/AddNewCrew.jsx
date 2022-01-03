@@ -64,8 +64,7 @@ const AddNewCrew = () => {
 
   const onSubmit = (data, form) => {
     setFormData(data);
-    // setShowMessage(true);
-    // setTextMsg(`${data.fullname} detail has been added`);
+   
     showSuccess(data.name);
     console.log("form data detail", data);
     form.restart();
@@ -88,8 +87,8 @@ const AddNewCrew = () => {
         
           <Form onSubmit={onSubmit} initialValues={{ fullname: '', email: '', rank: '', date: null, nationality: null }} validate={validate} render={({ handleSubmit }) => (
             <form onSubmit={handleSubmit} className="p-fluid">
-              <Field name="fullname" render={({ input, meta }) => (
-                <div className="p-field">
+              <Field name="fullname"  render={({ input, meta }) => (
+                <div className="p-field ">
                   <span className="p-float-label">
                     <InputText id="name" {...input} autoFocus className={classNames({ 'p-invalid': isFormFieldValid(meta) })} />
                     <label htmlFor="fullname" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Fullname*</label>
@@ -97,6 +96,7 @@ const AddNewCrew = () => {
                   {getFormErrorMessage(meta)}
                 </div>
               )} />
+              <br/>
               <Field name="email" render={({ input, meta }) => (
                 <div className="p-field">
                   <span className="p-float-label p-input-icon-right">
@@ -106,7 +106,7 @@ const AddNewCrew = () => {
                   </span>
                   {getFormErrorMessage(meta)}
                 </div>
-              )} />
+              )} /><br/>
               <Field name="rank" render={({ input, meta }) => (
                 <div className="p-field">
                   <span className="p-float-label">
@@ -115,7 +115,7 @@ const AddNewCrew = () => {
                   </span>
                   {getFormErrorMessage(meta)}
                 </div>
-              )} />
+              )} /><br/>
 
               <Field name="date" render={({ input }) => (
                 <div className="p-field">
@@ -124,7 +124,7 @@ const AddNewCrew = () => {
                     <label htmlFor="date">Birthday</label>
                   </span>
                 </div>
-              )} />
+              )} /><br/>
               <Field name="nationality" render={({ input }) => (
                 <div className="p-field">
                   <span className="p-float-label">
