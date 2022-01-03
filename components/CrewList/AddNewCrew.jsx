@@ -34,8 +34,8 @@ const AddNewCrew = () => {
   const validate = (data) => {
     let errors = {};
 
-    if (!data.name) {
-      errors.name = 'Fullname is required.';
+    if (!data.fullname) {
+      errors.fullname = 'Fullname is required.';
     }
 
     if (!data.email) {
@@ -82,26 +82,17 @@ const AddNewCrew = () => {
     <div className="form">
 
       <Toast ref={toast} />
-      {/* <Dialog visible={showMessage} onHide={() => setShowMessage(false)} position="top" footer={dialogFooter} showHeader={false} breakpoints={{ '960px': '80vw' }} style={{ width: '30vw' }}>
-        <div className="p-d-flex p-ai-center p-dir-col p-pt-6 p-px-3">
-          <i className="pi pi-check-circle" style={{ fontSize: '5rem', color: 'var(--green-500)' }}></i>
-          <h5>Registration Successful!</h5>
-          <p style={{ lineHeight: 1.5, textIndent: '1rem' }}>
-            Your account is registered under name <b>{formData.name}</b> ; it'll be valid next 30 days without activation. Please check <b>{formData.email}</b> for activation instructions.
-          </p>
-        </div>
-      </Dialog> */}
-      {/* <Messages ref={successMsg} /> */}
+
       <div className="p-d-flex p-jc-center">
         <div className="card">
-          {/* <h5 className="p-text-center">Register</h5> */}
-          <Form onSubmit={onSubmit} initialValues={{ name: '', email: '', rank: '', date: null, nationality: null }} validate={validate} render={({ handleSubmit }) => (
+        
+          <Form onSubmit={onSubmit} initialValues={{ fullname: '', email: '', rank: '', date: null, nationality: null }} validate={validate} render={({ handleSubmit }) => (
             <form onSubmit={handleSubmit} className="p-fluid">
-              <Field name="name" render={({ input, meta }) => (
+              <Field name="fullname" render={({ input, meta }) => (
                 <div className="p-field">
                   <span className="p-float-label">
                     <InputText id="name" {...input} autoFocus className={classNames({ 'p-invalid': isFormFieldValid(meta) })} />
-                    <label htmlFor="name" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Fullname*</label>
+                    <label htmlFor="fullname" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Fullname*</label>
                   </span>
                   {getFormErrorMessage(meta)}
                 </div>
