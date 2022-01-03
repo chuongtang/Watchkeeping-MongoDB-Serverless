@@ -16,6 +16,7 @@ import AddNewCrew from './AddNewCrew';
 const CrewList = () => {
 
   const REALM_APP_ID = import.meta.env.VITE_REALM_APP_ID;
+  const REALM_APP_APIKEY = import.meta.env.VITE_REALM_APP_APIKEY;
 
   const [crews, setCrews] = useState([]);
   const [crew, setCrew] = useState([]);
@@ -105,11 +106,16 @@ const CrewList = () => {
 
     const app = new Realm.App({ id: REALM_APP_ID });
 
-    // this will give user anonymous access.
-    const credentials = Realm.Credentials.anonymous();
+    // // this will give user anonymous access.
+    // const credentials = Realm.Credentials.anonymous();
+
+    const credentials = Realm.Credentials.apiKey(REALM_APP_APIKEY);
+    
 
     try {
       const user = await app.logIn(credentials);
+      // assert(user.id === app.currentUser.id);
+      console.log("userIN Mongodb", user)
       const crewList = await user.functions.FetchCrewList();
       setCrews(crewList);
       console.log("HereISCrewList", crewList[0]);
