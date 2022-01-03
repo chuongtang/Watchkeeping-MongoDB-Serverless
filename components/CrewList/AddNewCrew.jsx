@@ -41,21 +41,21 @@ const AddNewCrew = () => {
       errors.email = 'Invalid email address. E.g. example@email.com';
     }
 
-    if (!data.password) {
-      errors.password = 'Password is required.';
+    if (!data.rank) {
+      errors.rank = 'Rank is required.';
     }
 
-    if (!data.accept) {
-      errors.accept = 'You need to agree to the terms and conditions.';
-    }
+    // if (!data.accept) {
+    //   errors.accept = 'You need to agree to the terms and conditions.';
+    // }
 
     return errors;
   };
 
   const onSubmit = (data, form) => {
     setFormData(data);
-    setShowMessage(true);
-
+    // setShowMessage(true);
+    console.log("form data detail", data);
     form.restart();
   };
 
@@ -65,22 +65,22 @@ const AddNewCrew = () => {
   };
 
   const dialogFooter = <div className="p-d-flex p-jc-center"><Button label="OK" className="p-button-text" autoFocus onClick={() => setShowMessage(false)} /></div>;
-  const passwordHeader = <h6>Pick a password</h6>;
-  const passwordFooter = (
-    <React.Fragment>
-      <Divider />
-      <p className="p-mt-2">Suggestions</p>
-      <ul className="p-pl-2 p-ml-2 p-mt-0" style={{ lineHeight: '1.5' }}>
-        <li>At least one lowercase</li>
-        <li>At least one uppercase</li>
-        <li>At least one numeric</li>
-        <li>Minimum 8 characters</li>
-      </ul>
-    </React.Fragment>
-  );
+  // const passwordHeader = <h6>Pick a password</h6>;
+  // const passwordFooter = (
+  //   <React.Fragment>
+  //     <Divider />
+  //     <p className="p-mt-2">Suggestions</p>
+  //     <ul className="p-pl-2 p-ml-2 p-mt-0" style={{ lineHeight: '1.5' }}>
+  //       <li>At least one lowercase</li>
+  //       <li>At least one uppercase</li>
+  //       <li>At least one numeric</li>
+  //       <li>Minimum 8 characters</li>
+  //     </ul>
+  //   </React.Fragment>
+  // );
 
   return (
-    <div className="form-demo">
+    <div className="form">
       {/* <Dialog visible={showMessage} onHide={() => setShowMessage(false)} position="top" footer={dialogFooter} showHeader={false} breakpoints={{ '960px': '80vw' }} style={{ width: '30vw' }}>
         <div className="p-d-flex p-ai-center p-dir-col p-pt-6 p-px-3">
           <i className="pi pi-check-circle" style={{ fontSize: '5rem', color: 'var(--green-500)' }}></i>
@@ -94,7 +94,7 @@ const AddNewCrew = () => {
       <div className="p-d-flex p-jc-center">
         <div className="card">
           <h5 className="p-text-center">Register</h5>
-          <Form onSubmit={onSubmit} initialValues={{ name: '', email: '', password: '', date: null, country: null, accept: false }} validate={validate} render={({ handleSubmit }) => (
+          <Form onSubmit={onSubmit} initialValues={{ name: '', email: '', rank: '', date: null, nationality: null }} validate={validate} render={({ handleSubmit }) => (
             <form onSubmit={handleSubmit} className="p-fluid">
               <Field name="name" render={({ input, meta }) => (
                 <div className="p-field">
@@ -115,15 +115,16 @@ const AddNewCrew = () => {
                   {getFormErrorMessage(meta)}
                 </div>
               )} />
-              <Field name="password" render={({ input, meta }) => (
+              <Field name="rank" render={({ input, meta }) => (
                 <div className="p-field">
                   <span className="p-float-label">
-                    <Password id="password" {...input} toggleMask className={classNames({ 'p-invalid': isFormFieldValid(meta) })} header={passwordHeader} footer={passwordFooter} />
-                    <label htmlFor="password" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Password*</label>
+                    <InputText id="rank" {...input} autoFocus className={classNames({ 'p-invalid': isFormFieldValid(meta) })} />
+                    <label htmlFor="rank" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Rank/Position*</label>
                   </span>
                   {getFormErrorMessage(meta)}
                 </div>
               )} />
+              
               <Field name="date" render={({ input }) => (
                 <div className="p-field">
                   <span className="p-float-label">
@@ -132,20 +133,20 @@ const AddNewCrew = () => {
                   </span>
                 </div>
               )} />
-              <Field name="country" render={({ input }) => (
+              <Field name="nationality" render={({ input }) => (
                 <div className="p-field">
                   <span className="p-float-label">
-                    <Dropdown id="country" {...input} options={countries} optionLabel="name" />
-                    <label htmlFor="country">Country</label>
+                    <Dropdown id="nationality" {...input} options={countries} optionLabel="name" />
+                    <label htmlFor="nationality">Nationality</label>
                   </span>
                 </div>
               )} />
-              <Field name="accept" type="checkbox" render={({ input, meta }) => (
+              {/* <Field name="accept" type="checkbox" render={({ input, meta }) => (
                 <div className="p-field-checkbox">
                   <Checkbox inputId="accept" {...input} className={classNames({ 'p-invalid': isFormFieldValid(meta) })} />
                   <label htmlFor="accept" className={classNames({ 'p-error': isFormFieldValid(meta) })}>I agree to the terms and conditions*</label>
                 </div>
-              )} />
+              )} /> */}
 
               <Button type="submit" label="Submit" className="p-mt-2" />
             </form>
