@@ -133,7 +133,7 @@ const CrewList = () => {
   });
 
   return (
-    <div>
+    <div className="p-p-1">
       <div className="card">
         <Toolbar className="p-mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
         {/* <Sidebar visible={addCrewSidebar} onHide={() => setAddCrewSidebar(false)}>
