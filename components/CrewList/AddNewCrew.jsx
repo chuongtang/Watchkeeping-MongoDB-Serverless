@@ -85,7 +85,7 @@ const AddNewCrew = () => {
       <div className="p-d-flex p-jc-center">
         <div className="card">
         
-          <Form onSubmit={onSubmit} initialValues={{ fullname: '', email: '', rank: '', date: null, nationality: null }} validate={validate} render={({ handleSubmit }) => (
+          <Form onSubmit={onSubmit} initialValues={{ fullname: '', email: '', rank: '', birthdate: null, nationality: null }} validate={validate} render={({ handleSubmit }) => (
             <form onSubmit={handleSubmit} className="p-fluid">
               <Field name="fullname"  render={({ input, meta }) => (
                 <div className="p-field ">
@@ -117,11 +117,11 @@ const AddNewCrew = () => {
                 </div>
               )} /><br/>
 
-              <Field name="date" render={({ input }) => (
+              <Field name="birthdate" render={({ input }) => (
                 <div className="p-field">
                   <span className="p-float-label">
                     <Calendar id="date" {...input} dateFormat="dd/mm/yy" mask="99/99/9999" showIcon />
-                    <label htmlFor="date">Birthday</label>
+                    <label htmlFor="birthdate">Birthday</label>
                   </span>
                 </div>
               )} /><br/>
