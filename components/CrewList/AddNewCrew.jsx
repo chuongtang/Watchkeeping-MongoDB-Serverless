@@ -14,7 +14,7 @@ const AddNewCrew = () => {
   const [countries, setCountries] = useState([]);
   const [showMessage, setShowMessage] = useState(false);
   const [formData, setFormData] = useState({});
-
+  const wkOptions = [{'opt':'YES'}, {'opt':'No'}]
   const toast = useRef(null);
 
   // useEffect(() => {
@@ -40,7 +40,10 @@ const AddNewCrew = () => {
     }
 
     if (!data.rank) {
-      errors.rank = 'Rank is required.';
+      errors.rank = 'Please enter position';
+    }
+    if (!data.watchkeeping) {
+      errors.watchkeeping = 'Please select YES or No';
     }
 
     // if (!data.accept) {
@@ -52,13 +55,13 @@ const AddNewCrew = () => {
 
 
   const showSuccess = (displayMsg) => {
-    
+
     toast.current.show({ severity: 'success', summary: 'Successfully added', detail: displayMsg, life: 3000 });
   }
 
   const onSubmit = (data, form) => {
     setFormData(data);
-   
+
     showSuccess(data.fullname);
     console.log("form data detail", data);
     form.restart();
@@ -76,10 +79,10 @@ const AddNewCrew = () => {
 
       <div className="p-d-flex p-jc-center">
         <div className="card">
-        
+
           <Form onSubmit={onSubmit} initialValues={{ fullname: '', email: '', rank: '', birthdate: null, nationality: null }} validate={validate} render={({ handleSubmit }) => (
             <form onSubmit={handleSubmit} className="p-fluid">
-              <Field name="fullname"  render={({ input, meta }) => (
+              <Field name="fullname" render={({ input, meta }) => (
                 <div className="p-field ">
                   <span className="p-float-label">
                     <InputText id="name" {...input} autoFocus className={classNames({ 'p-invalid': isFormFieldValid(meta) })} />
@@ -88,7 +91,7 @@ const AddNewCrew = () => {
                   {getFormErrorMessage(meta)}
                 </div>
               )} />
-              <br/>
+              <br />
               <Field name="email" render={({ input, meta }) => (
                 <div className="p-field">
                   <span className="p-float-label p-input-icon-right">
@@ -98,7 +101,7 @@ const AddNewCrew = () => {
                   </span>
                   {getFormErrorMessage(meta)}
                 </div>
-              )} /><br/>
+              )} /><br />
               <Field name="rank" render={({ input, meta }) => (
                 <div className="p-field">
                   <span className="p-float-label">
@@ -107,8 +110,17 @@ const AddNewCrew = () => {
                   </span>
                   {getFormErrorMessage(meta)}
                 </div>
-              )} /><br/>
-
+              )} /><br />
+              <Field name="watchkeeping" render={({ input, meta }) => (
+                <div className="p-field">
+                  <span className="p-float-label">
+                    <Dropdown id="watchkeeping" {...input} options={wkOptions} optionLabel="opt" />
+                    <label htmlFor="watchkeeping" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Watchkeeping Duty? *</label>
+                  </span>
+                  {getFormErrorMessage(meta)}
+                </div>
+              )} />
+              <br/>
               <Field name="birthdate" render={({ input }) => (
                 <div className="p-field">
                   <span className="p-float-label">
@@ -116,7 +128,7 @@ const AddNewCrew = () => {
                     <label htmlFor="birthdate">Birthday</label>
                   </span>
                 </div>
-              )} /><br/>
+              )} /><br />
               <Field name="nationality" render={({ input }) => (
                 <div className="p-field">
                   <span className="p-float-label">
@@ -132,7 +144,7 @@ const AddNewCrew = () => {
                 </div>
               )} /> */}
 
-              <Button type="submit" label="Submit" className="p-mt-2" />
+              <Button icon="pi pi-user-plus" type="submit" label="Add to list" className="p-mt-2 p-button-raised p-button-warning " />
             </form>
           )} />
         </div>
