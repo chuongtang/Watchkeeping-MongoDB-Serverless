@@ -130,7 +130,7 @@ const CrewList = ({user}) => {
           <AddCrewForm />
         </Sidebar> */}
         <Dialog visible={addNewCrew} style={{ width: '450px' }} header="👮 Add new crew member" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
-          <AddNewCrew />
+          <AddNewCrew user={user} />
         </Dialog>
         <DataTable value={crews} responsiveLayout="scroll" showGridlines scrollable scrollHeight="70vh" selection={selectedCrews} onSelectionChange={(e) => setSelectedCrews(e.value)}>
           <Column selectionMode="single" style={{ "maxWidth": "4rem" }} exportable={false}></Column>

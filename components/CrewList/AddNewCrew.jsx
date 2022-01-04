@@ -10,7 +10,7 @@ import { classNames } from 'primereact/utils';
 import './CrewForm.css';
 import CountryNames from "./CountryNames";
 
-const AddNewCrew = () => {
+const AddNewCrew = ({user}) => {
   const [countries, setCountries] = useState([]);
   const [showMessage, setShowMessage] = useState(false);
   const [formData, setFormData] = useState({});
@@ -24,6 +24,10 @@ const AddNewCrew = () => {
   useEffect(() => {
     setCountries(CountryNames);
   }, []);
+
+  const addNewCrewToMongo = async (CrewDetails) => {
+    const addedCrew = await user.functions.Addcrew(CrewDetails);
+  }
 
   const validate = (data) => {
     let errors = {};
@@ -60,9 +64,19 @@ const AddNewCrew = () => {
 
   const onSubmit = (data, form) => {
     setFormData(data);
-
+    const bdayString = data.birthdate;
+    console.log(data.birthdate)
+    // alert(data);
     showSuccess(data.fullname);
-    console.log("form data detail", data);
+    const crewDetail = {
+      "Fullname" : data.fullname,
+      "Email" : data.email,
+      "Rank" : data.rank,
+      "Watchkeeper": data.watchkeeping.opt,
+      "Birthday" : bdayString.toISOString().slice(0, 10),
+      "Nationality": data.nationality.name
+    }
+    console.log("CREW detail $$$$$", crewDetail);
     form.restart();
   };
 
