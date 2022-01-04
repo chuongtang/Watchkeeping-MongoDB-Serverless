@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import dotenv from 'dotenv';
+
 import { Button } from 'primereact/button';
 import { Toolbar } from 'primereact/toolbar';
 import { Dialog } from 'primereact/dialog';
 import AddCrewForm from './AddCrewForm';
-import { Sidebar } from 'primereact/sidebar';
 
-// dotenv/config();
-import * as Realm from "realm-web";
 import AddNewCrew from './AddNewCrew';
 
 
-const CrewList = () => {
+const CrewList = ({user}) => {
 
-  const REALM_APP_ID = import.meta.env.VITE_REALM_APP_ID;
-  const REALM_APP_APIKEY = import.meta.env.VITE_REALM_APP_APIKEY;
 
   const [crews, setCrews] = useState([]);
   const [crew, setCrew] = useState([]);
@@ -26,8 +21,10 @@ const CrewList = () => {
 
   const columns = [
     { field: 'Fullname', header: 'Full Name' },
+    { field: 'Email', header: 'Email' },
     { field: 'Rank', header: 'Rank' },
     { field: 'Watchkeeper', header: 'Watchkeeper' },
+    { field: 'Birthday', header: 'Birthday' },
     { field: 'Nationality', header: 'Nationality' }
   ];
 
@@ -104,16 +101,8 @@ const CrewList = () => {
 
   useEffect(async () => {
 
-    const app = new Realm.App({ id: REALM_APP_ID });
-
-
-    const credentials = Realm.Credentials.apiKey(REALM_APP_APIKEY);
-    
-
     try {
-      const user = await app.logIn(credentials);
-      // assert(user.id === app.currentUser.id);
-      console.log("userIN Mongodb", user)
+     
       const crewList = await user.functions.FetchCrewList();
       setCrews(crewList);
       console.log("HereISCrewList", crewList[0]);

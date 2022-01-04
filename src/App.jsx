@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import NavBar from "../components/NavBar";
 import './App.css';
 import MainPage from "../components/MainPage";
@@ -17,6 +17,7 @@ function App() {
 
   const REALM_APP_ID = import.meta.env.VITE_REALM_APP_ID;
   const REALM_APP_APIKEY = import.meta.env.VITE_REALM_APP_APIKEY;
+  const [mongoUser, setMongoUser] = useState('')
 
   const {
     isLoading,
@@ -31,15 +32,13 @@ function App() {
   useEffect(async () => {
 
     const app = new Realm.App({ id: REALM_APP_ID });
-
-
     const credentials = Realm.Credentials.apiKey(REALM_APP_APIKEY);
 
-
     try {
-      const user = await app.logIn(credentials);
+      const loggedInUser = await app.logIn(credentials);
       // assert(user.id === app.currentUser.id);
-      console.log("userIN Mongodb", user)
+      setMongoUser(loggedInUser)
+      console.log("userIN Mongodb", loggedInUser)
       // const crewList = await user.functions.FetchCrewList();
     
     } catch (error) {
@@ -79,7 +78,7 @@ function App() {
 
       </div>
       }
-      {showCrewlist && <CrewList />}
+      {showCrewlist && <CrewList user={mongoUser} />}
       {showMainPage && <MainPage />}
       {showTimeReport && <GridBody />}
 
