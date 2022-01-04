@@ -55,7 +55,6 @@ const AddNewCrew = () => {
 
 
   const showSuccess = (displayMsg) => {
-
     toast.current.show({ severity: 'success', summary: 'Successfully added', detail: displayMsg, life: 3000 });
   }
 
