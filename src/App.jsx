@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react'
 import NavBar from "../components/NavBar";
 import './App.css';
 import MainPage from "../components/MainPage";
-import CrewmemberList from '../components/CrewList/CrewmemberList';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Button } from 'primereact/button';
 import CrewList from '../components/CrewList/CrewList';
 import GridBody from '../components/GridBody/GridBody';
 import dotenv from 'dotenv';
 import * as Realm from "realm-web";
+import { UpdateCrewDetail } from '../components/CrewList/UpdateCrewDetail';
 
 function App() {
   const [showCrewlist, setShowCrewlist] = useState(false);
@@ -66,6 +66,7 @@ function App() {
   return (
     <div>
       <NavBar />
+      {/* <UpdateCrewDetail/> */}
       {isAuthenticated && <div className="p-p-3">
         {!showMainPage && <Button type="button" label="" icon="pi pi-home" className="p-button-rounded p-mx-4" onClick={() => toggleMainPage()}>
         </Button>}

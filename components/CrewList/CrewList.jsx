@@ -28,8 +28,9 @@ const CrewList = ({user}) => {
   ];
 
   const editcrew = (crew) => {
-    setCrew({ ...crew });
-    setCrewDialog(true);
+    console.log("HEREERRE",crew)
+    // setCrew({ ...crew });
+    // setCrewDialog(true);
   }
 
   const actionBodyTemplate = (rowData) => {
@@ -57,9 +58,8 @@ const CrewList = ({user}) => {
 
   const confirmDeleteSelected = (crew) => {
 
-    console.log('CREW SELECTED for deletion', crew)
     toast.current.show({severity:'warn', summary: `Delete:   ${crew.Fullname}?`, detail:'Please contact web admin for this advance feature', life: 10000});
-  }
+  };
 
   const rightToolbarTemplate = () => {
     return (
