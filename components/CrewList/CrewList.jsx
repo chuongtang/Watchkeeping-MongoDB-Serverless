@@ -24,7 +24,8 @@ const CrewList = ({user, appUser}) => {
     { field: 'Rank', header: 'Rank' },
     { field: 'Watchkeeper', header: 'Watchkeeper' },
     { field: 'Birthday', header: 'Birthday' },
-    { field: 'Nationality', header: 'Nationality' }
+    { field: 'Nationality', header: 'Nationality' },
+    { field: 'CreatedBy', header: 'Created-by' }
   ];
 
   const editcrew = (crew) => {
@@ -109,7 +110,7 @@ const CrewList = ({user, appUser}) => {
         <Dialog visible={addNewCrew} style={{ width: '450px' }} header="👮 Add new crew member" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
           <AddNewCrew user={user} appUser={appUser} />
         </Dialog>
-        <DataTable value={crews} responsiveLayout="scroll" showGridlines scrollable scrollHeight="70vh"  selection={selectedCrew} onSelectionChange={(e) => setselectedCrew(e.value)} >
+        <DataTable value={crews} responsiveLayout="scroll" resizableColumns  columnResizeMode="fit" showGridlines scrollable scrollHeight="70vh"  selection={selectedCrew} onSelectionChange={(e) => setselectedCrew(e.value)} >
           <Column selectionMode="single" style={{ "maxWidth": "4rem" }} exportable={false}></Column>
           {dynamicColumns}
           <Column body={actionBodyTemplate} exportable={false} style={{ 'maxWidth': '6rem' }}></Column>

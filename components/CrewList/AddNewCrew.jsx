@@ -76,7 +76,7 @@ const AddNewCrew = ({user, appUser}) => {
 
     }
     console.log("CREW detail $$$$$", crewDetail);
-    // addNewCrewToMongo(crewDetail);
+    addNewCrewToMongo(crewDetail);
     showSuccess(data.fullname);
     form.restart();
   };
