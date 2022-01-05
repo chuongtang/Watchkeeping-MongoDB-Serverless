@@ -25,9 +25,11 @@ const AddNewCrew = ({user}) => {
     setCountries(CountryNames);
   }, []);
 
-  const addNewCrewToMongo = async (CrewDetails) => {
-    const addedCrew = await user.functions.Addcrew(CrewDetails);
-  }
+  const addNewCrewToMongo = async (crewObj) => {
+    const addedCrew = await user.functions.Addcrew(crewObj);
+    console.log("New crew in MongDB", addedCrew);
+    // const addedCrew = await user.functions.Addcrew(CrewDetails);
+  };
 
   const validate = (data) => {
     let errors = {};
@@ -69,14 +71,15 @@ const AddNewCrew = ({user}) => {
     // alert(data);
     showSuccess(data.fullname);
     const crewDetail = {
-      "Fullname" : data.fullname,
-      "Email" : data.email,
-      "Rank" : data.rank,
-      "Watchkeeper": data.watchkeeping.opt,
-      "Birthday" : bdayString.toISOString().slice(0, 10),
-      "Nationality": data.nationality.name
+      "fullname" : data.fullname,
+      "email" : data.email,
+      "rank" : data.rank,
+      "watchkeeper": data.watchkeeping.opt,
+      "birthday" : bdayString.toISOString().slice(0, 10),
+      "nationality": data.nationality.name ||'blank'
     }
     console.log("CREW detail $$$$$", crewDetail);
+    addNewCrewToMongo(crewDetail);
     form.restart();
   };
 
