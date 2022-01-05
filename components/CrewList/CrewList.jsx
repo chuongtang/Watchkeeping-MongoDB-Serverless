@@ -55,15 +55,17 @@ const CrewList = ({user}) => {
     )
   }
 
-  const confirmDeleteSelected = () => {
-    toast.current.show({severity:'warn', summary: 'Delete crew database', detail:'Please contact web admin for this advance feature', life: 8000});
+  const confirmDeleteSelected = (crew) => {
+
+    console.log('CREW SELECTED for deletion', crew)
+    toast.current.show({severity:'warn', summary: `Delete:   ${crew.Fullname}?`, detail:'Please contact web admin for this advance feature', life: 10000});
   }
 
   const rightToolbarTemplate = () => {
     return (
       <React.Fragment>
         <Button label="New" icon="pi pi-plus" className="p-button-success p-mr-2" onClick={() => openNew()} />
-        <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={()=> confirmDeleteSelected()} disabled={!selectedCrew} />
+        <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={()=> confirmDeleteSelected(selectedCrew)} disabled={!selectedCrew} />
       </React.Fragment>
     )
   }
