@@ -28,6 +28,9 @@ function App() {
     logout,
   } = useAuth0();
 
+  const auth0User = user;
+  console.log(auth0User);
+
   // Loging MongDB Realm
   useEffect(async () => {
 
@@ -79,7 +82,7 @@ function App() {
 
       </div>
       }
-      {showCrewlist && <CrewList user={mongoUser} />}
+      {showCrewlist && <CrewList user={mongoUser} appUser={auth0User} />}
       {showMainPage && <MainPage />}
       {showTimeReport && <GridBody />}
 

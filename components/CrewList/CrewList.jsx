@@ -9,7 +9,7 @@ import { Dialog } from 'primereact/dialog';
 import AddNewCrew from './AddNewCrew';
 
 
-const CrewList = ({user}) => {
+const CrewList = ({user, appUser}) => {
 
   const [crews, setCrews] = useState([]);
   const [crew, setCrew] = useState([]);
@@ -107,7 +107,7 @@ const CrewList = ({user}) => {
       <div className="card">
         <Toolbar className="p-mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
         <Dialog visible={addNewCrew} style={{ width: '450px' }} header="👮 Add new crew member" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
-          <AddNewCrew user={user} />
+          <AddNewCrew user={user} appUser={appUser} />
         </Dialog>
         <DataTable value={crews} responsiveLayout="scroll" showGridlines scrollable scrollHeight="70vh"  selection={selectedCrew} onSelectionChange={(e) => setselectedCrew(e.value)} >
           <Column selectionMode="single" style={{ "maxWidth": "4rem" }} exportable={false}></Column>
