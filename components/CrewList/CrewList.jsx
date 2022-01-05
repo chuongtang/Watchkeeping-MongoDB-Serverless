@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-
+import { Toast } from 'primereact/toast';
 import { Button } from 'primereact/button';
 import { Toolbar } from 'primereact/toolbar';
 import { Dialog } from 'primereact/dialog';
@@ -11,12 +11,12 @@ import AddNewCrew from './AddNewCrew';
 
 const CrewList = ({user}) => {
 
-
   const [crews, setCrews] = useState([]);
   const [crew, setCrew] = useState([]);
   const [crewDialog, setCrewDialog] = useState(false);
   const [selectedCrew, setselectedCrew] = useState(null);
   const [addNewCrew, setAddNewCrew] = useState(false);
+  const toast = useRef(null);
 
   const columns = [
     { field: 'Fullname', header: 'Full Name' },
@@ -56,7 +56,7 @@ const CrewList = ({user}) => {
   }
 
   const confirmDeleteSelected = () => {
-    alert("Paid subcription is required for this advance feature")
+    toast.current.show({severity:'warn', summary: 'Delete crew database', detail:'Please contact web admin for this advance feature', life: 8000});
   }
 
   const rightToolbarTemplate = () => {
@@ -68,12 +68,9 @@ const CrewList = ({user}) => {
     )
   }
 
-
-
   const hideDialog = () => {
     setAddNewCrew(false);
   };
-
 
   const crewDialogFooter = (
     <React.Fragment>
@@ -82,12 +79,9 @@ const CrewList = ({user}) => {
     </React.Fragment>
   );
 
-
-
   useEffect(async () => {
 
     try {
-     
       const crewList = await user.functions.FetchCrewList();
       setCrews(crewList);
       
@@ -96,8 +90,6 @@ const CrewList = ({user}) => {
     }
   }, []);
 
-
-
   const dynamicColumns = columns.map((col, i) => {
     return <Column
       key={col.field}
@@ -105,15 +97,13 @@ const CrewList = ({user}) => {
       header={col.header}
       sortable />;
   });
+ 
 
   return (
     <div className="p-p-1">
+       <Toast ref={toast} />
       <div className="card">
         <Toolbar className="p-mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
-        {/* <Sidebar visible={addCrewSidebar} onHide={() => setAddCrewSidebar(false)}>
-          <h3>Left Sidebar</h3>
-          <AddCrewForm />
-        </Sidebar> */}
         <Dialog visible={addNewCrew} style={{ width: '450px' }} header="👮 Add new crew member" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
           <AddNewCrew user={user} />
         </Dialog>
