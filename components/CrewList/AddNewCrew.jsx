@@ -17,10 +17,6 @@ const AddNewCrew = ({user}) => {
   const wkOptions = [{'opt':'YES'}, {'opt':'No'}]
   const toast = useRef(null);
 
-  // useEffect(() => {
-  //     countryservice.getCountries().then(data => setCountries(data));
-  // }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
   useEffect(() => {
     setCountries(CountryNames);
   }, []);
@@ -28,7 +24,7 @@ const AddNewCrew = ({user}) => {
   const addNewCrewToMongo = async (crewObj) => {
     const addedCrew = await user.functions.Addcrew(crewObj);
     console.log("New crew in MongDB", addedCrew);
-    // const addedCrew = await user.functions.Addcrew(CrewDetails);
+    
   };
 
   const validate = (data) => {
@@ -67,9 +63,7 @@ const AddNewCrew = ({user}) => {
   const onSubmit = (data, form) => {
     setFormData(data);
     const bdayString = data.birthdate;
-    console.log(data.birthdate)
-    // alert(data);
-    showSuccess(data.fullname);
+  
     const crewDetail = {
       "fullname" : data.fullname,
       "email" : data.email,
@@ -80,6 +74,7 @@ const AddNewCrew = ({user}) => {
     }
     console.log("CREW detail $$$$$", crewDetail);
     addNewCrewToMongo(crewDetail);
+    showSuccess(data.fullname);
     form.restart();
   };
 

@@ -5,7 +5,6 @@ import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { Toolbar } from 'primereact/toolbar';
 import { Dialog } from 'primereact/dialog';
-import AddCrewForm from './AddCrewForm';
 
 import AddNewCrew from './AddNewCrew';
 
@@ -43,21 +42,15 @@ const CrewList = ({user}) => {
   }
 
   const openNew = () => {
-    // setCrew(newCrewDetail);
-    // setSubmitted(false);
-    console.log("openNew is clicked")
     setAddNewCrew(true);
-    console.log("CREWDIALOG IS", crewDialog);
   }
 
   const leftToolbarTemplate = () => {
     return (
-
       <div className="p-d-flex">
         <h3 className="p-mr-2">
           Manage Crew list
         </h3>
-
       </div>
     )
   }
@@ -75,20 +68,10 @@ const CrewList = ({user}) => {
     alert("Paid subcription is required for this advance feature")
   }
 
-
-
   const hideDialog = () => {
-    // setSubmitted(false);
     setAddNewCrew(false);
   };
 
-  // let newCrewDetail = {
-
-  //   Fullname: '',
-  //   Rank: '',
-  //   Watchkeeper: '',
-  //   Nationality: ''
-  // };
 
   const crewDialogFooter = (
     <React.Fragment>
@@ -137,9 +120,6 @@ const CrewList = ({user}) => {
           {dynamicColumns}
           <Column body={actionBodyTemplate} exportable={false} style={{ 'maxWidth': '6rem' }}></Column>
         </DataTable>
-
-
-
       </div>
     </div>
   )
