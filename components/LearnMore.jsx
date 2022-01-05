@@ -11,6 +11,7 @@ const LearnMore = () => {
   
     <div className="surface-0 text-center gradient-background">
       <div className="mb-3 font-bold text-2xl">
+        <div style={{color: 'transparent'}}>Header space </div>
         <span className="text-900">User-friendly interface, </span>
         <span className="text-blue-600">Access anywhere</span>
       </div>
@@ -57,8 +58,8 @@ const LearnMore = () => {
           <span className="p-3 shadow-2 mb-3 inline-block" style={{ borderRadius: '10px' }}>
             <i className="pi pi-lock text-4xl text-blue-500"></i>
           </span>
-          <div className="text-900 mb-3 font-medium">End-to-End Encryption</div>
-          <span className="text-700 text-sm line-height-3">User private data storage with encryption for access control *</span>
+          <div className="text-900 mb-3 font-medium">End-to-End Encryption*</div>
+          <span className="text-700 text-sm line-height-3">User private data storage with encryption for access control</span>
         </div>
       </div>
         <p className="text-700 p-text-right p-text-italic text-sm line-height-2"> * Paid subcription plan only</p>
