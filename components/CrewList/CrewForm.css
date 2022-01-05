@@ -23,3 +23,10 @@ input{
       min-width: 0;
   }
 }
+
+.indigo-tooltip.p-tooltip .p-tooltip-arrow {
+  border-top-color: var(--indigo-500);
+}
+.indigo-tooltip.p-tooltip .p-tooltip-text {
+  background-color: var(--teal-500);
+}
