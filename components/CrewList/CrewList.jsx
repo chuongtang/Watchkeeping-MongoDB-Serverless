@@ -106,7 +106,7 @@ const CrewList = ({user, appUser}) => {
     <div className="p-p-1">
        <Toast ref={toast} />
       <div className="card">
-        <Toolbar className="p-mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
+        <Toolbar className="p-mb-1" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
         <Dialog visible={addNewCrew} style={{ width: '450px' }} header="👮 Add new crew member" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
           <AddNewCrew user={user} appUser={appUser} />
         </Dialog>
