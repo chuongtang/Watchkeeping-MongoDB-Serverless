@@ -15,7 +15,7 @@ const CrewList = ({user}) => {
   const [crews, setCrews] = useState([]);
   const [crew, setCrew] = useState([]);
   const [crewDialog, setCrewDialog] = useState(false);
-  const [selectedCrews, setSelectedCrews] = useState(null);
+  const [selectedCrew, setselectedCrew] = useState(null);
   const [addNewCrew, setAddNewCrew] = useState(false);
 
   const columns = [
@@ -55,18 +55,20 @@ const CrewList = ({user}) => {
     )
   }
 
+  const confirmDeleteSelected = () => {
+    alert("Paid subcription is required for this advance feature")
+  }
+
   const rightToolbarTemplate = () => {
     return (
       <React.Fragment>
         <Button label="New" icon="pi pi-plus" className="p-button-success p-mr-2" onClick={() => openNew()} />
-        <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={()=> confirmDeleteSelected} disabled={!selectedCrews || !selectedCrews.length} />
+        <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={()=> confirmDeleteSelected()} disabled={!selectedCrew} />
       </React.Fragment>
     )
   }
 
-  const confirmDeleteSelected = () => {
-    alert("Paid subcription is required for this advance feature")
-  }
+
 
   const hideDialog = () => {
     setAddNewCrew(false);
@@ -88,7 +90,7 @@ const CrewList = ({user}) => {
      
       const crewList = await user.functions.FetchCrewList();
       setCrews(crewList);
-      console.log("HereISCrewList", crewList[0]);
+      
     } catch (error) {
       console.error(error);
     }
@@ -115,7 +117,7 @@ const CrewList = ({user}) => {
         <Dialog visible={addNewCrew} style={{ width: '450px' }} header="👮 Add new crew member" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
           <AddNewCrew user={user} />
         </Dialog>
-        <DataTable value={crews} responsiveLayout="scroll" showGridlines scrollable scrollHeight="70vh" selection={selectedCrews} onSelectionChange={(e) => setSelectedCrews(e.value)}>
+        <DataTable value={crews} responsiveLayout="scroll" showGridlines scrollable scrollHeight="70vh"  selection={selectedCrew} onSelectionChange={(e) => setselectedCrew(e.value)} >
           <Column selectionMode="single" style={{ "maxWidth": "4rem" }} exportable={false}></Column>
           {dynamicColumns}
           <Column body={actionBodyTemplate} exportable={false} style={{ 'maxWidth': '6rem' }}></Column>

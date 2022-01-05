@@ -36,10 +36,10 @@ function App() {
 
     try {
       const loggedInUser = await app.logIn(credentials);
-      // assert(user.id === app.currentUser.id);
+    
       setMongoUser(loggedInUser)
       console.log("userIN Mongodb", loggedInUser)
-      // const crewList = await user.functions.FetchCrewList();
+      
     
     } catch (error) {
       console.error(error);
