@@ -9,8 +9,8 @@ import { InputText } from 'primereact/inputtext';
 import { classNames } from 'primereact/utils';
 import { Tooltip } from 'primereact/tooltip';
 import './CrewForm.css';
+import UpdateCrewDetail from "./UpdateCrewDetail"
 import AddNewCrew from './AddNewCrew';
-
 
 const CrewList = ({ user, appUser }) => {
 
@@ -75,9 +75,7 @@ const CrewList = ({ user, appUser }) => {
     return (
       <React.Fragment>
         <Button label="New" icon="pi pi-plus" className="p-button-raised  p-button-success p-button-text p-mr-3" onClick={() => openNew()} tooltip="Add a new crew member" tooltipOptions={{ className: 'indigo-tooltip', position: 'bottom' }} />
-        <Tooltip target=".edit-button" />
-        <span className="edit-button p-mr-3" data-pr-tooltip="Select a crew member then click EDIT" >
-          <Button label="Edit" icon="pi pi-user-edit" className="p-button-warning p-button-raised p-button-text" onClick={() => editCrew(selectedCrew)} disabled={!selectedCrew} /></span>
+        <Button label="Edit" icon="pi pi-user-edit" className="p-button-warning p-button-raised p-button-text p-mr-3" onClick={() => editCrew(selectedCrew)} disabled={!selectedCrew} />
         <Button label="Delete" icon="pi pi-trash" className="p-button-danger p-button-raised p-button-text p-mr-3" onClick={() => confirmDeleteSelected(selectedCrew)} disabled={!selectedCrew} />
       </React.Fragment>
     )
@@ -135,7 +133,8 @@ const CrewList = ({ user, appUser }) => {
 
       {/* Update Crew detail form */}
       <Dialog visible={crewDialog} style={{ width: '450px' }} header="Update Crew Details" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
-
+        <UpdateCrewDetail user={user} appUser={appUser} crew={crew}/>
+{/* 
         <div className="p-field">
           <label htmlFor="fullname"><i className="pi pi-id-card p-mr-2"></i>Fullname</label>
           <InputText id="name" value={crew.Fullname} placeholder={crew.Fullname || 'fullname'} onChange={(e) => onInputChange(e, 'name')} required autoFocus className={classNames({ 'p-invalid': submitted && !crew.Fullname })} />
@@ -163,7 +162,7 @@ const CrewList = ({ user, appUser }) => {
         <div className="p-field">
           <label htmlFor="Nationality"><i className="pi pi-flag p-mr-2"></i>Nationality</label>
           <InputText id="Nationality" value={crew.Nationality} placeholder={crew.Nationality || 'Nationality'} onChange={(e) => onInputChange(e, 'Nationality')} required autoFocus className={classNames({ 'p-invalid': submitted && !crew.Nationality })} />
-        </div>
+        </div> */}
       </Dialog>
     </div>
   )

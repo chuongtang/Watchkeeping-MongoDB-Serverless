@@ -8,7 +8,7 @@ import CrewList from '../components/CrewList/CrewList';
 import GridBody from '../components/GridBody/GridBody';
 import dotenv from 'dotenv';
 import * as Realm from "realm-web";
-import { UpdateCrewDetail } from '../components/CrewList/UpdateCrewDetail';
+
 
 function App() {
   const [showCrewlist, setShowCrewlist] = useState(false);

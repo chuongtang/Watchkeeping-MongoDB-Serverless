@@ -14,7 +14,7 @@ const AddNewCrew = ({user, appUser}) => {
   const [countries, setCountries] = useState([]);
   const [showMessage, setShowMessage] = useState(false);
   const [formData, setFormData] = useState({});
-  const wkOptions = [{'opt':'YES'}, {'opt':'No'}]
+  const wkOptions = ["YES", "No"]
   const toast = useRef(null);
 
   useEffect(() => {
@@ -69,7 +69,7 @@ const AddNewCrew = ({user, appUser}) => {
       "fullname" : data.fullname,
       "email" : data.email,
       "rank" : data.rank,
-      "watchkeeper": data.watchkeeping.opt,
+      "watchkeeper": data.watchkeeping,
       "birthday" : bdayString.toISOString().slice(0, 10),
       "nationality": data.nationality.name ||'blank',
       "createdBy": appUser.email
@@ -128,7 +128,7 @@ const AddNewCrew = ({user, appUser}) => {
               <Field name="watchkeeping" render={({ input, meta }) => (
                 <div className="p-field">
                   <span className="p-float-label">
-                    <Dropdown id="watchkeeping" {...input} options={wkOptions} optionLabel="opt" />
+                    <Dropdown id="watchkeeping" {...input} options={wkOptions} optionLabel="" />
                     <label htmlFor="watchkeeping" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Watchkeeping Duty? *</label>
                   </span>
                   {getFormErrorMessage(meta)}

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Form, Field } from 'react-final-form';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
 import { Calendar } from 'primereact/calendar';
+import { Toast } from 'primereact/toast';
 import { Password } from 'primereact/password';
 import { Checkbox } from 'primereact/checkbox';
 import { Dialog } from 'primereact/dialog';
@@ -12,22 +13,30 @@ import { classNames } from 'primereact/utils';
 import './CrewForm.css';
 import CountryNames from "./CountryNames";
 
-export const UpdateCrewDetail = () => {
+const UpdateCrewDetail = ({user, appUser, crew}) => {
   const [countries, setCountries] = useState([]);
   const [showMessage, setShowMessage] = useState(false);
   const [formData, setFormData] = useState({});
-
-  const toBeDeleted = "Hard-coded text";
+  const wkOptions = ["YES", "No"]
+  // const wkOptions = [{ 'opt': 'YES' }, { 'opt': 'No' }]
+  const toast = useRef(null);
 
   useEffect(() => {
     setCountries(CountryNames);
-  }, []); 
+    console.log("appUSer herrer", appUser.email)
+  }, []);
+
+  // const addNewCrewToMongo = async (crewObj) => {
+  //   const addedCrew = await user.functions.Addcrew(crewObj);
+  //   console.log("New crew in MongDB", addedCrew);
+
+  // };
 
   const validate = (data) => {
     let errors = {};
 
-    if (!data.name) {
-      errors.name = 'Name is required.';
+    if (!data.fullname) {
+      errors.fullname = 'Fullname is required.';
     }
 
     if (!data.email) {
@@ -37,21 +46,39 @@ export const UpdateCrewDetail = () => {
       errors.email = 'Invalid email address. E.g. example@email.com';
     }
 
-    if (!data.password) {
-      errors.password = 'Password is required.';
+    if (!data.rank) {
+      errors.rank = 'Please enter position';
+    }
+    if (!data.watchkeeping) {
+      errors.watchkeeping = 'Please select YES or No';
     }
 
-    if (!data.accept) {
-      errors.accept = 'You need to agree to the terms and conditions.';
-    }
 
     return errors;
   };
 
+
+  const showSuccess = (displayMsg) => {
+    toast.current.show({ severity: 'success', summary: 'Successfully added', detail: displayMsg, life: 3000 });
+  }
+
   const onSubmit = (data, form) => {
     setFormData(data);
-    setShowMessage(true);
+    // const bdayString = data.birthdate;
 
+    const newCrewDetail = {
+      "fullname": data.fullname,
+      "email": data.email,
+      "rank": data.rank,
+      "watchkeeper": data.watchkeeping,
+      "birthday": data.birthdate,
+      "nationality": data.nationality,
+      "createdBy": appUser.email
+
+    }
+    console.log("CREW detail $$$$$", newCrewDetail);
+    // addNewCrewToMongo(crewDetail);
+    showSuccess(data.fullname);
     form.restart();
   };
 
@@ -60,47 +87,26 @@ export const UpdateCrewDetail = () => {
     return isFormFieldValid(meta) && <small className="p-error">{meta.error}</small>;
   };
 
-  const dialogFooter = <div className="p-d-flex p-jc-center"><Button label="OK" className="p-button-text" autoFocus onClick={() => setShowMessage(false)} /></div>;
-  const passwordHeader = <h6>Pick a password</h6>;
-  const passwordFooter = (
-    <React.Fragment>
-      <Divider />
-      <p className="p-mt-2">Suggestions</p>
-      <ul className="p-pl-2 p-ml-2 p-mt-0" style={{ lineHeight: '1.5' }}>
-        <li>At least one lowercase</li>
-        <li>At least one uppercase</li>
-        <li>At least one numeric</li>
-        <li>Minimum 8 characters</li>
-      </ul>
-    </React.Fragment>
-  );
-
   return (
-    <div className="form-demo">
-      {/* <Dialog visible={showMessage} onHide={() => setShowMessage(false)} position="top" footer={dialogFooter} showHeader={false} breakpoints={{ '960px': '80vw' }} style={{ width: '30vw' }}>
-        <div className="p-d-flex p-ai-center p-dir-col p-pt-6 p-px-3">
-          <i className="pi pi-check-circle" style={{ fontSize: '5rem', color: 'var(--green-500)' }}></i>
-          <h5>Registration Successful!</h5>
-          <p style={{ lineHeight: 1.5, textIndent: '1rem' }}>
-            Your account is registered under name <b>{formData.name}</b> ; it'll be valid next 30 days without activation. Please check <b>{formData.email}</b> for activation instructions.
-          </p>
-        </div>
-      </Dialog> */}
+    <div className="form">
+
+      <Toast ref={toast} />
 
       <div className="p-d-flex p-jc-center">
         <div className="card">
-          <h5 className="p-text-center">Register</h5>
-          <Form onSubmit={onSubmit} initialValues={{ name: '', email: '', password: '', date: null, country: null, accept: false }} validate={validate} render={({ handleSubmit }) => (
+
+          <Form onSubmit={onSubmit} initialValues={{ fullname: `${crew.Fullname}`, email: `${crew.Email}`,watchkeeping:`${crew.Watchkeeper}`, rank: `${crew.Rank}`, birthdate: `${crew.Birthday}`, nationality: `${crew.Nationality}` }} validate={validate} render={({ handleSubmit }) => (
             <form onSubmit={handleSubmit} className="p-fluid">
-              <Field name="name" render={({ input, meta }) => (
-                <div className="p-field">
-                  <span className="p-float-label">
-                    <InputText id="name"  {...input} autoFocus className={classNames({ 'p-invalid': isFormFieldValid(meta) })} />
-                    <label htmlFor="name" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Name*</label>
-                  </span>
+              <Field name="fullname" render={({ input, meta }) => (
+                <div className="p-field ">
+                  {/* <span className="p-float-label"> */}
+                    <label htmlFor="fullname" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Fullname*</label>
+                    <InputText id="name" {...input} placeholder={crew.Fullname} autoFocus className={classNames({ 'p-invalid': isFormFieldValid(meta) })} />
+                  {/* </span> */}
                   {getFormErrorMessage(meta)}
                 </div>
               )} />
+              <br />
               <Field name="email" render={({ input, meta }) => (
                 <div className="p-field">
                   <span className="p-float-label p-input-icon-right">
@@ -110,44 +116,55 @@ export const UpdateCrewDetail = () => {
                   </span>
                   {getFormErrorMessage(meta)}
                 </div>
-              )} />
-              <Field name="password" render={({ input, meta }) => (
+              )} /><br />
+              <Field name="rank" render={({ input, meta }) => (
                 <div className="p-field">
                   <span className="p-float-label">
-                    <Password id="password" {...input} toggleMask className={classNames({ 'p-invalid': isFormFieldValid(meta) })} header={passwordHeader} footer={passwordFooter} />
-                    <label htmlFor="password" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Password*</label>
+                    <InputText id="rank" {...input} autoFocus className={classNames({ 'p-invalid': isFormFieldValid(meta) })} />
+                    <label htmlFor="rank" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Rank/Position*</label>
+                  </span>
+                  {getFormErrorMessage(meta)}
+                </div>
+              )} /><br />
+              <Field name="watchkeeping" render={({ input, meta }) => (
+                <div className="p-field">
+                  <span className="p-float-label">
+                    <Dropdown id="watchkeeping" {...input} options={wkOptions} optionLabel="" />
+                    <label htmlFor="watchkeeping" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Watchkeeping Duty? *</label>
                   </span>
                   {getFormErrorMessage(meta)}
                 </div>
               )} />
-              <Field name="date" render={({ input }) => (
+              <br />
+              <Field name="birthdate" render={({ input }) => (
                 <div className="p-field">
                   <span className="p-float-label">
                     <Calendar id="date" {...input} dateFormat="dd/mm/yy" mask="99/99/9999" showIcon />
-                    <label htmlFor="date">Birthday</label>
+                    <label htmlFor="birthdate">Birthday</label>
                   </span>
                 </div>
-              )} />
-              <Field name="country" render={({ input }) => (
+              )} /><br />
+              <Field name="nationality" render={({ input }) => (
                 <div className="p-field">
                   <span className="p-float-label">
-                    <Dropdown id="country" {...input} options={countries} optionLabel="name" />
-                    <label htmlFor="country">Country</label>
+                    <Dropdown id="nationality" {...input} options={countries} optionLabel="name" />
+                    <label htmlFor="nationality">Nationality</label>
                   </span>
                 </div>
               )} />
-              <Field name="accept" type="checkbox" render={({ input, meta }) => (
+              {/* <Field name="accept" type="checkbox" render={({ input, meta }) => (
                 <div className="p-field-checkbox">
                   <Checkbox inputId="accept" {...input} className={classNames({ 'p-invalid': isFormFieldValid(meta) })} />
                   <label htmlFor="accept" className={classNames({ 'p-error': isFormFieldValid(meta) })}>I agree to the terms and conditions*</label>
                 </div>
-              )} />
+              )} /> */}
 
-              <Button type="submit" label="Submit" className="p-mt-2" />
+              <Button icon="pi pi-user-plus" type="submit" label="Add to list" className="p-mt-2 p-button-raised p-button-warning " />
             </form>
           )} />
         </div>
       </div>
     </div>
   );
-}
+};
+export default UpdateCrewDetail
