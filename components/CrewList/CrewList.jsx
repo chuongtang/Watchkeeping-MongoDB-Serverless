@@ -132,7 +132,9 @@ const CrewList = ({ user, appUser }) => {
           {/* <Column body={actionBodyTemplate} exportable={false} style={{ 'maxWidth': '6rem' }}></Column> */}
         </DataTable>
       </div>
-      <Dialog visible={crewDialog} style={{ width: '450px' }} header="Crew Details" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
+
+      {/* Update Crew detail form */}
+      <Dialog visible={crewDialog} style={{ width: '450px' }} header="Update Crew Details" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
 
         <div className="p-field">
           <label htmlFor="fullname"><i className="pi pi-id-card p-mr-2"></i>Fullname</label>
