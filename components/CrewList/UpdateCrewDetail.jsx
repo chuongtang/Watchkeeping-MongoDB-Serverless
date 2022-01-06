@@ -13,7 +13,7 @@ import { classNames } from 'primereact/utils';
 import './CrewForm.css';
 import CountryNames from "./CountryNames";
 
-const UpdateCrewDetail = ({user, appUser, crew}) => {
+const UpdateCrewDetail = ({ user, appUser, crew }) => {
   const [countries, setCountries] = useState([]);
   const [showMessage, setShowMessage] = useState(false);
   const [formData, setFormData] = useState({});
@@ -95,15 +95,19 @@ const UpdateCrewDetail = ({user, appUser, crew}) => {
       <div className="p-d-flex p-jc-center">
         <div className="card">
 
-          <Form onSubmit={onSubmit} initialValues={{ fullname: `${crew.Fullname}`, email: `${crew.Email}`,watchkeeping:`${crew.Watchkeeper}`, rank: `${crew.Rank}`, birthdate: `${crew.Birthday}`, nationality: `${crew.Nationality}` }} validate={validate} render={({ handleSubmit }) => (
+          <Form onSubmit={onSubmit} initialValues={{ fullname: `${crew.Fullname}`, email: `${crew.Email}`, watchkeeping: `${crew.Watchkeeper}`, rank: `${crew.Rank}`, birthdate: `${crew.Birthday}`, nationality: `${crew.Nationality}` }} validate={validate} render={({ handleSubmit }) => (
             <form onSubmit={handleSubmit} className="p-fluid">
-              <Field name="fullname" render={({ input, meta }) => (
+              <Field name="fullname" render={() => (
                 <div className="p-field ">
                   {/* <span className="p-float-label"> */}
-                    <label htmlFor="fullname" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Fullname*</label>
-                    <InputText id="name" {...input} placeholder={crew.Fullname} autoFocus className={classNames({ 'p-invalid': isFormFieldValid(meta) })} />
+                  {/* <label htmlFor="fullname" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Fullname*</label> */}
+                  {/* <InputText id="name" value={crew.Fullname} disabled /> */}
+                  <span className="p-input-icon-right">
+                    <i className="pi pi-lock" />
+                    <InputText value={crew.Fullname} disabled />
+                  </span>
                   {/* </span> */}
-                  {getFormErrorMessage(meta)}
+
                 </div>
               )} />
               <br />
@@ -136,18 +140,20 @@ const UpdateCrewDetail = ({user, appUser, crew}) => {
                 </div>
               )} />
               <br />
-              <Field name="birthdate" render={({ input }) => (
+              <Field name="birthdate" render={() => (
                 <div className="p-field">
-                  <span className="p-float-label">
-                    <Calendar id="date" {...input} dateFormat="dd/mm/yy" mask="99/99/9999" showIcon />
-                    <label htmlFor="birthdate">Birthday</label>
+                  <label htmlFor="birthdate">Date-of-birth</label>
+                  <span className="p-input-icon-right">
+
+                    <i className="pi pi-lock" />
+                    <InputText value={crew.Birthday} disabled />
                   </span>
                 </div>
               )} /><br />
               <Field name="nationality" render={({ input }) => (
                 <div className="p-field">
                   <span className="p-float-label">
-                    <Dropdown id="nationality" {...input} options={countries} optionLabel="name" />
+                    <Dropdown id="nationality" placeholder={crew.Nationality} {...input} options={countries} optionLabel="" />
                     <label htmlFor="nationality">Nationality</label>
                   </span>
                 </div>

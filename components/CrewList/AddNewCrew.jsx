@@ -139,7 +139,7 @@ const AddNewCrew = ({user, appUser}) => {
               <Field name="birthdate" render={({ input }) => (
                 <div className="p-field">
                   <span className="p-float-label">
-                    <Calendar id="string" {...input} dateFormat="yy-mm-dd" mask="9999-99-99" showIcon />
+                    <Calendar id="string" {...input} monthNavigator yearNavigator yearRange="1940:2000" dateFormat="yy-mm-dd" mask="9999-99-99" showIcon />
                     <label htmlFor="birthdate">Birthday</label>
                   </span>
                 </div>
