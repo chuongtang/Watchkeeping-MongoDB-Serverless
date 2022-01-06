@@ -68,30 +68,30 @@ const UpdateCrewDetail = ({ user, appUser, crew }) => {
   }
 
   const onSubmit = (data, form) => {
-    setFormData(data);
-    // const bdayString = data.birthdate;
-    console.log("form HEEEEE", data)
-    
-    const newCrewDetail = {
-      "fullname": data.fullname,
-      "email": data.email,
-      "rank": data.rank,
-      "watchkeeper": data.watchkeeping,
-      "birthday": data.birthdate,
-      "nationality": data.nationality,
-      "lastUpdatedBy": appUser.email
-    }
-    
-    {(data.email === crew.Email && data.rank === crew.Rank && data.nationality === crew.Nationality) ? showNochange(): showSuccess(`New detail for ${data.fullname}`);}
- 
-    
-    console.log("CREW detail $$$$$", newCrewDetail);
-    // addNewCrewToMongo(crewDetail);
-    // showSuccess(hasNewDetail);
-    
-    // NEED TO HIFE FORM AFTER POPUP MSG
-    
-    form.restart();
+    if (data.email === crew.Email && data.rank === crew.Rank && data.nationality === crew.Nationality) {
+      return showNochange();
+    } else {
+      showSuccess(`New detail for ${data.fullname}`);}
+      setFormData(data);
+   
+      console.log("form HEEEEE", data)
+      
+      const newCrewDetail = {
+        "fullname": data.fullname,
+        "email": data.email,
+        "rank": data.rank,
+        "watchkeeper": data.watchkeeping,
+        "birthday": data.birthdate,
+        "nationality": data.nationality,
+        "lastUpdatedBy": appUser.email
+      }
+      console.log("CREW detail $$$$$", newCrewDetail);
+      // addNewCrewToMongo(crewDetail);
+      // showSuccess(hasNewDetail);
+      
+      // NEED TO HIFE FORM AFTER POPUP MSG
+      
+      form.restart();
   };
 
   const isFormFieldValid = (meta) => !!(meta.touched && meta.error);
