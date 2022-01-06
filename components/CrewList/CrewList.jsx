@@ -40,15 +40,6 @@ const CrewList = ({ user, appUser }) => {
     // setCrewDialog(true);
   }
 
-  // const actionBodyTemplate = (rowData) => {
-  //   return (
-  //     <React.Fragment>
-  //       <Button icon="pi pi-pencil" className="p-button-rounded p-button-success p-mr-2" onClick={() => editcrew(rowData)} />
-  //       {/* <Button icon="pi pi-trash" className="p-button-rounded p-button-warning" onClick={() => confirmDeletecrew(rowData)} /> */}
-  //     </React.Fragment>
-  //   );
-  // }
-
   const openNew = () => {
     setAddNewCrew(true);
   }
@@ -56,31 +47,13 @@ const CrewList = ({ user, appUser }) => {
     setAddNewCrew(false);
     setCrewDialog(false);
   };
-  const leftToolbarTemplate = () => {
-    return (
-      <div className="p-d-flex">
-        <h3 className="p-mr-2">
-          Manage Crew list
-        </h3>
-      </div>
-    )
-  }
+  
 
+  
   const confirmDeleteSelected = (crew) => {
 
     toast.current.show({ severity: 'warn', summary: `Delete:   ${crew.Fullname}?`, detail: 'Please contact web admin for this advance feature', life: 10000 });
   };
-
-  const rightToolbarTemplate = () => {
-    return (
-      <React.Fragment>
-        <Button label="New" icon="pi pi-plus" className="p-button-raised  p-button-success p-button-text p-mr-3" onClick={() => openNew()} tooltip="Add a new crew member" tooltipOptions={{ className: 'indigo-tooltip', position: 'bottom' }} />
-        <Button label="Edit" icon="pi pi-user-edit" className="p-button-warning p-button-raised p-button-text p-mr-3" onClick={() => editCrew(selectedCrew)} disabled={!selectedCrew} />
-        <Button label="Delete" icon="pi pi-trash" className="p-button-danger p-button-raised p-button-text p-mr-3" onClick={() => confirmDeleteSelected(selectedCrew)} disabled={!selectedCrew} />
-      </React.Fragment>
-    )
-  }
-
 
   const crewDialogFooter = (
     <React.Fragment>
@@ -114,6 +87,26 @@ const CrewList = ({ user, appUser }) => {
     _crew[`${name}`] = val;
 
     setCrew(_crew);
+  }
+
+  const leftToolbarTemplate = () => {
+    return (
+      <div className="p-d-flex">
+        <h3 className="p-mr-2">
+          Manage Crew list
+        </h3>
+      </div>
+    )
+  }
+
+  const rightToolbarTemplate = () => {
+    return (
+      <React.Fragment>
+        <Button label="New" icon="pi pi-plus" className="p-button-raised  p-button-success p-button-text p-mr-3" onClick={() => openNew()} tooltip="Add a new crew member" tooltipOptions={{ className: 'indigo-tooltip', position: 'bottom' }} />
+        <Button label="Edit" icon="pi pi-user-edit" className="p-button-warning p-button-raised p-button-text p-mr-3" onClick={() => editCrew(selectedCrew)} disabled={!selectedCrew} />
+        <Button label="Delete" icon="pi pi-trash" className="p-button-danger p-button-raised p-button-text p-mr-3" onClick={() => confirmDeleteSelected(selectedCrew)} disabled={!selectedCrew} />
+      </React.Fragment>
+    )
   }
 
   return (

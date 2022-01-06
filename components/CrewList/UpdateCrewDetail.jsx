@@ -18,12 +18,14 @@ const UpdateCrewDetail = ({ user, appUser, crew }) => {
   const [showMessage, setShowMessage] = useState(false);
   const [formData, setFormData] = useState({});
   const wkOptions = ["YES", "No"]
-  // const wkOptions = [{ 'opt': 'YES' }, { 'opt': 'No' }]
+  const [hasNewDetail, setHasNewDetail] = useState('No Change found from your input');
+  const [oldDetail, setOldDetail] = useState({crew});
   const toast = useRef(null);
 
   useEffect(() => {
     setCountries(CountryNames);
-    console.log("appUSer herrer", appUser.email)
+    // console.log("Old crew detail", oldDetail)
+    
   }, []);
 
   // const addNewCrewToMongo = async (crewObj) => {
@@ -59,13 +61,17 @@ const UpdateCrewDetail = ({ user, appUser, crew }) => {
 
 
   const showSuccess = (displayMsg) => {
-    toast.current.show({ severity: 'success', summary: 'Successfully added', detail: displayMsg, life: 3000 });
+    toast.current.show({ severity: 'success', summary: 'Updated', detail: displayMsg, life: 5000 });
+  }
+  const showNochange = () => {
+    toast.current.show({ severity: 'warn', summary: 'No new update', detail: 'Nothing has changed from your input', life: 4000 });
   }
 
   const onSubmit = (data, form) => {
     setFormData(data);
     // const bdayString = data.birthdate;
-
+    console.log("form HEEEEE", data)
+    
     const newCrewDetail = {
       "fullname": data.fullname,
       "email": data.email,
@@ -76,9 +82,16 @@ const UpdateCrewDetail = ({ user, appUser, crew }) => {
       "createdBy": appUser.email
 
     }
-    console.log("CREW detail $$$$$", newCrewDetail);
+    
+    (data.email === crew.Email && data.rank === crew.Rank && data.nationality === crew.Nationality) ? showNochange(): showSuccess(`New detail for ${data.fullname}`);
+ 
+    
+    // console.log("CREW detail $$$$$", newCrewDetail);
     // addNewCrewToMongo(crewDetail);
-    showSuccess(data.fullname);
+    // showSuccess(hasNewDetail);
+    
+    // NEED TO HIFE FORM AFTER POPUP MSG
+    
     form.restart();
   };
 
@@ -99,15 +112,10 @@ const UpdateCrewDetail = ({ user, appUser, crew }) => {
             <form onSubmit={handleSubmit} className="p-fluid">
               <Field name="fullname" render={() => (
                 <div className="p-field ">
-                  {/* <span className="p-float-label"> */}
-                  {/* <label htmlFor="fullname" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Fullname*</label> */}
-                  {/* <InputText id="name" value={crew.Fullname} disabled /> */}
                   <span className="p-input-icon-right">
                     <i className="pi pi-lock" />
                     <InputText value={crew.Fullname} disabled />
                   </span>
-                  {/* </span> */}
-
                 </div>
               )} />
               <br />
@@ -165,7 +173,7 @@ const UpdateCrewDetail = ({ user, appUser, crew }) => {
                 </div>
               )} /> */}
 
-              <Button icon="pi pi-user-plus" type="submit" label="Add to list" className="p-mt-2 p-button-raised p-button-warning " />
+              <Button icon="pi pi-user-plus" type="submit" label="Update crew details" className="p-mt-2 p-button-raised p-button-warning " />
             </form>
           )} />
         </div>
