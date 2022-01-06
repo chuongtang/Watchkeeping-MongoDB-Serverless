@@ -79,14 +79,13 @@ const UpdateCrewDetail = ({ user, appUser, crew }) => {
       "watchkeeper": data.watchkeeping,
       "birthday": data.birthdate,
       "nationality": data.nationality,
-      "createdBy": appUser.email
-
+      "lastUpdatedBy": appUser.email
     }
     
-    (data.email === crew.Email && data.rank === crew.Rank && data.nationality === crew.Nationality) ? showNochange(): showSuccess(`New detail for ${data.fullname}`);
+    {(data.email === crew.Email && data.rank === crew.Rank && data.nationality === crew.Nationality) ? showNochange(): showSuccess(`New detail for ${data.fullname}`);}
  
     
-    // console.log("CREW detail $$$$$", newCrewDetail);
+    console.log("CREW detail $$$$$", newCrewDetail);
     // addNewCrewToMongo(crewDetail);
     // showSuccess(hasNewDetail);
     
