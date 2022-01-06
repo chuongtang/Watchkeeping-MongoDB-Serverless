@@ -70,13 +70,14 @@ const AddNewCrew = ({user, appUser}) => {
       "email" : data.email,
       "rank" : data.rank,
       "watchkeeper": data.watchkeeping,
-      "birthday" : bdayString.toISOString().slice(0, 10),
-      "nationality": data.nationality.name ||'blank',
+      "birthday" : data.birthdate,
+      // "birthday" : bdayString.toISOString().slice(0, 10),
+      "nationality": data.nationality,
       "createdBy": appUser.email
 
     }
     console.log("CREW detail $$$$$", crewDetail);
-    addNewCrewToMongo(crewDetail);
+    // addNewCrewToMongo(crewDetail);
     showSuccess(data.fullname);
     form.restart();
   };
@@ -138,7 +139,7 @@ const AddNewCrew = ({user, appUser}) => {
               <Field name="birthdate" render={({ input }) => (
                 <div className="p-field">
                   <span className="p-float-label">
-                    <Calendar id="date" {...input} dateFormat="dd/mm/yy" mask="99/99/9999" showIcon />
+                    <Calendar id="string" {...input} dateFormat="yy-mm-dd" mask="9999-99-99" showIcon />
                     <label htmlFor="birthdate">Birthday</label>
                   </span>
                 </div>
@@ -146,7 +147,7 @@ const AddNewCrew = ({user, appUser}) => {
               <Field name="nationality" render={({ input }) => (
                 <div className="p-field">
                   <span className="p-float-label">
-                    <Dropdown id="nationality" {...input} options={countries} optionLabel="name" />
+                    <Dropdown id="nationality" {...input} options={countries} optionLabel="" />
                     <label htmlFor="nationality">Nationality</label>
                   </span>
                 </div>
