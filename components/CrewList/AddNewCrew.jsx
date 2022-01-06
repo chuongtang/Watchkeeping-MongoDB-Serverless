@@ -14,7 +14,7 @@ const AddNewCrew = ({user, appUser}) => {
   const [countries, setCountries] = useState([]);
   const [showMessage, setShowMessage] = useState(false);
   const [formData, setFormData] = useState({});
-  const wkOptions = [{'opt':'YES'}, {'opt':'No'}]
+  const wkOptions = ["YES", "No"]
   const toast = useRef(null);
 
   useEffect(() => {
@@ -69,14 +69,15 @@ const AddNewCrew = ({user, appUser}) => {
       "fullname" : data.fullname,
       "email" : data.email,
       "rank" : data.rank,
-      "watchkeeper": data.watchkeeping.opt,
-      "birthday" : bdayString.toISOString().slice(0, 10),
-      "nationality": data.nationality.name ||'blank',
+      "watchkeeper": data.watchkeeping,
+      "birthday" : data.birthdate,
+      // "birthday" : bdayString.toISOString().slice(0, 10),
+      "nationality": data.nationality,
       "createdBy": appUser.email
 
     }
     console.log("CREW detail $$$$$", crewDetail);
-    addNewCrewToMongo(crewDetail);
+    // addNewCrewToMongo(crewDetail);
     showSuccess(data.fullname);
     form.restart();
   };
@@ -128,7 +129,7 @@ const AddNewCrew = ({user, appUser}) => {
               <Field name="watchkeeping" render={({ input, meta }) => (
                 <div className="p-field">
                   <span className="p-float-label">
-                    <Dropdown id="watchkeeping" {...input} options={wkOptions} optionLabel="opt" />
+                    <Dropdown id="watchkeeping" {...input} options={wkOptions} optionLabel="" />
                     <label htmlFor="watchkeeping" className={classNames({ 'p-error': isFormFieldValid(meta) })}>Watchkeeping Duty? *</label>
                   </span>
                   {getFormErrorMessage(meta)}
@@ -138,7 +139,7 @@ const AddNewCrew = ({user, appUser}) => {
               <Field name="birthdate" render={({ input }) => (
                 <div className="p-field">
                   <span className="p-float-label">
-                    <Calendar id="date" {...input} dateFormat="dd/mm/yy" mask="99/99/9999" showIcon />
+                    <Calendar id="string" {...input} monthNavigator yearNavigator yearRange="1940:2000" dateFormat="yy-mm-dd" mask="9999-99-99" showIcon />
                     <label htmlFor="birthdate">Birthday</label>
                   </span>
                 </div>
@@ -146,7 +147,7 @@ const AddNewCrew = ({user, appUser}) => {
               <Field name="nationality" render={({ input }) => (
                 <div className="p-field">
                   <span className="p-float-label">
-                    <Dropdown id="nationality" {...input} options={countries} optionLabel="name" />
+                    <Dropdown id="nationality" {...input} options={countries} optionLabel="" />
                     <label htmlFor="nationality">Nationality</label>
                   </span>
                 </div>

@@ -5,17 +5,21 @@ import { Toast } from 'primereact/toast';
 import { Button } from 'primereact/button';
 import { Toolbar } from 'primereact/toolbar';
 import { Dialog } from 'primereact/dialog';
-
+import { InputText } from 'primereact/inputtext';
+import { classNames } from 'primereact/utils';
+import { Tooltip } from 'primereact/tooltip';
+import './CrewForm.css';
+import UpdateCrewDetail from "./UpdateCrewDetail"
 import AddNewCrew from './AddNewCrew';
 
-
-const CrewList = ({user, appUser}) => {
+const CrewList = ({ user, appUser }) => {
 
   const [crews, setCrews] = useState([]);
   const [crew, setCrew] = useState([]);
   const [crewDialog, setCrewDialog] = useState(false);
   const [selectedCrew, setselectedCrew] = useState(null);
   const [addNewCrew, setAddNewCrew] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const toast = useRef(null);
 
   const columns = [
@@ -28,25 +32,30 @@ const CrewList = ({user, appUser}) => {
     { field: 'CreatedBy', header: 'Created-by' }
   ];
 
-  const editcrew = (crew) => {
-    console.log("HEREERRE",crew)
+  const editCrew = (crew) => {
+    console.log("HEREERRE", crew)
+    setCrew({ ...crew });
+    setCrewDialog(true);
     // setCrew({ ...crew });
     // setCrewDialog(true);
   }
 
-  const actionBodyTemplate = (rowData) => {
-    return (
-      <React.Fragment>
-        <Button icon="pi pi-pencil" className="p-button-rounded p-button-success p-mr-2" onClick={() => editcrew(rowData)} />
-        {/* <Button icon="pi pi-trash" className="p-button-rounded p-button-warning" onClick={() => confirmDeletecrew(rowData)} /> */}
-      </React.Fragment>
-    );
-  }
+  // const actionBodyTemplate = (rowData) => {
+  //   return (
+  //     <React.Fragment>
+  //       <Button icon="pi pi-pencil" className="p-button-rounded p-button-success p-mr-2" onClick={() => editcrew(rowData)} />
+  //       {/* <Button icon="pi pi-trash" className="p-button-rounded p-button-warning" onClick={() => confirmDeletecrew(rowData)} /> */}
+  //     </React.Fragment>
+  //   );
+  // }
 
   const openNew = () => {
     setAddNewCrew(true);
   }
-
+  const hideDialog = () => {
+    setAddNewCrew(false);
+    setCrewDialog(false);
+  };
   const leftToolbarTemplate = () => {
     return (
       <div className="p-d-flex">
@@ -59,21 +68,19 @@ const CrewList = ({user, appUser}) => {
 
   const confirmDeleteSelected = (crew) => {
 
-    toast.current.show({severity:'warn', summary: `Delete:   ${crew.Fullname}?`, detail:'Please contact web admin for this advance feature', life: 10000});
+    toast.current.show({ severity: 'warn', summary: `Delete:   ${crew.Fullname}?`, detail: 'Please contact web admin for this advance feature', life: 10000 });
   };
 
   const rightToolbarTemplate = () => {
     return (
       <React.Fragment>
-        <Button label="New" icon="pi pi-plus" className="p-button-success p-mr-2" onClick={() => openNew()} />
-        <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={()=> confirmDeleteSelected(selectedCrew)} disabled={!selectedCrew} />
+        <Button label="New" icon="pi pi-plus" className="p-button-raised  p-button-success p-button-text p-mr-3" onClick={() => openNew()} tooltip="Add a new crew member" tooltipOptions={{ className: 'indigo-tooltip', position: 'bottom' }} />
+        <Button label="Edit" icon="pi pi-user-edit" className="p-button-warning p-button-raised p-button-text p-mr-3" onClick={() => editCrew(selectedCrew)} disabled={!selectedCrew} />
+        <Button label="Delete" icon="pi pi-trash" className="p-button-danger p-button-raised p-button-text p-mr-3" onClick={() => confirmDeleteSelected(selectedCrew)} disabled={!selectedCrew} />
       </React.Fragment>
     )
   }
 
-  const hideDialog = () => {
-    setAddNewCrew(false);
-  };
 
   const crewDialogFooter = (
     <React.Fragment>
@@ -87,7 +94,7 @@ const CrewList = ({user, appUser}) => {
     try {
       const crewList = await user.functions.FetchCrewList();
       setCrews(crewList);
-      
+
     } catch (error) {
       console.error(error);
     }
@@ -100,22 +107,63 @@ const CrewList = ({user, appUser}) => {
       header={col.header}
       sortable />;
   });
- 
+
+  const onInputChange = (e, name) => {
+    const val = (e.target && e.target.value) || '';
+    let _crew = { ...crew };
+    _crew[`${name}`] = val;
+
+    setCrew(_crew);
+  }
 
   return (
     <div className="p-p-1">
-       <Toast ref={toast} />
+      <Toast ref={toast} />
       <div className="card">
-        <Toolbar className="p-mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
+        <Toolbar className="p-mb-1" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
         <Dialog visible={addNewCrew} style={{ width: '450px' }} header="👮 Add new crew member" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
           <AddNewCrew user={user} appUser={appUser} />
         </Dialog>
-        <DataTable value={crews} responsiveLayout="scroll" resizableColumns  columnResizeMode="fit" showGridlines scrollable scrollHeight="70vh"  selection={selectedCrew} onSelectionChange={(e) => setselectedCrew(e.value)} >
+        <DataTable value={crews} responsiveLayout="scroll" resizableColumns columnResizeMode="fit" showGridlines scrollable scrollHeight="70vh" selection={selectedCrew} onSelectionChange={(e) => setselectedCrew(e.value)} >
           <Column selectionMode="single" style={{ "maxWidth": "4rem" }} exportable={false}></Column>
           {dynamicColumns}
-          <Column body={actionBodyTemplate} exportable={false} style={{ 'maxWidth': '6rem' }}></Column>
+          {/* <Column body={actionBodyTemplate} exportable={false} style={{ 'maxWidth': '6rem' }}></Column> */}
         </DataTable>
       </div>
+
+      {/* Update Crew detail form */}
+      <Dialog visible={crewDialog} style={{ width: '450px' }} header="Update Crew Details" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
+        <UpdateCrewDetail user={user} appUser={appUser} crew={crew}/>
+{/* 
+        <div className="p-field">
+          <label htmlFor="fullname"><i className="pi pi-id-card p-mr-2"></i>Fullname</label>
+          <InputText id="name" value={crew.Fullname} placeholder={crew.Fullname || 'fullname'} onChange={(e) => onInputChange(e, 'name')} required autoFocus className={classNames({ 'p-invalid': submitted && !crew.Fullname })} />
+          {submitted && !crew.Fullname && <small className="p-error">Fullname is required.</small>}
+        </div>
+        <div className="p-field">
+          <label htmlFor="email"><i className="pi pi-at p-mr-2"></i>Email</label>
+          <InputText id="email" value={crew.Email} placeholder={crew.Email || 'Email'} onChange={(e) => onInputChange(e, 'email')} required autoFocus className={classNames({ 'p-invalid': submitted && !crew.Email })} />
+          {submitted && !crew.Email && <small className="p-error">Email is required.</small>}
+        </div>
+        <div className="p-field">
+          <label htmlFor="Rank"><i className="pi pi-star p-mr-2"></i>Rank</label>
+          <InputText id="Rank" value={crew.Rank} placeholder={crew.Rank || 'Rank'} onChange={(e) => onInputChange(e, 'Rank')} required autoFocus className={classNames({ 'p-invalid': submitted && !crew.Rank })} />
+          {submitted && !crew.Rank && <small className="p-error">Rank is required.</small>}
+        </div>
+        <div className="p-field">
+          <label htmlFor="Watchkeeper"><i className="pi pi-cog p-mr-2"></i>Watchkeeping Duty?</label>
+          <InputText id="Watchkeeper" value={crew.Watchkeeper} placeholder={crew.Watchkeeper || 'Watchkeeper'} onChange={(e) => onInputChange(e, 'Watchkeeper')} required autoFocus className={classNames({ 'p-invalid': submitted && !crew.Watchkeeper })} />
+          {submitted && !crew.Watchkeeper && <small className="p-error">Watchkeeper is required.</small>}
+        </div>
+        <div className="p-field">
+          <label htmlFor="Birthday"><i className="pi pi-calendar-plus p-mr-2"></i>Date-of-birth</label>
+          <InputText id="Birthday" value={crew.Birthday} placeholder={crew.Birthday || 'Birthday'} onChange={(e) => onInputChange(e, 'Birthday')} required autoFocus className={classNames({ 'p-invalid': submitted && !crew.Birthday })} />
+        </div>
+        <div className="p-field">
+          <label htmlFor="Nationality"><i className="pi pi-flag p-mr-2"></i>Nationality</label>
+          <InputText id="Nationality" value={crew.Nationality} placeholder={crew.Nationality || 'Nationality'} onChange={(e) => onInputChange(e, 'Nationality')} required autoFocus className={classNames({ 'p-invalid': submitted && !crew.Nationality })} />
+        </div> */}
+      </Dialog>
     </div>
   )
 };

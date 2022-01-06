@@ -8,9 +8,7 @@ import { Button } from 'primereact/button';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { Toast } from 'primereact/toast';
-import { Dialog } from 'primereact/dialog';
-import CrewList from "../components/CrewList/CrewList";
-import GridBody from "./GridBody/GridBody";
+
 import Logo from "../src/images/Logo.png";
 
 
@@ -20,9 +18,6 @@ const NavBar = () => {
 
     const [visible, setVisible] = useState(false);
     const toast = useRef(null);
-    const [displayMaximizable, setDisplayMaximizable] = useState(false);
-    const [displayReportMaximizable, setDisplayReportMaximizable] = useState(false);
-
     const {
         isLoading,
         isAuthenticated,
@@ -52,10 +47,7 @@ const NavBar = () => {
         toast.current.show({ severity: 'info', summary: 'Thank you', detail: 'Continue..', life: 1500 });
     }
 
-    const onHide = () => {
-        setDisplayMaximizable(false);
-        setDisplayReportMaximizable(false);
-    }
+   
 
     const leftContents = (
         <React.Fragment>

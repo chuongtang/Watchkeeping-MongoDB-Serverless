@@ -10,8 +10,7 @@ const LearnMore = () => {
   return (
   
     <div className="surface-0 text-center gradient-background">
-      <div className="mb-3 font-bold text-2xl">
-        <div style={{color: 'transparent'}}>Header space </div>
+      <div className="mb-3 font-bold text-2xl p-p-sm-2 p-p-md-3 p-p-lg-4">
         <span className="text-900">User-friendly interface, </span>
         <span className="text-blue-600">Access anywhere</span>
       </div>
