@@ -64,6 +64,7 @@ const CrewList = ({ user, appUser }) => {
     try {
       const crewList = await user.functions.FetchCrewList();
       setCrews(crewList);
+      alert(user);
 
     } catch (error) {
       console.error(error);
