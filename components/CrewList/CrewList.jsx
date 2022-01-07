@@ -64,12 +64,13 @@ const CrewList = ({ user, appUser }) => {
     try {
       const crewList = await user.functions.FetchCrewList();
       setCrews(crewList);
-      alert('user for mongoDB realm',user);
+      // alert('user for mongoDB realm',user);
+      console.log('userMongoDB herer', user);
 
     } catch (error) {
       console.error(error);
     }
-  }, [crews]);
+  }, []);
 
   const dynamicColumns = columns.map((col, i) => {
     return <Column
