@@ -64,7 +64,7 @@ const CrewList = ({ user, appUser }) => {
     try {
       const crewList = await user.functions.FetchCrewList();
       setCrews(crewList);
-      alert(user);
+      alert('user for mongoDB realm',user);
 
     } catch (error) {
       console.error(error);
