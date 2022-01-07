@@ -29,9 +29,8 @@ function App() {
   } = useAuth0();
 
   const auth0User = user;
-  console.log(auth0User);
 
-  // Loging MongDB Realm
+  // Logging MongDB Realm
   useEffect(async () => {
 
     const app = new Realm.App({ id: REALM_APP_ID });
@@ -39,11 +38,7 @@ function App() {
 
     try {
       const loggedInUser = await app.logIn(credentials);
-    
       setMongoUser(loggedInUser)
-      console.log("userIN Mongodb", loggedInUser)
-      
-    
     } catch (error) {
       console.error(error);
     }
@@ -69,7 +64,6 @@ function App() {
   return (
     <div>
       <NavBar />
-      {/* <UpdateCrewDetail/> */}
       {isAuthenticated && <div className="p-p-3">
         {!showMainPage && <Button type="button" label="" icon="pi pi-home" className="p-button-rounded p-mx-4" onClick={() => toggleMainPage()}>
         </Button>}

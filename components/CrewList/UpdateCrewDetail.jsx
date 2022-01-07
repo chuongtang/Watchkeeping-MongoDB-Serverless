@@ -16,23 +16,18 @@ import { async } from 'regenerator-runtime';
 
 const UpdateCrewDetail = ({ user, appUser, crew, parentState }) => {
   const [countries, setCountries] = useState([]);
-  // const [showMessage, setShowMessage] = useState(false);
   const [formData, setFormData] = useState({});
   const wkOptions = ["YES", "No"]
-  // const [hasNewDetail, setHasNewDetail] = useState('No Change found from your input');
-  // const [oldDetail, setOldDetail] = useState({crew});
   const toast = useRef(null);
 
   useEffect(() => {
     setCountries(CountryNames);
-    // console.log("Old crew detail", oldDetail)
+    
     
   }, []);
 
   const updateCrewDetail = async (newDetail) => {
     const updatedCrew = await user.functions.FindOneAndUpdate(newDetail);
-    console.log("UPDATED AS =>", updatedCrew);
-
   };
 
   const validate = (data) => {
@@ -84,14 +79,10 @@ const UpdateCrewDetail = ({ user, appUser, crew, parentState }) => {
         "nationality": data.nationality,
         "lastUpdatedBy": appUser.email
       }
-      console.log("CREW detail $$$$$", newCrewDetail);
       
       // CALL Realm function to update CREW detail
-      // await updateCrewDetail(newCrewDetail);
+      await updateCrewDetail(newCrewDetail);
 
-      // NEED TO HIFE FORM AFTER POPUP MSG
-      console.log("form detail", form)
-      // form.blur();
       showSuccess(`New detail for ${data.fullname}`);
       setTimeout(()=>{parentState(false)}, 3000);
     }

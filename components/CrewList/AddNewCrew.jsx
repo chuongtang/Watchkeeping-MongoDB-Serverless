@@ -19,12 +19,11 @@ const AddNewCrew = ({user, appUser}) => {
 
   useEffect(() => {
     setCountries(CountryNames);
-    console.log("appUSer herrer", appUser.email)
   }, []);
 
   const addNewCrewToMongo = async (crewObj) => {
     const addedCrew = await user.functions.Addcrew(crewObj);
-    console.log("New crew in MongDB", addedCrew);
+    
     
   };
 
@@ -70,14 +69,12 @@ const AddNewCrew = ({user, appUser}) => {
       "email" : data.email,
       "rank" : data.rank,
       "watchkeeper": data.watchkeeping,
-      "birthday" : data.birthdate,
-      // "birthday" : bdayString.toISOString().slice(0, 10),
+      "birthday" : bdayString.toISOString().slice(0, 10),
       "nationality": data.nationality,
       "createdBy": appUser.email
-
     }
-    console.log("CREW detail $$$$$", crewDetail);
-    // addNewCrewToMongo(crewDetail);
+    
+    addNewCrewToMongo(crewDetail);
     showSuccess(data.fullname);
     form.restart();
   };
@@ -152,12 +149,6 @@ const AddNewCrew = ({user, appUser}) => {
                   </span>
                 </div>
               )} />
-              {/* <Field name="accept" type="checkbox" render={({ input, meta }) => (
-                <div className="p-field-checkbox">
-                  <Checkbox inputId="accept" {...input} className={classNames({ 'p-invalid': isFormFieldValid(meta) })} />
-                  <label htmlFor="accept" className={classNames({ 'p-error': isFormFieldValid(meta) })}>I agree to the terms and conditions*</label>
-                </div>
-              )} /> */}
 
               <Button icon="pi pi-user-plus" type="submit" label="Add to list" className="p-mt-2 p-button-raised p-button-warning " />
             </form>

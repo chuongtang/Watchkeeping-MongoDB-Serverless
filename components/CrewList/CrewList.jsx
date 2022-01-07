@@ -5,9 +5,9 @@ import { Toast } from 'primereact/toast';
 import { Button } from 'primereact/button';
 import { Toolbar } from 'primereact/toolbar';
 import { Dialog } from 'primereact/dialog';
-import { InputText } from 'primereact/inputtext';
-import { classNames } from 'primereact/utils';
-import { Tooltip } from 'primereact/tooltip';
+// import { InputText } from 'primereact/inputtext';
+// import { classNames } from 'primereact/utils';
+// import { Tooltip } from 'primereact/tooltip';
 import './CrewForm.css';
 import UpdateCrewDetail from "./UpdateCrewDetail"
 import AddNewCrew from './AddNewCrew';
@@ -19,7 +19,7 @@ const CrewList = ({ user, appUser }) => {
   const [crewDialog, setCrewDialog] = useState(false);
   const [selectedCrew, setselectedCrew] = useState(null);
   const [addNewCrew, setAddNewCrew] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  // const [submitted, setSubmitted] = useState(false);
   const toast = useRef(null);
 
   const columns = [
@@ -33,7 +33,6 @@ const CrewList = ({ user, appUser }) => {
   ];
 
   const editCrew = (crew) => {
-    console.log("HEREERRE", crew)
     setCrew({ ...crew });
     setCrewDialog(true);
   }
