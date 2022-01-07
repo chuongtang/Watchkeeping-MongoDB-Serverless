@@ -3,12 +3,12 @@ import { Form, Field } from 'react-final-form';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
-import { Calendar } from 'primereact/calendar';
+// import { Calendar } from 'primereact/calendar';
 import { Toast } from 'primereact/toast';
-import { Password } from 'primereact/password';
-import { Checkbox } from 'primereact/checkbox';
-import { Dialog } from 'primereact/dialog';
-import { Divider } from 'primereact/divider';
+// import { Password } from 'primereact/password';
+// import { Checkbox } from 'primereact/checkbox';
+// import { Dialog } from 'primereact/dialog';
+// import { Divider } from 'primereact/divider';
 import { classNames } from 'primereact/utils';
 import './CrewForm.css';
 import CountryNames from "./CountryNames";
@@ -18,8 +18,8 @@ const UpdateCrewDetail = ({ user, appUser, crew }) => {
   const [showMessage, setShowMessage] = useState(false);
   const [formData, setFormData] = useState({});
   const wkOptions = ["YES", "No"]
-  const [hasNewDetail, setHasNewDetail] = useState('No Change found from your input');
-  const [oldDetail, setOldDetail] = useState({crew});
+  // const [hasNewDetail, setHasNewDetail] = useState('No Change found from your input');
+  // const [oldDetail, setOldDetail] = useState({crew});
   const toast = useRef(null);
 
   useEffect(() => {
@@ -28,11 +28,11 @@ const UpdateCrewDetail = ({ user, appUser, crew }) => {
     
   }, []);
 
-  // const addNewCrewToMongo = async (crewObj) => {
-  //   const addedCrew = await user.functions.Addcrew(crewObj);
-  //   console.log("New crew in MongDB", addedCrew);
+  const updateCrewDetail = async (newDetail) => {
+    const updatedCrew = await user.functions.FindOneAndUpdate(newDetail);
+    console.log("UPDATED AS =>", updatedCrew);
 
-  // };
+  };
 
   const validate = (data) => {
     let errors = {};
@@ -86,9 +86,10 @@ const UpdateCrewDetail = ({ user, appUser, crew }) => {
         "lastUpdatedBy": appUser.email
       }
       console.log("CREW detail $$$$$", newCrewDetail);
-      // addNewCrewToMongo(crewDetail);
-      // showSuccess(hasNewDetail);
       
+      // CALL Realm function to update CREW detail
+      updateCrewDetail(newCrewDetail);
+
       // NEED TO HIFE FORM AFTER POPUP MSG
       
       form.restart();
