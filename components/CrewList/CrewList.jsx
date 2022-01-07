@@ -45,7 +45,9 @@ const CrewList = ({ user, appUser }) => {
     setCrewDialog(false);
   };
   
-
+  const setStateFromUpdateCrew =(UpdState)=>{
+    setCrewDialog(UpdState);
+  }
   
   const confirmDeleteSelected = (crew) => {
 
@@ -65,12 +67,12 @@ const CrewList = ({ user, appUser }) => {
       const crewList = await user.functions.FetchCrewList();
       setCrews(crewList);
       // alert('user for mongoDB realm',user);
-      console.log('userMongoDB herer', user);
+      console.log('userMongoDB in CrewList UseEffect', user);
 
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  }, [crewDialog, addNewCrew]);
 
   const dynamicColumns = columns.map((col, i) => {
     return <Column
@@ -108,9 +110,7 @@ const CrewList = ({ user, appUser }) => {
     )
   }
 
-  const setStateFromUpdateCrew =(UpdState)=>{
-    setCrewDialog(UpdState);
-  }
+
 
   return (
     <div className="p-p-1">
@@ -130,35 +130,6 @@ const CrewList = ({ user, appUser }) => {
       {/* Update Crew detail form */}
       <Dialog visible={crewDialog} style={{ width: '450px' }} header="Update Crew Details" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
         <UpdateCrewDetail user={user} appUser={appUser} crew={crew} parentState={setStateFromUpdateCrew}/>
-{/* 
-        <div className="p-field">
-          <label htmlFor="fullname"><i className="pi pi-id-card p-mr-2"></i>Fullname</label>
-          <InputText id="name" value={crew.Fullname} placeholder={crew.Fullname || 'fullname'} onChange={(e) => onInputChange(e, 'name')} required autoFocus className={classNames({ 'p-invalid': submitted && !crew.Fullname })} />
-          {submitted && !crew.Fullname && <small className="p-error">Fullname is required.</small>}
-        </div>
-        <div className="p-field">
-          <label htmlFor="email"><i className="pi pi-at p-mr-2"></i>Email</label>
-          <InputText id="email" value={crew.Email} placeholder={crew.Email || 'Email'} onChange={(e) => onInputChange(e, 'email')} required autoFocus className={classNames({ 'p-invalid': submitted && !crew.Email })} />
-          {submitted && !crew.Email && <small className="p-error">Email is required.</small>}
-        </div>
-        <div className="p-field">
-          <label htmlFor="Rank"><i className="pi pi-star p-mr-2"></i>Rank</label>
-          <InputText id="Rank" value={crew.Rank} placeholder={crew.Rank || 'Rank'} onChange={(e) => onInputChange(e, 'Rank')} required autoFocus className={classNames({ 'p-invalid': submitted && !crew.Rank })} />
-          {submitted && !crew.Rank && <small className="p-error">Rank is required.</small>}
-        </div>
-        <div className="p-field">
-          <label htmlFor="Watchkeeper"><i className="pi pi-cog p-mr-2"></i>Watchkeeping Duty?</label>
-          <InputText id="Watchkeeper" value={crew.Watchkeeper} placeholder={crew.Watchkeeper || 'Watchkeeper'} onChange={(e) => onInputChange(e, 'Watchkeeper')} required autoFocus className={classNames({ 'p-invalid': submitted && !crew.Watchkeeper })} />
-          {submitted && !crew.Watchkeeper && <small className="p-error">Watchkeeper is required.</small>}
-        </div>
-        <div className="p-field">
-          <label htmlFor="Birthday"><i className="pi pi-calendar-plus p-mr-2"></i>Date-of-birth</label>
-          <InputText id="Birthday" value={crew.Birthday} placeholder={crew.Birthday || 'Birthday'} onChange={(e) => onInputChange(e, 'Birthday')} required autoFocus className={classNames({ 'p-invalid': submitted && !crew.Birthday })} />
-        </div>
-        <div className="p-field">
-          <label htmlFor="Nationality"><i className="pi pi-flag p-mr-2"></i>Nationality</label>
-          <InputText id="Nationality" value={crew.Nationality} placeholder={crew.Nationality || 'Nationality'} onChange={(e) => onInputChange(e, 'Nationality')} required autoFocus className={classNames({ 'p-invalid': submitted && !crew.Nationality })} />
-        </div> */}
       </Dialog>
     </div>
   )
