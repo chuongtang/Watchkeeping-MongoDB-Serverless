@@ -3,12 +3,7 @@ import { Form, Field } from 'react-final-form';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
-// import { Calendar } from 'primereact/calendar';
 import { Toast } from 'primereact/toast';
-// import { Password } from 'primereact/password';
-// import { Checkbox } from 'primereact/checkbox';
-// import { Dialog } from 'primereact/dialog';
-// import { Divider } from 'primereact/divider';
 import { classNames } from 'primereact/utils';
 import './CrewForm.css';
 import CountryNames from "./CountryNames";
@@ -159,12 +154,6 @@ const UpdateCrewDetail = ({ user, appUser, crew, parentState }) => {
                   </span>
                 </div>
               )} />
-              {/* <Field name="accept" type="checkbox" render={({ input, meta }) => (
-                <div className="p-field-checkbox">
-                  <Checkbox inputId="accept" {...input} className={classNames({ 'p-invalid': isFormFieldValid(meta) })} />
-                  <label htmlFor="accept" className={classNames({ 'p-error': isFormFieldValid(meta) })}>I agree to the terms and conditions*</label>
-                </div>
-              )} /> */}
 
               <Button icon="pi pi-user-plus" type="submit" label="Update crew details" className="p-mt-2 p-button-raised p-button-warning " />
             </form>

@@ -5,9 +5,6 @@ import { Toast } from 'primereact/toast';
 import { Button } from 'primereact/button';
 import { Toolbar } from 'primereact/toolbar';
 import { Dialog } from 'primereact/dialog';
-// import { InputText } from 'primereact/inputtext';
-// import { classNames } from 'primereact/utils';
-// import { Tooltip } from 'primereact/tooltip';
 import './CrewForm.css';
 import UpdateCrewDetail from "./UpdateCrewDetail"
 import AddNewCrew from './AddNewCrew';
@@ -19,7 +16,6 @@ const CrewList = ({ user, appUser }) => {
   const [crewDialog, setCrewDialog] = useState(false);
   const [selectedCrew, setselectedCrew] = useState(null);
   const [addNewCrew, setAddNewCrew] = useState(false);
-  // const [submitted, setSubmitted] = useState(false);
   const toast = useRef(null);
 
   const columns = [
@@ -57,7 +53,6 @@ const CrewList = ({ user, appUser }) => {
   const crewDialogFooter = (
     <React.Fragment>
       <Button label="Cancel" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-      {/* <Button label="Save" icon="pi pi-check" className="p-button-text" onClick={alert("OK was clicked")} /> */}
     </React.Fragment>
   );
 
@@ -66,9 +61,7 @@ const CrewList = ({ user, appUser }) => {
     try {
       const crewList = await user.functions.FetchCrewList();
       setCrews(crewList);
-      // alert('user for mongoDB realm',user);
       console.log('userMongoDB in CrewList UseEffect', user);
-
     } catch (error) {
       console.error(error);
     }
@@ -120,14 +113,13 @@ const CrewList = ({ user, appUser }) => {
         <Dialog visible={addNewCrew} style={{ width: '450px' }} header="👮 Add new crew member" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
           <AddNewCrew user={user} appUser={appUser} />
         </Dialog>
+        
         <DataTable value={crews} responsiveLayout="scroll" resizableColumns columnResizeMode="fit" showGridlines scrollable scrollHeight="70vh" selection={selectedCrew} onSelectionChange={(e) => setselectedCrew(e.value)} >
           <Column selectionMode="single" style={{ "maxWidth": "4rem" }} exportable={false}></Column>
           {dynamicColumns}
-          {/* <Column body={actionBodyTemplate} exportable={false} style={{ 'maxWidth': '6rem' }}></Column> */}
         </DataTable>
       </div>
 
-      {/* Update Crew detail form */}
       <Dialog visible={crewDialog} style={{ width: '450px' }} header="Update Crew Details" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
         <UpdateCrewDetail user={user} appUser={appUser} crew={crew} parentState={setStateFromUpdateCrew}/>
       </Dialog>

@@ -12,7 +12,6 @@ import CountryNames from "./CountryNames";
 
 const AddNewCrew = ({user, appUser}) => {
   const [countries, setCountries] = useState([]);
-  const [showMessage, setShowMessage] = useState(false);
   const [formData, setFormData] = useState({});
   const wkOptions = ["YES", "No"]
   const toast = useRef(null);
