@@ -36,8 +36,6 @@ const CrewList = ({ user, appUser }) => {
     console.log("HEREERRE", crew)
     setCrew({ ...crew });
     setCrewDialog(true);
-    // setCrew({ ...crew });
-    // setCrewDialog(true);
   }
 
   const openNew = () => {
@@ -71,7 +69,7 @@ const CrewList = ({ user, appUser }) => {
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  }, [crews]);
 
   const dynamicColumns = columns.map((col, i) => {
     return <Column
@@ -126,7 +124,7 @@ const CrewList = ({ user, appUser }) => {
 
       {/* Update Crew detail form */}
       <Dialog visible={crewDialog} style={{ width: '450px' }} header="Update Crew Details" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
-        <UpdateCrewDetail user={user} appUser={appUser} crew={crew}/>
+        <UpdateCrewDetail user={user} appUser={appUser} crew={crew} />
 {/* 
         <div className="p-field">
           <label htmlFor="fullname"><i className="pi pi-id-card p-mr-2"></i>Fullname</label>

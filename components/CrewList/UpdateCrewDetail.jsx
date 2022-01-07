@@ -15,7 +15,7 @@ import CountryNames from "./CountryNames";
 
 const UpdateCrewDetail = ({ user, appUser, crew }) => {
   const [countries, setCountries] = useState([]);
-  const [showMessage, setShowMessage] = useState(false);
+  // const [showMessage, setShowMessage] = useState(false);
   const [formData, setFormData] = useState({});
   const wkOptions = ["YES", "No"]
   // const [hasNewDetail, setHasNewDetail] = useState('No Change found from your input');
@@ -71,10 +71,8 @@ const UpdateCrewDetail = ({ user, appUser, crew }) => {
     if (data.email === crew.Email && data.rank === crew.Rank && data.nationality === crew.Nationality) {
       return showNochange();
     } else {
-      showSuccess(`New detail for ${data.fullname}`);}
+      showSuccess(`New detail for ${data.fullname}`);
       setFormData(data);
-   
-      console.log("form HEEEEE", data)
       
       const newCrewDetail = {
         "fullname": data.fullname,
@@ -88,11 +86,12 @@ const UpdateCrewDetail = ({ user, appUser, crew }) => {
       console.log("CREW detail $$$$$", newCrewDetail);
       
       // CALL Realm function to update CREW detail
-      updateCrewDetail(newCrewDetail);
+      // updateCrewDetail(newCrewDetail);
 
       // NEED TO HIFE FORM AFTER POPUP MSG
-      
-      form.restart();
+      console.log("form detail", form)
+      form.blur();
+    }
   };
 
   const isFormFieldValid = (meta) => !!(meta.touched && meta.error);
