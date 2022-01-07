@@ -107,6 +107,10 @@ const CrewList = ({ user, appUser }) => {
     )
   }
 
+  const setStateFromUpdateCrew =(UpdState)=>{
+    setCrewDialog(UpdState);
+  }
+
   return (
     <div className="p-p-1">
       <Toast ref={toast} />
@@ -124,7 +128,7 @@ const CrewList = ({ user, appUser }) => {
 
       {/* Update Crew detail form */}
       <Dialog visible={crewDialog} style={{ width: '450px' }} header="Update Crew Details" modal className="p-fluid" footer={crewDialogFooter} onHide={hideDialog}>
-        <UpdateCrewDetail user={user} appUser={appUser} crew={crew} />
+        <UpdateCrewDetail user={user} appUser={appUser} crew={crew} parentState={setStateFromUpdateCrew}/>
 {/* 
         <div className="p-field">
           <label htmlFor="fullname"><i className="pi pi-id-card p-mr-2"></i>Fullname</label>

@@ -12,8 +12,9 @@ import { Toast } from 'primereact/toast';
 import { classNames } from 'primereact/utils';
 import './CrewForm.css';
 import CountryNames from "./CountryNames";
+import { async } from 'regenerator-runtime';
 
-const UpdateCrewDetail = ({ user, appUser, crew }) => {
+const UpdateCrewDetail = ({ user, appUser, crew, parentState }) => {
   const [countries, setCountries] = useState([]);
   // const [showMessage, setShowMessage] = useState(false);
   const [formData, setFormData] = useState({});
@@ -61,17 +62,17 @@ const UpdateCrewDetail = ({ user, appUser, crew }) => {
 
 
   const showSuccess = (displayMsg) => {
-    toast.current.show({ severity: 'success', summary: 'Updated', detail: displayMsg, life: 5000 });
+    toast.current.show({ severity: 'success', summary: 'Updated', detail: displayMsg, life: 3000 });
   }
   const showNochange = () => {
     toast.current.show({ severity: 'warn', summary: 'No new update', detail: 'Nothing has changed from your input', life: 4000 });
   }
 
-  const onSubmit = (data, form) => {
+  const onSubmit = async(data, form) => {
     if (data.email === crew.Email && data.rank === crew.Rank && data.nationality === crew.Nationality) {
       return showNochange();
     } else {
-      showSuccess(`New detail for ${data.fullname}`);
+      
       setFormData(data);
       
       const newCrewDetail = {
@@ -86,11 +87,13 @@ const UpdateCrewDetail = ({ user, appUser, crew }) => {
       console.log("CREW detail $$$$$", newCrewDetail);
       
       // CALL Realm function to update CREW detail
-      // updateCrewDetail(newCrewDetail);
+      // await updateCrewDetail(newCrewDetail);
 
       // NEED TO HIFE FORM AFTER POPUP MSG
       console.log("form detail", form)
-      form.blur();
+      // form.blur();
+      showSuccess(`New detail for ${data.fullname}`);
+      setTimeout(()=>{parentState(false)}, 3000);
     }
   };
 
