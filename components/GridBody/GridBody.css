@@ -2,9 +2,6 @@
   margin: 3rem;
   
 }
-
-
-
 .tabBody{
   background: red;
 }
@@ -14,4 +11,8 @@
 }
 .datatable-selection .card h6:first-of-type {
   margin-top: 0;
+}
+
+#monthpicker{
+  color: #6366f1
 }

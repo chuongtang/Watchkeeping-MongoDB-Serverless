@@ -4,7 +4,9 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Toast } from 'primereact/toast';
 import './GridBody.css';
-import { Message } from 'primereact/message';
+import { Calendar } from 'primereact/calendar';
+import { Dropdown } from 'primereact/dropdown';
+import { InputText } from 'primereact/inputtext';
 import cellsGenerator from "./cellsGenerator.js";
 
 const GridBody = () => {
@@ -25,6 +27,8 @@ const GridBody = () => {
     const [selectedProducts7, setSelectedProducts7] = useState(null);
     const [selectedProducts8, setSelectedProducts8] = useState(null);
     const [selectedProducts9, setSelectedProducts9] = useState(null);
+    const [date10, setDate10] = useState(null);
+    const [vesselName, setVesselName] = useState('');
     const toast = useRef(null);
 
     useEffect(() => {
@@ -57,7 +61,7 @@ const GridBody = () => {
     console.log(days)
     const daysInMonth = (month, year) => new Date(year, month, 0).getDate();
 
-    const dateStyle ={
+    const dateStyle = {
         color: 'white',
         backgroundColor: '#6366F1',
         padding: "0.15rem 2rem",
@@ -65,39 +69,48 @@ const GridBody = () => {
         width: "2rem"
     }
 
-    const restTimetStyle ={
+    const restTimetStyle = {
         color: 'white',
         backgroundColor: '#F59E0B',
         padding: "0.15rem",
         textAlign: 'center',
-        width:"15rem"
+        width: "15rem"
     }
 
-    const cellsStyle ={
+    const cellsStyle = {
         color: '#F59E0B',
         direction: 'rtl',
         width: "1rem",
-    
+
     }
 
-    const commentStyle={
+    const commentStyle = {
         color: '#6366F1',
-        
+
     }
 
     return (
         <div className="datatable-selection">
             <Toast ref={toast} />
 
+
+            <header className="p-d-flex p-jc-center" style={{ color: "#6366f1" }}>
+                <h2 className="p-mx-4"> Seafarers work hour records for the month of </h2>
+                <Calendar id="monthpicker" value={date10} onChange={(e) => setDate10(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" />
+            </header>
             <div className="card">
-                <h5>Multiple</h5>
-                <p>In multiple mode, selection binding should be an array. For touch enabled devices, selection is managed by tapping and for other devices metakey or shiftkey are required.
-                    Setting metaKeySelection property as false enables multiple selection without meta key. In addition, the rectangular selection can be dragged over the desired rows or cells thanks to the dragSelection property. In this way, a range of rows or cells can be selected.</p>
+                <h5>Name of Vessel</h5>
+                <InputText value={vesselName} onChange={(e) => setVesselName(e.target.value)} />
+                <span className="p-ml-2">{vesselName}</span>
+                <div className="p-field p-col-12 p-md-4">
+                    <label htmlFor="monthpicker">Month Picker</label>
+                    <Calendar id="monthpicker" value={date10} onChange={(e) => setDate10(e.value)} view="month" dateFormat="Month-yy" yearNavigator yearRange="2020:2030" />
+                </div>
 
                 <h6>Crew Name and ank spaceholder</h6>
-               
+
                 <DataTable value={products} selectionMode="multiple" cellSelection dragSelection selection={selectedProducts6} onSelectionChange={e => setSelectedProducts6(e.value)} dataKey="id" showGridlines responsiveLayout="scroll" size="small"  >
-                    
+
                     <Column field="date" style={dateStyle} header="Date ⇩ "></Column>
                     <Column field="00" style={cellsStyle} header="00"></Column>
                     <Column field="01" style={cellsStyle} header="01"></Column>
