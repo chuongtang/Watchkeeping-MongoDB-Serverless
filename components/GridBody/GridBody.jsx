@@ -95,8 +95,8 @@ const GridBody = () => {
 
 
             <header className="p-d-flex p-jc-center" style={{ color: "#6366f1" }}>
-                <h2 className="p-mx-4"> Seafarers work hour records for the month of </h2>
-                <Calendar id="monthpicker" value={date10} onChange={(e) => setDate10(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" />
+                <h1 className="p-mx-4"> Seafarers work hour records for the month of </h1>
+                <Calendar id="monthpicker" className="monthpicker" value={date10} onChange={(e) => setDate10(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" />
             </header>
             <div className="card">
                 <h5>Name of Vessel</h5>
