@@ -62,7 +62,7 @@ function App() {
 
 
   return (
-    <div>
+    <div >
       <NavBar />
       {isAuthenticated && <div className="p-p-3">
         {!showMainPage && <Button type="button" label="" icon="pi pi-home" className="p-button-rounded p-mx-4" onClick={() => toggleMainPage()}>

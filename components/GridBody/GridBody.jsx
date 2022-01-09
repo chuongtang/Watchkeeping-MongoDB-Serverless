@@ -5,10 +5,11 @@ import { Column } from 'primereact/column';
 import { Toast } from 'primereact/toast';
 import './GridBody.css';
 import { Calendar } from 'primereact/calendar';
+import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
 import cellsGenerator from "./cellsGenerator.js";
-
+import anchor from "../../src/images/anchor.svg"
 const GridBody = () => {
 
     const [products, setProducts] = useState([]);
@@ -96,18 +97,56 @@ const GridBody = () => {
 
             <header className="p-d-flex p-jc-center" style={{ color: "#6366f1" }}>
                 <h1 className="p-mx-4"> Seafarers work hour records for the month of </h1>
-                <Calendar id="monthpicker" className="monthpicker" value={date10} onChange={(e) => setDate10(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" />
+                <Calendar  id="monthpicker" className="monthpicker" value={date10} onChange={(e) => setDate10(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" />
             </header>
             <div className="card">
-                <h5>Name of Vessel</h5>
-                <InputText value={vesselName} onChange={(e) => setVesselName(e.target.value)} />
-                <span className="p-ml-2">{vesselName}</span>
-                <div className="p-field p-col-12 p-md-4">
-                    <label htmlFor="monthpicker">Month Picker</label>
-                    <Calendar id="monthpicker" value={date10} onChange={(e) => setDate10(e.value)} view="month" dateFormat="Month-yy" yearNavigator yearRange="2020:2030" />
+                <div className="p-d-flex p-flex-column p-my-3 ">
+                    <div className="p-d-flex p-flex-column p-flex-md-row p-mx-auto ">
+                        <div className="p-mb-2 ">
+                            <div className="p-inputgroup">
+                                <span className="p-inputgroup-addon">
+                                    <i className="pi pi-shield"></i>
+                                </span>
+                                {/* <object type="image/svg+xml" data={anchor} className="smIcon" alt="Anchor Image"></object> */}
+                                <InputText placeholder="Vessel Name" />
+                            </div>
+                        </div>
+                        <div className="p-mb-2 p-mx-2">
+                            <div className="p-inputgroup">
+                               
+                                <InputText placeholder="Vessel Flag" />
+                            </div>
+                        </div>
+                        <div className="p-mb-2">
+                            <div className="p-inputgroup">
+                               
+                                <InputText placeholder="IMO number" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="p-d-flex p-flex-column p-flex-md-row p-mx-auto">
+                        <div className="p-mb-2">
+                            <div className="p-inputgroup">
+                                <span className="p-inputgroup-addon">
+                                    <i className="pi pi-id-card"></i>
+                                </span>
+                                <InputText placeholder="Seafarer" />
+                            </div>
+                        </div>
+                        <div className="p-mb-2 p-mx-2">
+                            <div className="p-inputgroup">
+                               
+                                <InputText placeholder="Position / Rank" />
+                            </div>
+                        </div>
+                        <div className="p-mb-2">
+                            <div className="p-inputgroup">
+                               
+                                <InputText placeholder="Watchkeeping Duty" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <h6>Crew Name and ank spaceholder</h6>
 
                 <DataTable value={products} selectionMode="multiple" cellSelection dragSelection selection={selectedProducts6} onSelectionChange={e => setSelectedProducts6(e.value)} dataKey="id" showGridlines responsiveLayout="scroll" size="small"  >
 
