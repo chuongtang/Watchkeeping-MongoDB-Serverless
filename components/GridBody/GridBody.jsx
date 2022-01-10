@@ -183,7 +183,7 @@ const GridBody = ({ user }) => {
                 {/* <DataTable value={products} selectionMode="multiple" cellSelection dragSelection selection={selectedProducts6} onSelectionChange={e => setSelectedProducts6(e.value)} dataKey="id" showGridlines responsiveLayout="scroll" size="small"  > */}
 
                     <Column field="date" style={dateStyle} header="Date ⇩ "></Column>
-                    <Column field="00" style={cellsStyle} header="00"><Slider value={value5} onChange={(e) => setValue5(e.value)} range /></Column>
+                    <Column field="00" style={cellsStyle} header="00"></Column>
                     <Column field="01" style={cellsStyle} header="01"></Column>
                     <Column field="02" style={cellsStyle} header="02"></Column>
                     <Column field="03" style={cellsStyle} header="03"></Column>
