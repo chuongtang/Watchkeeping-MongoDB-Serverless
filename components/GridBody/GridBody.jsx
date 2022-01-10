@@ -129,7 +129,7 @@ const GridBody = ({ user }) => {
             <header className="p-d-flex p-jc-center" style={{ color: "#6366f1" }}>
                 <h1 className="p-mx-4"> Seafarers work hour records for the month of </h1>
                 <section className="reportMonth">
-                <Calendar id="monthpicker"  value={dataMonth} onChange={(e) => renderGrid(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" /></section>
+                <Calendar id="monthpicker"  value={dataMonth} onChange={(e) => renderGrid(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" placeholder="..."/></section>
                 {/* <section className="reportMonth">
                 <Calendar id="monthpicker"  value={dataMonth} onChange={(e) => setDataMonth(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" /></section> */}
                
