@@ -8,6 +8,7 @@ import { Calendar } from 'primereact/calendar';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
+import { Slider } from 'primereact/slider';
 import cellsGenerator from "./cellsGenerator.js";
 import anchor from "../../src/images/anchor.svg";
 
@@ -35,6 +36,7 @@ const GridBody = ({ user }) => {
     const toast = useRef(null);
     const date = new Date();
     const [dataMonth, setDataMonth] = useState(Date.now());
+    const [value5, setValue5] = useState([20,80]);
 
 
 
@@ -177,11 +179,11 @@ const GridBody = ({ user }) => {
                     </div>
                 </div>
 
-                <DataTable value={products} selectionMode="multiple" cellSelection dragSelection selection={selectedProducts6} onSelectionChange={e => toBeDeleted(e)} dataKey="id" showGridlines responsiveLayout="scroll" size="small"  >
+                <DataTable value={products} selectionMode="multiple" cellSelection metaKeySelection={false} selection={selectedProducts6} onSelectionChange={e => toBeDeleted(e)} dataKey="id" showGridlines responsiveLayout="scroll" size="small"  >
                 {/* <DataTable value={products} selectionMode="multiple" cellSelection dragSelection selection={selectedProducts6} onSelectionChange={e => setSelectedProducts6(e.value)} dataKey="id" showGridlines responsiveLayout="scroll" size="small"  > */}
 
                     <Column field="date" style={dateStyle} header="Date ⇩ "></Column>
-                    <Column field="00" style={cellsStyle} header="00"></Column>
+                    <Column field="00" style={cellsStyle} header="00"><Slider value={value5} onChange={(e) => setValue5(e.value)} range /></Column>
                     <Column field="01" style={cellsStyle} header="01"></Column>
                     <Column field="02" style={cellsStyle} header="02"></Column>
                     <Column field="03" style={cellsStyle} header="03"></Column>
