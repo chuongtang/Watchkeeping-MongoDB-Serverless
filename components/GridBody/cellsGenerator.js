@@ -1,6 +1,7 @@
 
 
 const cellsGenerator = (month, year) => {
+  // Get the number of days in given month
   const daysInMonth = new Date(year, month, 0).getDate();
   //  Create array of days in month
   const rangeDays = [...Array(daysInMonth).keys()].map((i) => i + 1);

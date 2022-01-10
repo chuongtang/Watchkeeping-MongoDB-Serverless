@@ -37,26 +37,16 @@ const GridBody = ({ user }) => {
     const [dataMonth, setDataMonth] = useState(Date.now());
 
 
-    // extract Date object to useable array
-    const extract = (date) =>
-    date
-        .toISOString()
-        .split(/[^0-9]/)
-        .slice(0, -1);
 
     const renderGrid = (dateObjValue)=>{
         setDataMonth(dateObjValue)
         console.log('dataMonth Here - OK', dateObjValue);
         const rptMonth = dateObjValue.getMonth()+1; 
+        const rptYear = dateObjValue.getFullYear();
         console.log('rptMonth Here', rptMonth);
-        let Cells = cellsGenerator(rptMonth, 2022);
+        let Cells = cellsGenerator(rptMonth, rptYear);
         setProducts(Cells);
     }
-
-    // const toBeDeleted = (e) => {
-    //     const extractedDate = extract(e);
-    //     console.log("from TobeDelted", extractedDate)
-    // }
 
     useEffect ( ()=>{
         let Cells = cellsGenerator(1, 2022);
