@@ -87,10 +87,16 @@ const GridBody = ({ user }) => {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
+    const cellClass = (selectState) => {
+        return !selectState ? 'SelectedStyle' : ''
+    }
+
     const toBeDeleted =(e) =>{
         // e.preventDefault();
         setSelectedProducts6(e.value)
-        console.log('from Selection Change =>', e.value)
+        console.log('from Selection Change =>', e.value[0].selected)
+        const Cllass = cellClass(e.value[0].selected);
+        console.log(Cllass)
     }
 
    
@@ -179,7 +185,7 @@ const GridBody = ({ user }) => {
                     </div>
                 </div>
 
-                <DataTable value={products} selectionMode="multiple" cellSelection metaKeySelection={false} selection={selectedProducts6} onSelectionChange={e => toBeDeleted(e)} dataKey="id" showGridlines responsiveLayout="scroll" size="small"  >
+                <DataTable value={products} selectionMode="multiple" cellSelection metaKeySelection={false} selection={selectedProducts6} onSelectionChange={e => toBeDeleted(e)} dataKey="id" showGridlines responsiveLayout="scroll" size="small" cellClassName={cellClass}  >
                 {/* <DataTable value={products} selectionMode="multiple" cellSelection dragSelection selection={selectedProducts6} onSelectionChange={e => setSelectedProducts6(e.value)} dataKey="id" showGridlines responsiveLayout="scroll" size="small"  > */}
 
                     <Column field="date" style={dateStyle} header="Date ⇩ "></Column>

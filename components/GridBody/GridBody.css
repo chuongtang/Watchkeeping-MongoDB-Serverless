@@ -26,3 +26,6 @@ section input[type="text"] {
   border-bottom: none;
 }
 
+.SelectedStyle{
+  background-color: #F1AB86;
+}
