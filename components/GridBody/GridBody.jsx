@@ -36,27 +36,29 @@ const GridBody = ({ user }) => {
     const toast = useRef(null);
     const date = new Date();
     const [dataMonth, setDataMonth] = useState(Date.now());
-    const [value5, setValue5] = useState([20,80]);
+    const [value5, setValue5] = useState([20, 80]);
+    const [remarks, setRemarks] = useState({});
+    const [comment, setComment] = useState('');
 
 
 
-    const renderGrid = (dateObjValue)=>{
+    const renderGrid = (dateObjValue) => {
         setDataMonth(dateObjValue)
         console.log('dataMonth Here - OK', dateObjValue);
-        const rptMonth = dateObjValue.getMonth()+1; 
+        const rptMonth = dateObjValue.getMonth() + 1;
         const rptYear = dateObjValue.getFullYear();
         console.log('rptMonth Here', rptMonth);
         let Cells = cellsGenerator(rptMonth, rptYear);
         setProducts(Cells);
     }
 
-    useEffect ( ()=>{
+    useEffect(() => {
         let Cells = cellsGenerator(1, 2022);
         setProducts(Cells);
     }, [])
 
     useEffect(async () => {
-        
+
         // Fetch list for drop down component
         try {
             console.log('userMongoDB in GRidBody UseEffect', user);
@@ -67,17 +69,7 @@ const GridBody = ({ user }) => {
         }
     }, []);
 
-    const onRowSelect = (event) => {
-        toast.current.show({ severity: 'info', summary: 'Product Selected', detail: `Name: ${event.data.name}`, life: 3000 });
-    }
 
-    const onRowUnselect = (event) => {
-        toast.current.show({ severity: 'warn', summary: 'Product Unselected', detail: `Name: ${event.data.name}`, life: 3000 });
-    }
-
-    const onCellSelect = (event) => {
-        toast.current.show({ severity: 'info', summary: `Item Selected In Product`, detail: `${toCapitalize(event.field)}: ${event.value}`, life: 3000 });
-    }
 
     const onCellUnselect = (event) => {
         toast.current.show({ severity: 'warn', summary: `Item Unselected In Product`, detail: `${toCapitalize(event.field)}: ${event.value}`, life: 3000 });
@@ -91,7 +83,7 @@ const GridBody = ({ user }) => {
         return !selectState ? 'SelectedStyle' : ''
     }
 
-    const toBeDeleted =(e) =>{
+    const toBeDeleted = (e) => {
         // e.preventDefault();
         setSelectedProducts6(e.value)
         console.log('from Selection Change =>', e.value[0].selected)
@@ -99,7 +91,24 @@ const GridBody = ({ user }) => {
         console.log(Cllass)
     }
 
-   
+    const remarkEditor = (options) => {
+        return <InputText type="text" value={options.value} onChange={(e) => options.editorCallback(e.target.value)} />;
+    }
+
+
+    const onCellEditComplete = (e) => {
+        let { rowData, newValue, field, originalEvent: event } = e;
+        if (!newValue) {
+            event.preventDefault();
+            return
+        }
+        if (newValue.trim().length > 0) {
+            rowData[field] = newValue;
+            console.log("rowData Here +++", rowData)
+        } else {
+            event.preventDefault();
+        }
+    }
 
     const dateStyle = {
         color: 'white',
@@ -138,8 +147,8 @@ const GridBody = ({ user }) => {
             <header className="p-d-flex p-jc-center" style={{ color: "#6366f1" }}>
                 <h1 className="p-mx-4"> Seafarers work hour records for the month of </h1>
                 <section className="reportMonth">
-                <Calendar id="monthpicker"  value={dataMonth} onChange={(e) => renderGrid(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" placeholder=". . ."/></section>
-               
+                    <Calendar id="monthpicker" value={dataMonth} onChange={(e) => renderGrid(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" placeholder=". . ." /></section>
+
             </header>
             <div className="card">
                 <div className="p-d-flex p-flex-column p-my-3 ">
@@ -186,7 +195,7 @@ const GridBody = ({ user }) => {
                 </div>
 
                 <DataTable value={products} selectionMode="multiple" cellSelection metaKeySelection={false} selection={selectedProducts6} onSelectionChange={e => toBeDeleted(e)} dataKey="id" showGridlines responsiveLayout="scroll" size="small" cellClassName={cellClass}  >
-                {/* <DataTable value={products} selectionMode="multiple" cellSelection dragSelection selection={selectedProducts6} onSelectionChange={e => setSelectedProducts6(e.value)} dataKey="id" showGridlines responsiveLayout="scroll" size="small"  > */}
+                    {/* <DataTable value={products} selectionMode="multiple" cellSelection dragSelection selection={selectedProducts6} onSelectionChange={e => setSelectedProducts6(e.value)} dataKey="id" showGridlines responsiveLayout="scroll" size="small"  > */}
 
                     <Column field="date" style={dateStyle} header="Date ⇩ "></Column>
                     <Column field="00" style={cellsStyle} header="00"></Column>
@@ -216,7 +225,8 @@ const GridBody = ({ user }) => {
                     <Column field="24" style={cellsStyle} header="24"></Column>
                     <Column style={restTimetStyle} field="restHr" header="Total Rest time in 24-hr"></Column>
                     <Column style={restTimetStyle} field="restHr-7day" header="Total Rest time in 7-day"></Column>
-                    <Column style={commentStyle} field="comment" header="Comment/Remark"></Column>
+
+                    <Column style={commentStyle} field="comment" header="Comment/Remark" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column>
                 </DataTable>
             </div>
 
