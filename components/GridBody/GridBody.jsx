@@ -85,9 +85,11 @@ const GridBody = ({ user }) => {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
-    const days = [...Array(7).keys()];
-    console.log(days)
-    const daysInMonth = (month, year) => new Date(year, month, 0).getDate();
+    const toBeDeleted =(e) =>{
+        // e.preventDefault();
+        setSelectedProducts6(e.value)
+        console.log('from Selection Change =>', e.value)
+    }
 
    
 
@@ -125,13 +127,10 @@ const GridBody = ({ user }) => {
         <div className="datatable-selection">
             <Toast ref={toast} />
 
-
             <header className="p-d-flex p-jc-center" style={{ color: "#6366f1" }}>
                 <h1 className="p-mx-4"> Seafarers work hour records for the month of </h1>
                 <section className="reportMonth">
-                <Calendar id="monthpicker"  value={dataMonth} onChange={(e) => renderGrid(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" placeholder="..."/></section>
-                {/* <section className="reportMonth">
-                <Calendar id="monthpicker"  value={dataMonth} onChange={(e) => setDataMonth(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" /></section> */}
+                <Calendar id="monthpicker"  value={dataMonth} onChange={(e) => renderGrid(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" placeholder=". . ."/></section>
                
             </header>
             <div className="card">
@@ -142,20 +141,16 @@ const GridBody = ({ user }) => {
                                 <span className="p-inputgroup-addon">
                                     <i className="pi pi-shield"></i>
                                 </span>
-                                {/* <object type="image/svg+xml" data={anchor} className="smIcon" alt="Anchor Image"></object> */}
                                 <InputText placeholder="Vessel Name" />
-
                             </div>
                         </div>
                         <div className="p-mb-2 p-mx-2">
                             <div className="p-inputgroup">
-
                                 <InputText placeholder="Vessel Flag" />
                             </div>
                         </div>
                         <div className="p-mb-2">
                             <div className="p-inputgroup">
-
                                 <InputText placeholder="IMO number" />
                             </div>
                         </div>
@@ -171,20 +166,19 @@ const GridBody = ({ user }) => {
                         </div>
                         <div className="p-mb-2 p-mx-2">
                             <div className="p-inputgroup">
-
                                 <InputText value={crew.Rank} disabled placeholder="Position / Rank" />
                             </div>
                         </div>
                         <div className="p-mb-2">
                             <div className="p-inputgroup">
-
                                 <InputText value={crew.Watchkeeper} disabled placeholder="Watchkeeping Duty" />
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <DataTable value={products} selectionMode="multiple" cellSelection dragSelection selection={selectedProducts6} onSelectionChange={e => setSelectedProducts6(e.value)} dataKey="id" showGridlines responsiveLayout="scroll" size="small"  >
+                <DataTable value={products} selectionMode="multiple" cellSelection dragSelection selection={selectedProducts6} onSelectionChange={e => toBeDeleted(e)} dataKey="id" showGridlines responsiveLayout="scroll" size="small"  >
+                {/* <DataTable value={products} selectionMode="multiple" cellSelection dragSelection selection={selectedProducts6} onSelectionChange={e => setSelectedProducts6(e.value)} dataKey="id" showGridlines responsiveLayout="scroll" size="small"  > */}
 
                     <Column field="date" style={dateStyle} header="Date ⇩ "></Column>
                     <Column field="00" style={cellsStyle} header="00"></Column>
