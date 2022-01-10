@@ -13,17 +13,16 @@
   margin-top: 0;
 }
 
-/* input[type="string"] { */
-/* 
+section input[type="text"] {
   background-color: white;
   color: #f59e0b;
   font-size: 1.8rem;
   padding-right: 0.1rem;
   padding-left: 0.75rem;
   font-weight: bold;
-  height: 14.5rem;
+  height: 4.5rem;
   width: 18rem !important;
   border-right: none;
   border-bottom: none;
-} */
+}
 

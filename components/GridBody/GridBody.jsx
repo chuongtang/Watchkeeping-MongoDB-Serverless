@@ -127,8 +127,8 @@ const GridBody = ({ user }) => {
 
             <header className="p-d-flex p-jc-center" style={{ color: "#6366f1" }}>
                 <h1 className="p-mx-4"> Seafarers work hour records for the month of </h1>
-                <div className="reportMonth">
-                <Calendar id="monthpicker" style={monthPickerStyle} value={dataMonth} onChange={(e) => setDataMonth(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" /></div>
+                <section className="reportMonth">
+                <Calendar id="monthpicker"  value={dataMonth} onChange={(e) => setDataMonth(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" /></section>
             </header>
             <div className="card">
                 <div className="p-d-flex p-flex-column p-my-3 ">
