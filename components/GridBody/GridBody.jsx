@@ -12,7 +12,7 @@ import cellsGenerator from "./cellsGenerator.js";
 import anchor from "../../src/images/anchor.svg";
 
 
-const GridBody = ({user}) => {
+const GridBody = ({ user }) => {
 
     const [products, setProducts] = useState([]);
     const [selectedProduct1, setSelectedProduct1] = useState(null);
@@ -30,7 +30,7 @@ const GridBody = ({user}) => {
     const [selectedProducts7, setSelectedProducts7] = useState(null);
     const [selectedProducts8, setSelectedProducts8] = useState(null);
     const [selectedProducts9, setSelectedProducts9] = useState(null);
-    const [date10, setDate10] = useState(null);
+    const [dataMonth, setDataMonth] = useState(null);
     const [vesselName, setVesselName] = useState('');
     const [crews, setCrews] = useState([]);
     const [crew, setCrew] = useState({});
@@ -43,7 +43,7 @@ const GridBody = ({user}) => {
         // Fetch list for drop down component
         try {
             console.log('userMongoDB in GRidBody UseEffect', user);
-            
+
             const crewList = await user.functions.FetchCrewList();
             setCrews(crewList);
             console.log('list for OPtions', crews.Fullname)
@@ -101,13 +101,25 @@ const GridBody = ({user}) => {
 
     const commentStyle = {
         color: '#6366F1',
+    }
 
+    const monthPickerStyle = {
+        backgroundColor: 'white',
+        color: '#f59e0b !important',
+        fontSize: '10.8rem',
+        paddingRight: '0.1rem',
+        paddingLeft: '0.75rem',
+        fontWeight: 'bold',
+        height: '4.5rem',
+        width: '18rem',
+        borderRight: 'none',
+        borderBottom: 'none',
     }
 
     const onItemChange = (e) => {
         setCrew(e.value);
     }
-    
+
     return (
         <div className="datatable-selection">
             <Toast ref={toast} />
@@ -115,7 +127,8 @@ const GridBody = ({user}) => {
 
             <header className="p-d-flex p-jc-center" style={{ color: "#6366f1" }}>
                 <h1 className="p-mx-4"> Seafarers work hour records for the month of </h1>
-                <Calendar id="monthpicker" className="monthpicker" value={date10} onChange={(e) => setDate10(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" />
+                <div className="reportMonth">
+                <Calendar id="monthpicker" style={monthPickerStyle} value={dataMonth} onChange={(e) => setDataMonth(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" /></div>
             </header>
             <div className="card">
                 <div className="p-d-flex p-flex-column p-my-3 ">
@@ -127,7 +140,7 @@ const GridBody = ({user}) => {
                                 </span>
                                 {/* <object type="image/svg+xml" data={anchor} className="smIcon" alt="Anchor Image"></object> */}
                                 <InputText placeholder="Vessel Name" />
-                                
+
                             </div>
                         </div>
                         <div className="p-mb-2 p-mx-2">
@@ -149,7 +162,7 @@ const GridBody = ({user}) => {
                                 <span className="p-inputgroup-addon">
                                     <i className="pi pi-id-card"></i>
                                 </span>
-                                <Dropdown value={crew} options={crews} filter showClear filterBy="Fullname" optionLabel="Fullname" onChange={onItemChange} placeholder="Seafarer Name"/>
+                                <Dropdown value={crew} options={crews} filter filterBy="Fullname" optionLabel="Fullname" onChange={onItemChange} placeholder="Seafarer Name" />
                             </div>
                         </div>
                         <div className="p-mb-2 p-mx-2">
