@@ -39,6 +39,7 @@ const GridBody = ({ user }) => {
     const [value5, setValue5] = useState([20, 80]);
     const [remarks, setRemarks] = useState({});
     const [comment, setComment] = useState('');
+    const [restTime24, setRestTime24] = useState(24)
 
 
 
@@ -86,16 +87,24 @@ const GridBody = ({ user }) => {
     const toBeDeleted = (e) => {
         // e.preventDefault();
         setSelectedProducts6(e.value)
-        console.log('from Selection Change =>', e.value[0].selected)
-        const Cllass = cellClass(e.value[0].selected);
-        console.log(Cllass)
+        // console.log('from Selection Change =>', e.value[0].selected)
+        console.log('CELLS Selected', e.value)
+        // const Cllass = cellClass(e.value[0]);
+        // console.log(Cllass)
     }
 
     const remarkEditor = (options) => {
         return <InputText type="text" value={options.value} onChange={(e) => options.editorCallback(e.target.value)} />;
     }
 
+    const rest24 =(e) =>{
+        let { rowData, newValue, field, originalEvent: event } = e;
+        // // return rowData;
+        console.log('!!!',rowData);
+        return 24
+    }
 
+    // Callback for Edit comment/remark
     const onCellEditComplete = (e) => {
         let { rowData, newValue, field, originalEvent: event } = e;
         if (!newValue) {
@@ -134,6 +143,9 @@ const GridBody = ({ user }) => {
 
     const commentStyle = {
         color: '#6366F1',
+        backgroundColor: '#FFFFFF',
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 
     const onItemChange = (e) => {
@@ -223,7 +235,7 @@ const GridBody = ({ user }) => {
                     <Column field="22" style={cellsStyle} header="22"></Column>
                     <Column field="23" style={cellsStyle} header="23"></Column>
                     <Column field="24" style={cellsStyle} header="24"></Column>
-                    <Column style={restTimetStyle} field="restHr" header="Total Rest time in 24-hr"></Column>
+                    <Column style={restTimetStyle} field="restHr" header="Total Rest time in 24-hr" editor={rest24}></Column>
                     <Column style={restTimetStyle} field="restHr-7day" header="Total Rest time in 7-day"></Column>
 
                     <Column style={commentStyle} field="comment" header="Comment/Remark" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column>
