@@ -9,8 +9,10 @@ import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
 import cellsGenerator from "./cellsGenerator.js";
-import anchor from "../../src/images/anchor.svg"
-const GridBody = () => {
+import anchor from "../../src/images/anchor.svg";
+
+
+const GridBody = ({user}) => {
 
     const [products, setProducts] = useState([]);
     const [selectedProduct1, setSelectedProduct1] = useState(null);
@@ -30,12 +32,24 @@ const GridBody = () => {
     const [selectedProducts9, setSelectedProducts9] = useState(null);
     const [date10, setDate10] = useState(null);
     const [vesselName, setVesselName] = useState('');
+    const [crews, setCrews] = useState([]);
+    const [crew, setCrew] = useState({});
     const toast = useRef(null);
 
-    useEffect(() => {
+    useEffect(async () => {
         let Cells = cellsGenerator(2, 2022);
         console.log("UseEffect Fired");
         setProducts(Cells);
+        // Fetch list for drop down component
+        try {
+            console.log('userMongoDB in GRidBody UseEffect', user);
+            
+            const crewList = await user.functions.FetchCrewList();
+            setCrews(crewList);
+            console.log('list for OPtions', crews.Fullname)
+        } catch (error) {
+            console.error(error);
+        }
     }, []);
 
     const onRowSelect = (event) => {
@@ -90,6 +104,10 @@ const GridBody = () => {
 
     }
 
+    const onItemChange = (e) => {
+        setCrew(e.value);
+    }
+    
     return (
         <div className="datatable-selection">
             <Toast ref={toast} />
@@ -97,7 +115,7 @@ const GridBody = () => {
 
             <header className="p-d-flex p-jc-center" style={{ color: "#6366f1" }}>
                 <h1 className="p-mx-4"> Seafarers work hour records for the month of </h1>
-                <Calendar  id="monthpicker" className="monthpicker" value={date10} onChange={(e) => setDate10(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" />
+                <Calendar id="monthpicker" className="monthpicker" value={date10} onChange={(e) => setDate10(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" />
             </header>
             <div className="card">
                 <div className="p-d-flex p-flex-column p-my-3 ">
@@ -109,17 +127,18 @@ const GridBody = () => {
                                 </span>
                                 {/* <object type="image/svg+xml" data={anchor} className="smIcon" alt="Anchor Image"></object> */}
                                 <InputText placeholder="Vessel Name" />
+                                
                             </div>
                         </div>
                         <div className="p-mb-2 p-mx-2">
                             <div className="p-inputgroup">
-                               
+
                                 <InputText placeholder="Vessel Flag" />
                             </div>
                         </div>
                         <div className="p-mb-2">
                             <div className="p-inputgroup">
-                               
+
                                 <InputText placeholder="IMO number" />
                             </div>
                         </div>
@@ -130,19 +149,19 @@ const GridBody = () => {
                                 <span className="p-inputgroup-addon">
                                     <i className="pi pi-id-card"></i>
                                 </span>
-                                <InputText placeholder="Seafarer" />
+                                <Dropdown value={crew} options={crews} filter showClear filterBy="Fullname" optionLabel="Fullname" onChange={onItemChange} placeholder="Seafarer Name"/>
                             </div>
                         </div>
                         <div className="p-mb-2 p-mx-2">
                             <div className="p-inputgroup">
-                               
-                                <InputText placeholder="Position / Rank" />
+
+                                <InputText value={crew.Rank} disabled placeholder="Position / Rank" />
                             </div>
                         </div>
                         <div className="p-mb-2">
                             <div className="p-inputgroup">
-                               
-                                <InputText placeholder="Watchkeeping Duty" />
+
+                                <InputText value={crew.Watchkeeper} disabled placeholder="Watchkeeping Duty" />
                             </div>
                         </div>
                     </div>

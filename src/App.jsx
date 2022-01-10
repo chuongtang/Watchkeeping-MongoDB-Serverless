@@ -78,7 +78,7 @@ function App() {
       }
       {showCrewlist && <CrewList user={mongoUser} appUser={auth0User} />}
       {showMainPage && <MainPage />}
-      {showTimeReport && <GridBody />}
+      {showTimeReport && <GridBody user={mongoUser} />}
 
     </div>
   )
