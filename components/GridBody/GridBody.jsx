@@ -30,23 +30,46 @@ const GridBody = ({ user }) => {
     const [selectedProducts7, setSelectedProducts7] = useState(null);
     const [selectedProducts8, setSelectedProducts8] = useState(null);
     const [selectedProducts9, setSelectedProducts9] = useState(null);
-    const [dataMonth, setDataMonth] = useState(null);
-    const [vesselName, setVesselName] = useState('');
     const [crews, setCrews] = useState([]);
     const [crew, setCrew] = useState({});
     const toast = useRef(null);
+    const date = new Date();
+    const [dataMonth, setDataMonth] = useState(Date.now());
+
+
+    // extract Date object to useable array
+    const extract = (date) =>
+    date
+        .toISOString()
+        .split(/[^0-9]/)
+        .slice(0, -1);
+
+    const renderGrid = (dateObjValue)=>{
+        setDataMonth(dateObjValue)
+        console.log('dataMonth Here - OK', dateObjValue);
+        const rptMonth = dateObjValue.getMonth()+1; 
+        console.log('rptMonth Here', rptMonth);
+        let Cells = cellsGenerator(rptMonth, 2022);
+        setProducts(Cells);
+    }
+
+    // const toBeDeleted = (e) => {
+    //     const extractedDate = extract(e);
+    //     console.log("from TobeDelted", extractedDate)
+    // }
+
+    useEffect ( ()=>{
+        let Cells = cellsGenerator(1, 2022);
+        setProducts(Cells);
+    }, [])
 
     useEffect(async () => {
-        let Cells = cellsGenerator(2, 2022);
-        console.log("UseEffect Fired");
-        setProducts(Cells);
+        
         // Fetch list for drop down component
         try {
             console.log('userMongoDB in GRidBody UseEffect', user);
-
             const crewList = await user.functions.FetchCrewList();
             setCrews(crewList);
-            console.log('list for OPtions', crews.Fullname)
         } catch (error) {
             console.error(error);
         }
@@ -76,6 +99,8 @@ const GridBody = ({ user }) => {
     console.log(days)
     const daysInMonth = (month, year) => new Date(year, month, 0).getDate();
 
+   
+
     const dateStyle = {
         color: 'white',
         backgroundColor: '#6366F1',
@@ -96,24 +121,10 @@ const GridBody = ({ user }) => {
         color: '#F59E0B',
         direction: 'rtl',
         width: "1rem",
-
     }
 
     const commentStyle = {
         color: '#6366F1',
-    }
-
-    const monthPickerStyle = {
-        backgroundColor: 'white',
-        color: '#f59e0b !important',
-        fontSize: '10.8rem',
-        paddingRight: '0.1rem',
-        paddingLeft: '0.75rem',
-        fontWeight: 'bold',
-        height: '4.5rem',
-        width: '18rem',
-        borderRight: 'none',
-        borderBottom: 'none',
     }
 
     const onItemChange = (e) => {
@@ -128,7 +139,10 @@ const GridBody = ({ user }) => {
             <header className="p-d-flex p-jc-center" style={{ color: "#6366f1" }}>
                 <h1 className="p-mx-4"> Seafarers work hour records for the month of </h1>
                 <section className="reportMonth">
-                <Calendar id="monthpicker"  value={dataMonth} onChange={(e) => setDataMonth(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" /></section>
+                <Calendar id="monthpicker"  value={dataMonth} onChange={(e) => renderGrid(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" /></section>
+                {/* <section className="reportMonth">
+                <Calendar id="monthpicker"  value={dataMonth} onChange={(e) => setDataMonth(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" /></section> */}
+               
             </header>
             <div className="card">
                 <div className="p-d-flex p-flex-column p-my-3 ">
