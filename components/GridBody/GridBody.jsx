@@ -5,38 +5,24 @@ import { Column } from 'primereact/column';
 import { Toast } from 'primereact/toast';
 import './GridBody.css';
 import { Calendar } from 'primereact/calendar';
-import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
-import { Slider } from 'primereact/slider';
+
 import cellsGenerator from "./cellsGenerator.js";
-import anchor from "../../src/images/anchor.svg";
+
 
 
 const GridBody = ({ user }) => {
 
     const [products, setProducts] = useState([]);
-    const [selectedProduct1, setSelectedProduct1] = useState(null);
-    const [selectedProduct2, setSelectedProduct2] = useState(null);
-    const [selectedProduct3, setSelectedProduct3] = useState(null);
-    const [selectedProduct4, setSelectedProduct4] = useState(null);
-    const [selectedProduct5, setSelectedProduct5] = useState(null);
-    const [selectedProduct6, setSelectedProduct6] = useState(null);
-    const [selectedProducts1, setSelectedProducts1] = useState(null);
-    const [selectedProducts2, setSelectedProducts2] = useState(null);
-    const [selectedProducts3, setSelectedProducts3] = useState(null);
-    const [selectedProducts4, setSelectedProducts4] = useState(null);
-    const [selectedProducts5, setSelectedProducts5] = useState(null);
     const [selectedCells, setSelectedCells] = useState(null);
-    const [selectedProducts7, setSelectedProducts7] = useState(null);
-    const [selectedProducts8, setSelectedProducts8] = useState(null);
-    const [selectedProducts9, setSelectedProducts9] = useState(null);
+ 
     const [crews, setCrews] = useState([]);
     const [crew, setCrew] = useState({});
     const toast = useRef(null);
     const date = new Date();
     const [dataMonth, setDataMonth] = useState(Date.now());
-    const [value5, setValue5] = useState([20, 80]);
+
     const [remarks, setRemarks] = useState({});
     const [comment, setComment] = useState('');
     const [restTime24, setRestTime24] = useState(24)
@@ -106,9 +92,12 @@ const GridBody = ({ user }) => {
     const countBy = (arr, prop) => arr.reduce((prev, curr) => ((prev[curr[prop]] = ++prev[curr[prop]] || 1), prev), {});
 
     const rest24 = (e) => {
-       
-        console.log(e)
-         return (selectedCells? JSON.stringify(countBy(selectedCells, 'rowIndex')) : 24)
+        const restHour = selectedCells?JSON.stringify(countBy(selectedCells, 'rowIndex')): "calculating";
+        console.log("e from rest24", e)
+        console.log("restHour from rest24", restHour)
+        const rowMeta = getRowMeta();
+        console.log("rowMeta", rowMeta)
+         return (selectedCells? restHour : 24)
     }
 
     // Callback for Edit comment/remark
@@ -244,8 +233,9 @@ const GridBody = ({ user }) => {
                     <Column field="22" style={cellsStyle} header="22"></Column>
                     <Column field="23" style={cellsStyle} header="23"></Column>
                     <Column field="24" style={cellsStyle} header="24"></Column>
-                    <Column style={restTimetStyle} field="restHr" header="Total Rest time in 24-hr" body={rest24(id)}></Column>
-                    <Column style={restTimetStyle} field="restHr-7day" header="Total Rest time in 7-day"></Column>
+                    <Column style={restTimetStyle} field="restHr" header="Total Rest time in 24-hr" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column>
+                    {/* <Column style={restTimetStyle} field="restHr" header="Total Rest time in 24-hr" body={rest24()}></Column> */}
+                    <Column style={restTimetStyle} field="restHr-7day" header="Total Rest time in 7-day" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column>
 
                     <Column style={commentStyle} field="comment" header="Comment/Remark" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column>
                 </DataTable>
