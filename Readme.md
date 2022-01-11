@@ -21,13 +21,15 @@ One of a great ways to experience all pros and cons of any technologies is using
 **Serverless:** 
   * <img src="https://chuongtang.github.io/sourceStore/logos/Realm.png" alt="Realm"
 	title="Realm logo" height="20" /> [Application Services: ](https://www.mongodb.com/realm/appdev) A ready-to-go back end.
-**Database:** MongoDB Atlas
+
+**Database:**
   * <img src="https://chuongtang.github.io/sourceStore/logos/Mongo.jfif" alt="MongoDB"
 	title="MongoDB logo" height="20" /> [MongoDB Atlas: ](https://www.mongodb.com/atlas/database) multi-cloud database services.
   
 **Frontend User Authorization:** Autho0
   * <img src="https://chuongtang.github.io/sourceStore/logos/Auth0.png" alt="Auth0"
 	title="Auth0 logo" height="20" /> [Auth0: ](https://auth0.com) A drop-in solution to add authentication and authorization services.
+
 **Backend Serverless User Authorization:** 
   * <img src="https://chuongtang.github.io/sourceStore/logos/Mongo.jfif" alt="Mongo"
 	title="MongoDB logo" height="20" /> [MongoDB API Key: ](https://docs.mongodb.com/realm/authentication/api-key/#overview) A drop-in solution to add authentication and authorization services.
@@ -35,3 +37,7 @@ One of a great ways to experience all pros and cons of any technologies is using
 ## License
 
 ![Apache](https://img.shields.io/badge/License-APACHE%20LICENSE%2C%20VERSION%202.0-green)
+
+## Feedback
+
+If you have any feedback, please reach out to me at email@chuongtang.com
