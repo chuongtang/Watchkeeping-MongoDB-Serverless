@@ -27,7 +27,7 @@ const GridBody = ({ user }) => {
     const [selectedProducts3, setSelectedProducts3] = useState(null);
     const [selectedProducts4, setSelectedProducts4] = useState(null);
     const [selectedProducts5, setSelectedProducts5] = useState(null);
-    const [selectedProducts6, setSelectedProducts6] = useState(null);
+    const [selectedCells, setSelectedCells] = useState(null);
     const [selectedProducts7, setSelectedProducts7] = useState(null);
     const [selectedProducts8, setSelectedProducts8] = useState(null);
     const [selectedProducts9, setSelectedProducts9] = useState(null);
@@ -40,7 +40,7 @@ const GridBody = ({ user }) => {
     const [remarks, setRemarks] = useState({});
     const [comment, setComment] = useState('');
     const [restTime24, setRestTime24] = useState(24)
-
+    const [selectedCellsObj, setSelectedCellsObj] = useState({})
 
 
     const renderGrid = (dateObjValue) => {
@@ -86,22 +86,29 @@ const GridBody = ({ user }) => {
 
     const toBeDeleted = (e) => {
         // e.preventDefault();
-        setSelectedProducts6(e.value)
+        setSelectedCells(e.value)
         // console.log('from Selection Change =>', e.value[0].selected)
-        console.log('CELLS Selected', e.value)
+        console.table('CELLS Selected', e.value)
         // const Cllass = cellClass(e.value[0]);
         // console.log(Cllass)
+
+        // count the ⬇ property of an objects array 
+        const countBy = (arr, prop) => arr.reduce((prev, curr) => ((prev[curr[prop]] = ++prev[curr[prop]] || 1), prev), {});
+        console.log('count# This gives an obj->', countBy(e.value, 'rowIndex'));
+        setSelectedCellsObj(countBy(e.value, 'rowIndex'));
     }
 
     const remarkEditor = (options) => {
         return <InputText type="text" value={options.value} onChange={(e) => options.editorCallback(e.target.value)} />;
     }
 
-    const rest24 =(e) =>{
-        let { rowData, newValue, field, originalEvent: event } = e;
-        // // return rowData;
-        console.log('!!!',rowData);
-        return 24
+    // count the ⬇ property of an objects array 
+    const countBy = (arr, prop) => arr.reduce((prev, curr) => ((prev[curr[prop]] = ++prev[curr[prop]] || 1), prev), {});
+
+    const rest24 = (e) => {
+       
+        console.log(e)
+         return (selectedCells? JSON.stringify(countBy(selectedCells, 'rowIndex')) : 24)
     }
 
     // Callback for Edit comment/remark
@@ -136,7 +143,7 @@ const GridBody = ({ user }) => {
     }
 
     const cellsStyle = {
-        color: '#F59E0B',
+        color: '#6dd18e',
         direction: 'rtl',
         width: "1rem",
     }
@@ -151,6 +158,8 @@ const GridBody = ({ user }) => {
     const onItemChange = (e) => {
         setCrew(e.value);
     }
+
+
 
     return (
         <div className="datatable-selection">
@@ -206,8 +215,8 @@ const GridBody = ({ user }) => {
                     </div>
                 </div>
 
-                <DataTable value={products} selectionMode="multiple" cellSelection metaKeySelection={false} selection={selectedProducts6} onSelectionChange={e => toBeDeleted(e)} dataKey="id" showGridlines responsiveLayout="scroll" size="small" cellClassName={cellClass}  >
-                    {/* <DataTable value={products} selectionMode="multiple" cellSelection dragSelection selection={selectedProducts6} onSelectionChange={e => setSelectedProducts6(e.value)} dataKey="id" showGridlines responsiveLayout="scroll" size="small"  > */}
+                <DataTable value={products} selectionMode="multiple" cellSelection dragSelection metaKeySelection={false} selection={selectedCells} onSelectionChange={e => toBeDeleted(e)} dataKey="id" showGridlines responsiveLayout="scroll" size="small" cellClassName={cellClass}  >
+                    {/* <DataTable value={products} selectionMode="multiple" cellSelection dragSelection selection={selectedCells} onSelectionChange={e => setSelectedCells(e.value)} dataKey="id" showGridlines responsiveLayout="scroll" size="small"  > */}
 
                     <Column field="date" style={dateStyle} header="Date ⇩ "></Column>
                     <Column field="00" style={cellsStyle} header="00"></Column>
@@ -235,7 +244,7 @@ const GridBody = ({ user }) => {
                     <Column field="22" style={cellsStyle} header="22"></Column>
                     <Column field="23" style={cellsStyle} header="23"></Column>
                     <Column field="24" style={cellsStyle} header="24"></Column>
-                    <Column style={restTimetStyle} field="restHr" header="Total Rest time in 24-hr" editor={rest24}></Column>
+                    <Column style={restTimetStyle} field="restHr" header="Total Rest time in 24-hr" body={rest24(id)}></Column>
                     <Column style={restTimetStyle} field="restHr-7day" header="Total Rest time in 7-day"></Column>
 
                     <Column style={commentStyle} field="comment" header="Comment/Remark" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column>
