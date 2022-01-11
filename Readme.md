@@ -23,7 +23,7 @@ One of a great ways to experience all pros and cons of any technologies is using
 	title="Realm logo" height="20" /> [Application Services: ](https://www.mongodb.com/realm/appdev) A ready-to-go back end.
 
 **Database:**
-  * <img src="https://chuongtang.github.io/sourceStore/logos/Mongo.jfif" alt="MongoDB"
+  * <img src="https://chuongtang.github.io/sourceStore/logos/MongoDB.png" alt="MongoDB"
 	title="MongoDB logo" height="20" /> [MongoDB Atlas: ](https://www.mongodb.com/atlas/database) multi-cloud database services.
   
 **Frontend User Authorization:** Autho0
@@ -31,7 +31,7 @@ One of a great ways to experience all pros and cons of any technologies is using
 	title="Auth0 logo" height="20" /> [Auth0: ](https://auth0.com) A drop-in solution to add authentication and authorization services.
 
 **Backend Serverless User Authorization:** 
-  * <img src="https://chuongtang.github.io/sourceStore/logos/Mongo.jfif" alt="Mongo"
+  * <img src="https://chuongtang.github.io/sourceStore/logos/MongoDB.png" alt="MongoDB"
 	title="MongoDB logo" height="20" /> [MongoDB API Key: ](https://docs.mongodb.com/realm/authentication/api-key/#overview) A drop-in solution to add authentication and authorization services.
 
 ## License
