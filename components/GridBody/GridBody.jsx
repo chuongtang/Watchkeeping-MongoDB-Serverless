@@ -88,13 +88,6 @@ const GridBody = ({ user }) => {
     // count the ⬇ property of an objects array 
     const countBy = (arr, prop) => arr.reduce((prev, curr) => ((prev[curr[prop]] = ++prev[curr[prop]] || 1), prev), {});
 
-    const rest24 = ({ data, props }) => {
-        const restHour = selectedCells ? JSON.stringify(countBy(selectedCells, 'rowIndex')) : 24;
-        let hournumber = restHour.props
-        console.log("restHour count Object", restHour);
-        return (selectedCells ? restHour : 24)
-    }
-
     // Callback for Edit comment/remark
     const onCellEditComplete = (e) => {
         let { rowData, newValue, field, originalEvent: event } = e;
