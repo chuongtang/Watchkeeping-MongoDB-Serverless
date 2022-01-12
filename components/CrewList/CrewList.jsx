@@ -61,7 +61,6 @@ const CrewList = ({ user, appUser }) => {
     try {
       const crewList = await user.functions.FetchCrewList();
       setCrews(crewList);
-      console.log('userMongoDB in CrewList UseEffect', user);
     } catch (error) {
       console.error(error);
     }

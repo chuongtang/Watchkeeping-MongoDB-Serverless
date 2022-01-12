@@ -29,14 +29,11 @@ const GridBody = ({ user }) => {
     const [selectedCellsObj, setSelectedCellsObj] = useState({})
 
     let HourRows = GenHourCol();
-    console.log("HourRows from import at head", HourRows);
 
     const renderGrid = (dateObjValue) => {
         setDataMonth(dateObjValue)
-        console.log('dataMonth Here - OK', dateObjValue);
         const rptMonth = dateObjValue.getMonth() + 1;
         const rptYear = dateObjValue.getFullYear();
-        console.log('rptMonth Here', rptMonth);
         let Cells = cellsGenerator(rptMonth, rptYear);
         setProducts(Cells);
     }
@@ -51,7 +48,6 @@ const GridBody = ({ user }) => {
 
         // Fetch list for drop down component
         try {
-            console.log('userMongoDB in GRidBody UseEffect', user);
             const crewList = await user.functions.FetchCrewList();
             setCrews(crewList);
         } catch (error) {
@@ -74,16 +70,12 @@ const GridBody = ({ user }) => {
     }
 
     const toBeDeleted = (e) => {
-        // e.preventDefault();
+
         setSelectedCells(e.value)
-        // console.log('from Selection Change =>', e.value[0].selected)
         console.table('CELLS Selected', e.value)
-        // const Cllass = cellClass(e.value[0]);
-        // console.log(Cllass)
 
         // count the ⬇ property of an objects array 
         const countBy = (arr, prop) => arr.reduce((prev, curr) => ((prev[curr[prop]] = ++prev[curr[prop]] || 1), prev), {});
-        console.log('count# This gives an obj->', countBy(e.value, 'rowIndex'));
         setSelectedCellsObj(countBy(e.value, 'rowIndex'));
     }
 
@@ -96,10 +88,7 @@ const GridBody = ({ user }) => {
 
     const rest24 = (e) => {
         const restHour = selectedCells ? JSON.stringify(countBy(selectedCells, 'rowIndex')) : "calculating";
-        console.log("e from rest24", e)
-        console.log("restHour from rest24", restHour)
         const rowMeta = getRowMeta();
-        console.log("rowMeta", rowMeta)
         return (selectedCells ? restHour : 24)
     }
 
@@ -112,7 +101,6 @@ const GridBody = ({ user }) => {
         }
         if (newValue.trim().length > 0) {
             rowData[field] = newValue;
-            console.log("rowData Here +++", rowData)
         } else {
             event.preventDefault();
         }
@@ -150,8 +138,6 @@ const GridBody = ({ user }) => {
     const onItemChange = (e) => {
         setCrew(e.value);
     }
-
-
 
     return (
         <div className="datatable-selection">
