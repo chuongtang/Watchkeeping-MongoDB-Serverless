@@ -130,10 +130,9 @@ const GridBody = ({ user }) => {
     }
 
     const commentStyle = {
-        color: '#6366F1',
+        color: '#6dd18e',
         backgroundColor: '#FFFFFF',
         justifyContent: 'center',
-        alignItems: 'center',
     }
 
     const onItemChange = (e) => {
@@ -157,80 +156,83 @@ const GridBody = ({ user }) => {
 
     return (
         <>
-        <Button type="button" icon="pi pi-file-pdf" onClick={exportPdf} className="p-button-warning p-mr-2" data-pr-tooltip="PDF" />
-        <div className="datatable-selection" id="pdfContent">
-            <Toast ref={toast} />
+            <Button type="button" icon="pi pi-file-pdf" onClick={exportPdf} style={{ float: "right" }} className="p-button-success p-button-raised p-button-text p-mr-6" label="export to PDF" data-pr-tooltip="PDF" />
+            <div className="datatable-selection" id="pdfContent">
+                <Toast ref={toast} />
 
-            <header className="p-d-flex p-jc-center" style={{ color: "#6366f1" }}>
-                <h1 className="p-mx-3"> Seafarers work hour records for the month of </h1>
-                <section className="reportMonth">
-                    <Calendar id="monthpicker" value={dataMonth} onChange={(e) => renderGrid(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" placeholder=". . ." /></section>
-            </header>
-            <div className="card">
-                <div className="p-d-flex p-flex-column p-my-1 ">
-                    <div className="p-d-flex p-flex-column p-flex-md-row p-mx-auto ">
-                        <div className="p-mb-2 ">
-                            <div className="p-inputgroup">
-                                <span className="p-inputgroup-addon">
-                                    {/* <i className="pi pi-shield"></i> */}
-                                    <object type="image/svg+xml" data={ship} style={{ maxHeight: "1.25rem" }} alt="Ship Logo"></object>
-                                </span>
-                                <InputText placeholder="Vessel Name" />
+                <header className="p-d-flex p-jc-center" style={{ color: "#6366f1" }}>
+                    <h1 className="p-mx-3"> Seafarers work hour records </h1>
+                </header>
+
+                <div className="card">
+                    <div className="p-d-flex p-jc-center p-ai-center">
+                        <section className="reportMonth">
+                            <Calendar id="monthpicker" value={dataMonth} onChange={(e) => renderGrid(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" placeholder="Select Month ⏷" /></section>
+                        <div className="p-d-flex p-flex-column p-my-1 ">
+                            <div className="p-d-flex p-flex-column p-flex-md-row p-mx-auto ">
+                                <div className="p-mb-2 ">
+                                    <div className="p-inputgroup">
+                                        <span className="p-inputgroup-addon">
+                                            {/* <i className="pi pi-shield"></i> */}
+                                            <object type="image/svg+xml" data={ship} style={{ maxHeight: "1.25rem" }} alt="Ship Logo"></object>
+                                        </span>
+                                        <InputText style={{ width: '18rem' }} placeholder="Vessel Name" />
+                                    </div>
+                                </div>
+                                <div className="p-mb-2 p-mx-2">
+                                    <div className="p-inputgroup">
+                                        <InputText style={{ width: '18rem' }} placeholder="Vessel Flag" />
+                                    </div>
+                                </div>
+                                <div className="p-mb-2">
+                                    <div className="p-inputgroup">
+                                        <InputText style={{ width: '18rem' }} placeholder="IMO number" />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div className="p-mb-2 p-mx-2">
-                            <div className="p-inputgroup">
-                                <InputText placeholder="Vessel Flag" />
-                            </div>
-                        </div>
-                        <div className="p-mb-2">
-                            <div className="p-inputgroup">
-                                <InputText placeholder="IMO number" />
+                            <div className="p-d-flex p-flex-column p-flex-md-row ">
+                                <div className="p-mb-2">
+                                    <div className="p-inputgroup">
+                                        <span className="p-inputgroup-addon">
+                                            <object type="image/svg+xml" data={sailor} style={{ maxHeight: "1.25rem" }} alt="Sailor Logo"></object>
+                                        </span>
+                                        <Dropdown value={crew} style={{ width: '18rem' }} options={crews} filter filterBy="Fullname" optionLabel="Fullname" onChange={onItemChange} placeholder="Seafarer Name" />
+                                    </div>
+                                </div>
+                                <div className="p-mb-2 p-mx-2 ">
+                                    <div className="p-inputgroup">
+                                        <InputText value={crew.Rank} style={{ width: '18rem' }} disabled placeholder="Position / Rank" />
+                                    </div>
+                                </div>
+                                <div className="p-mb-2">
+                                    <div className="p-inputgroup">
+                                        <InputText value={crew.Watchkeeper} style={{ width: '18rem' }} disabled placeholder="Watchkeeping Duty" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div className="p-d-flex p-flex-column p-flex-md-row p-mx-auto">
-                        <div className="p-mb-2">
-                            <div className="p-inputgroup">
-                                <span className="p-inputgroup-addon">
-                                    <object type="image/svg+xml" data={sailor} style={{ maxHeight: "1.25rem" }} alt="Sailor Logo"></object>
-                                </span>
-                                <Dropdown value={crew} options={crews} filter filterBy="Fullname" optionLabel="Fullname" onChange={onItemChange} placeholder="Seafarer Name" />
-                            </div>
-                        </div>
-                        <div className="p-mb-2 p-mx-2">
-                            <div className="p-inputgroup">
-                                <InputText value={crew.Rank} disabled placeholder="Position / Rank" />
-                            </div>
-                        </div>
-                        <div className="p-mb-2">
-                            <div className="p-inputgroup">
-                                <InputText value={crew.Watchkeeper} disabled placeholder="Watchkeeping Duty" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <DataTable value={products} selectionMode="multiple" cellSelection dragSelection metaKeySelection={false} selection={selectedCells} onSelectionChange={e => toBeDeleted(e)} dataKey="id" showGridlines responsiveLayout="scroll" size="small" cellClassName={cellClass}>
+                    <DataTable value={products} selectionMode="multiple" cellSelection dragSelection metaKeySelection={false} selection={selectedCells} onSelectionChange={e => toBeDeleted(e)} dataKey="id" showGridlines responsiveLayout="scroll" size="small" cellClassName={cellClass}>
 
-                    <Column field="date" style={dateStyle} header="Date ⇩ "></Column>
+                        <Column field="date" style={dateStyle} header="Date ⇩ "></Column>
 
-                    {HourRows.map((item, index) => (<Column field={item} key={index} style={cellsStyle} header={item}></Column>))}
-                    {/* <Column style={restTimetStyle} field="restHr" header="Total Rest time in 24-hr" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column> */}
-                    <Column style={restTimetStyle} field="restHr" header="Total Rest time in 24-hr" body={(data, props) =>
-                        <div>
-                            {!isNaN(24 - restTime24SelectedCells[props.rowIndex]) ? (24 - restTime24SelectedCells[props.rowIndex]) : ""}
-                            {/* {JSON.stringify(restTime24SelectedCells) === '{}'? "" : (24 - restTime24SelectedCells[props.rowIndex])} */}
-                        </div>
-                    }></Column>
-{/* 
+                        {HourRows.map((item, index) => (<Column field={item} key={index} style={cellsStyle} header={item}></Column>))}
+                        {/* <Column style={restTimetStyle} field="restHr" header="Total Rest time in 24-hr" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column> */}
+                        <Column style={restTimetStyle} field="restHr" header="Total Rest time in 24-hr" body={(data, props) =>
+                            <div>
+                                {!isNaN(24 - restTime24SelectedCells[props.rowIndex]) ? (24 - restTime24SelectedCells[props.rowIndex]) : ""}
+                                {/* {JSON.stringify(restTime24SelectedCells) === '{}'? "" : (24 - restTime24SelectedCells[props.rowIndex])} */}
+                            </div>
+                        }></Column>
+                        {/* 
                     <Column style={restTimetStyle} field="restHr-7day" header="Total Rest time in 7-day" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column> */}
 
-                    <Column style={commentStyle} field="comment" header="Comment/Remark" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column>
-                </DataTable>
+                        <Column style={commentStyle} field="comment" header="Comment/Remark" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column>
+                    </DataTable>
+                </div>
+                <h5 className="p-d-flex p-jc-center p-text-italic" id="copyRight">Copyright (c) 2022_  <a href={'http://chuongtang.com'}>CT</a> </h5>
             </div>
-                    <h5 className="p-d-flex p-jc-center p-text-italic" id="copyRight">Copyright (c) 2022_  <a href={'http://chuongtang.com'}>CT</a> </h5>
-        </div>
         </>
     );
 }
