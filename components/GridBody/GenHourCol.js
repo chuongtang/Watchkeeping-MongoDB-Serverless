@@ -2,7 +2,7 @@ const GenHourCol = () => {
   // Prefix an integer with zeros
   const prefixWithZeros = (n, length) => `${Array(length).join('0')}${n}`.slice(-length);
 
-  let hourStart = 0;
+  let hourStart = 1;
   let arr = []
   while (hourStart < 25) {arr.push(hourStart++);
   }

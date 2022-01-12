@@ -228,7 +228,7 @@ const GridBody = ({ user }) => {
                         {/* 
                     <Column style={restTimetStyle} field="restHr-7day" header="Total Rest time in 7-day" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column> */}
 
-                        <Column style={commentStyle} field="comment" header="Comment/Remark" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column>
+                        <Column style={commentStyle} field="comment" header="Comment/Remark" editor={remarkEditor} onCellEditComplete={onCellEditComplete} body={(data, props) => console.log(props)}></Column>
                     </DataTable>
                 </div>
                 <h5 className="p-d-flex p-jc-center p-text-italic" id="copyRight">Copyright (c) 2022_  <a href={'http://chuongtang.com'}>CT</a> </h5>
