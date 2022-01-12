@@ -24,10 +24,10 @@ const GridBody = ({ user }) => {
     const toast = useRef(null);
     const date = new Date();
     const [dataMonth, setDataMonth] = useState(Date.now());
-    
+
     const [remarks, setRemarks] = useState({});
     const [comment, setComment] = useState('');
-    const [restTime24, setRestTime24] = useState(24)
+    const [restTime24SelectedCells, setRestTime24SelectedCells] = useState({})
     const [selectedCellsObj, setSelectedCellsObj] = useState({})
 
     let HourRows = GenHourCol();
@@ -43,7 +43,7 @@ const GridBody = ({ user }) => {
     useEffect(() => {
         let Cells = cellsGenerator(1, 2022);
         setProducts(Cells);
-        
+
     }, [])
 
     useEffect(async () => {
@@ -78,7 +78,7 @@ const GridBody = ({ user }) => {
 
         // count the ⬇ property of an objects array 
         const countBy = (arr, prop) => arr.reduce((prev, curr) => ((prev[curr[prop]] = ++prev[curr[prop]] || 1), prev), {});
-        setSelectedCellsObj(countBy(e.value, 'rowIndex'));
+        setRestTime24SelectedCells(countBy(e.value, 'rowIndex'));
     }
 
     const remarkEditor = (options) => {
@@ -88,9 +88,10 @@ const GridBody = ({ user }) => {
     // count the ⬇ property of an objects array 
     const countBy = (arr, prop) => arr.reduce((prev, curr) => ((prev[curr[prop]] = ++prev[curr[prop]] || 1), prev), {});
 
-    const rest24 = (e) => {
-        const restHour = selectedCells ? JSON.stringify(countBy(selectedCells, 'rowIndex')) : "calculating";
-        const rowMeta = getRowMeta();
+    const rest24 = ({ data, props }) => {
+        const restHour = selectedCells ? JSON.stringify(countBy(selectedCells, 'rowIndex')) : 24;
+        let hournumber = restHour.props
+        console.log("restHour count Object", restHour);
         return (selectedCells ? restHour : 24)
     }
 
@@ -195,13 +196,19 @@ const GridBody = ({ user }) => {
                     </div>
                 </div>
 
-                <DataTable value={products} selectionMode="multiple" cellSelection dragSelection metaKeySelection={false} selection={selectedCells} onSelectionChange={e => toBeDeleted(e)} dataKey="id" showGridlines responsiveLayout="scroll" size="small" cellClassName={cellClass}  >
-        
+                <DataTable value={products} selectionMode="multiple" cellSelection dragSelection metaKeySelection={false} selection={selectedCells} onSelectionChange={e => toBeDeleted(e)} dataKey="id" showGridlines responsiveLayout="scroll" size="small" cellClassName={cellClass}>
+
                     <Column field="date" style={dateStyle} header="Date ⇩ "></Column>
 
-                    {HourRows.map( (item, index) =>  ( <Column field={item} key={index} style={cellsStyle} header={item}></Column>))}
-                    <Column style={restTimetStyle} field="restHr" header="Total Rest time in 24-hr" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column>
-                    {/* <Column style={restTimetStyle} field="restHr" header="Total Rest time in 24-hr" body={rest24()}></Column> */}
+                    {HourRows.map((item, index) => (<Column field={item} key={index} style={cellsStyle} header={item}></Column>))}
+                    {/* <Column style={restTimetStyle} field="restHr" header="Total Rest time in 24-hr" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column> */}
+                    <Column style={restTimetStyle} field="restHr" header="Total Rest time in 24-hr" body={(data, props) =>
+                        <div>
+                            {!isNaN(24 - restTime24SelectedCells[props.rowIndex]) ? (24 - restTime24SelectedCells[props.rowIndex]) : ""}
+                            {/* {JSON.stringify(restTime24SelectedCells) === '{}'? "" : (24 - restTime24SelectedCells[props.rowIndex])} */}
+                        </div>
+                    }></Column>
+
                     <Column style={restTimetStyle} field="restHr-7day" header="Total Rest time in 7-day" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column>
 
                     <Column style={commentStyle} field="comment" header="Comment/Remark" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column>
