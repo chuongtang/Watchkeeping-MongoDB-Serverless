@@ -7,8 +7,10 @@ import './GridBody.css';
 import { Calendar } from 'primereact/calendar';
 import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
 import GenHourCol from './GenHourCol.js';
 import cellsGenerator from "./cellsGenerator.js";
+// import exportPdf from "./ExportPDF.js";
 
 
 
@@ -148,6 +150,7 @@ const GridBody = ({ user }) => {
                 <section className="reportMonth">
                     <Calendar id="monthpicker" value={dataMonth} onChange={(e) => renderGrid(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" placeholder=". . ." /></section>
             </header>
+            {/* <Button type="button" icon="pi pi-file-pdf" onClick={exportPdf} className="p-button-warning p-mr-2" data-pr-tooltip="PDF" /> */}
             <div className="card">
                 <div className="p-d-flex p-flex-column p-my-3 ">
                     <div className="p-d-flex p-flex-column p-flex-md-row p-mx-auto ">
@@ -196,7 +199,7 @@ const GridBody = ({ user }) => {
         
                     <Column field="date" style={dateStyle} header="Date ⇩ "></Column>
 
-                    {HourRows.map( item =>  ( <Column field={item} style={cellsStyle} header={item}></Column>))}
+                    {HourRows.map( (item, index) =>  ( <Column field={item} key={index} style={cellsStyle} header={item}></Column>))}
                     <Column style={restTimetStyle} field="restHr" header="Total Rest time in 24-hr" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column>
                     {/* <Column style={restTimetStyle} field="restHr" header="Total Rest time in 24-hr" body={rest24()}></Column> */}
                     <Column style={restTimetStyle} field="restHr-7day" header="Total Rest time in 7-day" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column>

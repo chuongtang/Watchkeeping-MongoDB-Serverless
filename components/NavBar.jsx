@@ -52,7 +52,6 @@ const NavBar = () => {
     const leftContents = (
         <React.Fragment>
             <img alt="logo" src={Logo} height="40"></img>
-           
         </React.Fragment>
     );
 
