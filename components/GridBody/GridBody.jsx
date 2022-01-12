@@ -7,7 +7,7 @@ import './GridBody.css';
 import { Calendar } from 'primereact/calendar';
 import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
-
+import GenHourCol from './GenHourCol.js';
 import cellsGenerator from "./cellsGenerator.js";
 
 
@@ -16,18 +16,20 @@ const GridBody = ({ user }) => {
 
     const [products, setProducts] = useState([]);
     const [selectedCells, setSelectedCells] = useState(null);
- 
+    const hourFields = ["00", ""]
     const [crews, setCrews] = useState([]);
     const [crew, setCrew] = useState({});
     const toast = useRef(null);
     const date = new Date();
     const [dataMonth, setDataMonth] = useState(Date.now());
-
+    
     const [remarks, setRemarks] = useState({});
     const [comment, setComment] = useState('');
     const [restTime24, setRestTime24] = useState(24)
     const [selectedCellsObj, setSelectedCellsObj] = useState({})
 
+    let HourRows = GenHourCol();
+    console.log("HourRows from import at head", HourRows);
 
     const renderGrid = (dateObjValue) => {
         setDataMonth(dateObjValue)
@@ -42,6 +44,7 @@ const GridBody = ({ user }) => {
     useEffect(() => {
         let Cells = cellsGenerator(1, 2022);
         setProducts(Cells);
+        
     }, [])
 
     useEffect(async () => {
@@ -92,12 +95,12 @@ const GridBody = ({ user }) => {
     const countBy = (arr, prop) => arr.reduce((prev, curr) => ((prev[curr[prop]] = ++prev[curr[prop]] || 1), prev), {});
 
     const rest24 = (e) => {
-        const restHour = selectedCells?JSON.stringify(countBy(selectedCells, 'rowIndex')): "calculating";
+        const restHour = selectedCells ? JSON.stringify(countBy(selectedCells, 'rowIndex')) : "calculating";
         console.log("e from rest24", e)
         console.log("restHour from rest24", restHour)
         const rowMeta = getRowMeta();
         console.log("rowMeta", rowMeta)
-         return (selectedCells? restHour : 24)
+        return (selectedCells ? restHour : 24)
     }
 
     // Callback for Edit comment/remark
@@ -158,7 +161,6 @@ const GridBody = ({ user }) => {
                 <h1 className="p-mx-4"> Seafarers work hour records for the month of </h1>
                 <section className="reportMonth">
                     <Calendar id="monthpicker" value={dataMonth} onChange={(e) => renderGrid(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" placeholder=". . ." /></section>
-
             </header>
             <div className="card">
                 <div className="p-d-flex p-flex-column p-my-3 ">
@@ -205,34 +207,10 @@ const GridBody = ({ user }) => {
                 </div>
 
                 <DataTable value={products} selectionMode="multiple" cellSelection dragSelection metaKeySelection={false} selection={selectedCells} onSelectionChange={e => toBeDeleted(e)} dataKey="id" showGridlines responsiveLayout="scroll" size="small" cellClassName={cellClass}  >
-                    {/* <DataTable value={products} selectionMode="multiple" cellSelection dragSelection selection={selectedCells} onSelectionChange={e => setSelectedCells(e.value)} dataKey="id" showGridlines responsiveLayout="scroll" size="small"  > */}
-
+        
                     <Column field="date" style={dateStyle} header="Date ⇩ "></Column>
-                    <Column field="00" style={cellsStyle} header="00"></Column>
-                    <Column field="01" style={cellsStyle} header="01"></Column>
-                    <Column field="02" style={cellsStyle} header="02"></Column>
-                    <Column field="03" style={cellsStyle} header="03"></Column>
-                    <Column field="04" style={cellsStyle} header="04"></Column>
-                    <Column field="05" style={cellsStyle} header="05"></Column>
-                    <Column field="06" style={cellsStyle} header="06"></Column>
-                    <Column field="07" style={cellsStyle} header="07"></Column>
-                    <Column field="08" style={cellsStyle} header="08"></Column>
-                    <Column field="09" style={cellsStyle} header="09"></Column>
-                    <Column field="10" style={cellsStyle} header="10"></Column>
-                    <Column field="11" style={cellsStyle} header="11"></Column>
-                    <Column field="12" style={cellsStyle} header="12"></Column>
-                    <Column field="13" style={cellsStyle} header="13"></Column>
-                    <Column field="14" style={cellsStyle} header="14"></Column>
-                    <Column field="15" style={cellsStyle} header="15"></Column>
-                    <Column field="16" style={cellsStyle} header="16"></Column>
-                    <Column field="17" style={cellsStyle} header="17"></Column>
-                    <Column field="18" style={cellsStyle} header="18"></Column>
-                    <Column field="19" style={cellsStyle} header="19"></Column>
-                    <Column field="20" style={cellsStyle} header="20"></Column>
-                    <Column field="21" style={cellsStyle} header="21"></Column>
-                    <Column field="22" style={cellsStyle} header="22"></Column>
-                    <Column field="23" style={cellsStyle} header="23"></Column>
-                    <Column field="24" style={cellsStyle} header="24"></Column>
+
+                    {HourRows.map( item =>  ( <Column field={item} style={cellsStyle} header={item}></Column>))}
                     <Column style={restTimetStyle} field="restHr" header="Total Rest time in 24-hr" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column>
                     {/* <Column style={restTimetStyle} field="restHr" header="Total Rest time in 24-hr" body={rest24()}></Column> */}
                     <Column style={restTimetStyle} field="restHr-7day" header="Total Rest time in 7-day" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column>
