@@ -6,4 +6,6 @@ const exportPdf = () => {
           doc.save('products.pdf');
       })
   })
-}
+};
+
+export default exportPdf;

@@ -12,6 +12,10 @@ import GenHourCol from './GenHourCol.js';
 import cellsGenerator from "./cellsGenerator.js";
 // import exportPdf from "./ExportPDF.js";
 
+import sailor from "../../src/images/sailor.svg";
+import ship from "../../src/images/ship.svg";
+
+
 
 
 const GridBody = ({ user }) => {
@@ -28,7 +32,8 @@ const GridBody = ({ user }) => {
     const [remarks, setRemarks] = useState({});
     const [comment, setComment] = useState('');
     const [restTime24SelectedCells, setRestTime24SelectedCells] = useState({})
-    const [selectedCellsObj, setSelectedCellsObj] = useState({})
+    const [selectedCellsObj, setSelectedCellsObj] = useState({});
+
 
     let HourRows = GenHourCol();
 
@@ -135,6 +140,16 @@ const GridBody = ({ user }) => {
         setCrew(e.value);
     }
 
+    const exportPdf = () => {
+        import('jspdf').then(jsPDF => {
+            import('jspdf-autotable').then(() => {
+                const doc = new jsPDF.default(0, 0);
+                doc.autoTable(exportColumns, products);
+                doc.save('products.pdf');
+            })
+        })
+    };
+
     return (
         <div className="datatable-selection">
             <Toast ref={toast} />
@@ -144,14 +159,15 @@ const GridBody = ({ user }) => {
                 <section className="reportMonth">
                     <Calendar id="monthpicker" value={dataMonth} onChange={(e) => renderGrid(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" placeholder=". . ." /></section>
             </header>
-            {/* <Button type="button" icon="pi pi-file-pdf" onClick={exportPdf} className="p-button-warning p-mr-2" data-pr-tooltip="PDF" /> */}
+            <Button type="button" icon="pi pi-file-pdf" onClick={exportPdf} className="p-button-warning p-mr-2" data-pr-tooltip="PDF" />
             <div className="card">
                 <div className="p-d-flex p-flex-column p-my-3 ">
                     <div className="p-d-flex p-flex-column p-flex-md-row p-mx-auto ">
                         <div className="p-mb-2 ">
                             <div className="p-inputgroup">
                                 <span className="p-inputgroup-addon">
-                                    <i className="pi pi-shield"></i>
+                                    {/* <i className="pi pi-shield"></i> */}
+                                    <object type="image/svg+xml" data={ship} style={{maxHeight:"1.25rem"}} alt="Ship Logo"></object>
                                 </span>
                                 <InputText placeholder="Vessel Name" />
                             </div>
@@ -171,7 +187,7 @@ const GridBody = ({ user }) => {
                         <div className="p-mb-2">
                             <div className="p-inputgroup">
                                 <span className="p-inputgroup-addon">
-                                    <i className="pi pi-id-card"></i>
+                                <object type="image/svg+xml" data={sailor} style={{maxHeight:"1.25rem"}} alt="Sailor Logo"></object>
                                 </span>
                                 <Dropdown value={crew} options={crews} filter filterBy="Fullname" optionLabel="Fullname" onChange={onItemChange} placeholder="Seafarer Name" />
                             </div>
