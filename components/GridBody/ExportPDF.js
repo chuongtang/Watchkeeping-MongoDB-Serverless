@@ -1,11 +1,6 @@
 const exportPdf = () => {
-  import('jspdf').then(jsPDF => {
-      import('jspdf-autotable').then(() => {
-          const doc = new jsPDF.default(0, 0);
-          doc.autoTable(exportColumns, products);
-          doc.save('products.pdf');
-      })
-  })
+  var element = document.getElementById('pdfContent');
+  html2pdf(element);
 };
 
 export default exportPdf;

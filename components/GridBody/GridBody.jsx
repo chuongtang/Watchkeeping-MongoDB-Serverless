@@ -14,7 +14,7 @@ import cellsGenerator from "./cellsGenerator.js";
 
 import sailor from "../../src/images/sailor.svg";
 import ship from "../../src/images/ship.svg";
-
+import html2pdf from "html2pdf.js";
 
 
 
@@ -141,33 +141,39 @@ const GridBody = ({ user }) => {
     }
 
     const exportPdf = () => {
-        import('jspdf').then(jsPDF => {
-            import('jspdf-autotable').then(() => {
-                const doc = new jsPDF.default(0, 0);
-                doc.autoTable(exportColumns, products);
-                doc.save('products.pdf');
-            })
-        })
+
+        let element = document.getElementById('pdfContent');
+        var opt = {
+            margin: 0.1,
+            filename: 'CrewTimeSheet.pdf',
+            image: { type: 'svg', quality: 0.99 },
+            jsPDF: { unit: 'in', format: 'a3', orientation: 'landscape' }
+        };
+        html2pdf().set({
+            pagebreak: { before: '#copyRight' }
+        });
+        html2pdf(element, opt);
     };
 
     return (
-        <div className="datatable-selection">
+        <>
+        <Button type="button" icon="pi pi-file-pdf" onClick={exportPdf} className="p-button-warning p-mr-2" data-pr-tooltip="PDF" />
+        <div className="datatable-selection" id="pdfContent">
             <Toast ref={toast} />
 
             <header className="p-d-flex p-jc-center" style={{ color: "#6366f1" }}>
-                <h1 className="p-mx-4"> Seafarers work hour records for the month of </h1>
+                <h1 className="p-mx-3"> Seafarers work hour records for the month of </h1>
                 <section className="reportMonth">
                     <Calendar id="monthpicker" value={dataMonth} onChange={(e) => renderGrid(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" placeholder=". . ." /></section>
             </header>
-            <Button type="button" icon="pi pi-file-pdf" onClick={exportPdf} className="p-button-warning p-mr-2" data-pr-tooltip="PDF" />
             <div className="card">
-                <div className="p-d-flex p-flex-column p-my-3 ">
+                <div className="p-d-flex p-flex-column p-my-1 ">
                     <div className="p-d-flex p-flex-column p-flex-md-row p-mx-auto ">
                         <div className="p-mb-2 ">
                             <div className="p-inputgroup">
                                 <span className="p-inputgroup-addon">
                                     {/* <i className="pi pi-shield"></i> */}
-                                    <object type="image/svg+xml" data={ship} style={{maxHeight:"1.25rem"}} alt="Ship Logo"></object>
+                                    <object type="image/svg+xml" data={ship} style={{ maxHeight: "1.25rem" }} alt="Ship Logo"></object>
                                 </span>
                                 <InputText placeholder="Vessel Name" />
                             </div>
@@ -187,7 +193,7 @@ const GridBody = ({ user }) => {
                         <div className="p-mb-2">
                             <div className="p-inputgroup">
                                 <span className="p-inputgroup-addon">
-                                <object type="image/svg+xml" data={sailor} style={{maxHeight:"1.25rem"}} alt="Sailor Logo"></object>
+                                    <object type="image/svg+xml" data={sailor} style={{ maxHeight: "1.25rem" }} alt="Sailor Logo"></object>
                                 </span>
                                 <Dropdown value={crew} options={crews} filter filterBy="Fullname" optionLabel="Fullname" onChange={onItemChange} placeholder="Seafarer Name" />
                             </div>
@@ -217,14 +223,15 @@ const GridBody = ({ user }) => {
                             {/* {JSON.stringify(restTime24SelectedCells) === '{}'? "" : (24 - restTime24SelectedCells[props.rowIndex])} */}
                         </div>
                     }></Column>
-
-                    <Column style={restTimetStyle} field="restHr-7day" header="Total Rest time in 7-day" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column>
+{/* 
+                    <Column style={restTimetStyle} field="restHr-7day" header="Total Rest time in 7-day" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column> */}
 
                     <Column style={commentStyle} field="comment" header="Comment/Remark" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column>
                 </DataTable>
             </div>
-
+                    <h5 className="p-d-flex p-jc-center p-text-italic" id="copyRight">Copyright (c) 2022_  <a href={'http://chuongtang.com'}>CT</a> </h5>
         </div>
+        </>
     );
 }
 export default GridBody;
