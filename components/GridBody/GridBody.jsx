@@ -76,7 +76,7 @@ const GridBody = ({ user }) => {
         return !selectState ? 'SelectedStyle' : ''
     }
 
-    const toBeDeleted = (e) => {
+    const onCellsSelected = (e) => {
 
         setSelectedCells(e.value)
         console.table('CELLS Selected', e.value)
@@ -213,7 +213,7 @@ const GridBody = ({ user }) => {
                         </div>
                     </div>
 
-                    <DataTable value={products} selectionMode="multiple" cellSelection dragSelection metaKeySelection={false} selection={selectedCells} onSelectionChange={e => toBeDeleted(e)} dataKey="id" showGridlines responsiveLayout="scroll" size="small" cellClassName={cellClass}>
+                    <DataTable value={products} selectionMode="multiple" cellSelection dragSelection metaKeySelection={false} selection={selectedCells} onSelectionChange={e => onCellsSelected(e)} dataKey="id" showGridlines responsiveLayout="scroll" size="small" cellClassName={cellClass}>
 
                         <Column field="date" style={dateStyle} header="Date ⇩ "></Column>
 
@@ -228,7 +228,7 @@ const GridBody = ({ user }) => {
                         {/* 
                     <Column style={restTimetStyle} field="restHr-7day" header="Total Rest time in 7-day" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column> */}
 
-                        <Column style={commentStyle} field="comment" header="Comment/Remark" editor={remarkEditor} onCellEditComplete={onCellEditComplete} body={(data, props) => console.log(props)}></Column>
+                        <Column style={commentStyle} field="comment" header="Comment/Remark" editor={remarkEditor} onCellEditComplete={onCellEditComplete} disabledSelection ></Column>
                     </DataTable>
                 </div>
                 <h5 className="p-d-flex p-jc-center p-text-italic" id="copyRight">Copyright (c) 2022_  <a href={'http://chuongtang.com'}>CT</a> </h5>
