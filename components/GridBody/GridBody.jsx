@@ -164,15 +164,16 @@ const GridBody = ({ user }) => {
                 <object type="image/svg+xml" data={Spinner} alt="Spinner"></object>
             </Dialog>
             <Dialog visible={missingName} style={{ width: '80vw' }} onHide={() => setMissingName(false)}>
-                <p text-orange-500 text-cyan-500>Please ensure report month and name are selected</p>
+                
                 <div class="card">
                     <div class="flex flex-wrap align-items-center justify-content-center card-container green-container">
                         <div class="scalein animation-duration-2000 animation-iteration-infinite flex align-items-center justify-content-center
     font-bold bg-green-500 text-white border-round m-2 px-5 py-3">Please ensure report month and name are selected</div>
                     </div>
                 </div>
+                <br/>
                 <object type="image/gif" data={SelectCrew} alt="Select Crew animation"></object>
-                {/* <img src={SelectCrew} alt="Select Name animation" /> */}
+              
             </Dialog>
             <div className="datatable-selection" id="pdfContent">
 
