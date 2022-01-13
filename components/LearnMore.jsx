@@ -2,10 +2,7 @@
 import React, { useState } from 'react';
 import "primeflex/primeflex.css";
 
-
-
 const LearnMore = () => {
-
 
   return (
   
