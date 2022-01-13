@@ -160,8 +160,8 @@ const GridBody = ({ user }) => {
 
                 <div className="card">
                     <div className="p-d-flex p-jc-center p-ai-center">
-                        <section className="reportMonth">
-                            <Calendar id="monthpicker" value={dataMonth} onChange={(e) => renderGrid(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" placeholder="Select Month ⏷" /></section>
+                        <section  className="reportMonth">
+                            <Calendar id="monthpicker"  value={dataMonth} onChange={(e) => renderGrid(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" placeholder="Select Month ⏷" /></section>
                         <div className="p-d-flex p-flex-column p-my-1 ">
                             <div className="p-d-flex p-flex-column p-flex-md-row p-mx-auto ">
                                 <div className="p-mb-2 ">
@@ -222,10 +222,10 @@ const GridBody = ({ user }) => {
                         {/* 
                     <Column style={restTimetStyle} field="restHr-7day" header="Total Rest time in 7-day" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column> */}
 
-                        <Column style={commentStyle} field="comment"  header="Comment/Remark" editor={remarkEditor} onCellEditComplete={onCellEditComplete}  ></Column>
+                        <Column style={commentStyle}  field="comment"  header="Comment/Remark" editor={remarkEditor} onCellEditComplete={onCellEditComplete}  ></Column>
                     </DataTable>
                 </div>
-                <h5 className="p-d-flex p-jc-center p-text-italic" id="copyRight">Copyright (c) 2022_  <a href={'http://chuongtang.com'}>CT</a> </h5>
+               
             </div>
         </>
     );
