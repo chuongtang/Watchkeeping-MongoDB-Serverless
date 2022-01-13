@@ -5,6 +5,7 @@ import North from "../src/images/North.png";
 import LearnMore from './LearnMore';
 import { Dialog } from 'primereact/dialog';
 import BG from "../src/images/shipMate.webp"
+import Demo from "./WatchkeepingDemo.webm"
 
 
 const MainPage = () => {
@@ -41,9 +42,9 @@ const MainPage = () => {
           </Dialog>
 
 
-          <Button label="Live Demo" type="button" className="p-button-outlined" onClick={() => setDisplayDemo(true)} />
-          <Dialog visible={displayDemo} maximizable modal style={{ width: '90vw' }} onHide={() => onHide()}>
-            <h3>This Component is being built... please visit again!</h3>
+          <Button label="Live Demo" type="button" className="p-button-outlined p-button-warning p-button-raised" onClick={() => setDisplayDemo(true)} />
+          <Dialog visible={displayDemo} maximizable modal  onHide={() => onHide()}>
+          <video src={Demo}  height="700" controls="controls" autoplay="true" />
           </Dialog>
         </section>
       </div>

@@ -1,5 +1,5 @@
 
-# Watchkeeping: a timesheet logging tool for Seafarers
+# Watchkeeping: a timesheet compiling tool for Seafarers
 
 One of a great ways to experience all pros and cons of any technologies is using them to build app. In this project, I've dived into a trending tool from MongoDB : Realm serverless functions
 
