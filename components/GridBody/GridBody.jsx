@@ -15,6 +15,7 @@ import cellsGenerator from "./cellsGenerator.js";
 import Spinner from "../../src/images/Spinner.svg";
 import sailor from "../../src/images/sailor.svg";
 import ship from "../../src/images/ship.svg";
+import SelectCrew from "../../src/images/SelectCrew.gif";
 import html2pdf from "html2pdf.js";
 
 
@@ -30,7 +31,7 @@ const GridBody = ({ user }) => {
     const date = new Date();
     const [dataMonth, setDataMonth] = useState(Date.now());
     const [displaySpinner, setDisplaySpinner] = useState(false);
-
+    const [missingName, setMissingName] = useState(false)
     const [restTime24SelectedCells, setRestTime24SelectedCells] = useState({})
 
 
@@ -129,21 +130,31 @@ const GridBody = ({ user }) => {
     }
 
     const exportPdf = () => {
-        setDisplaySpinner(true);
-        setTimeout(() => {
-            setDisplaySpinner(false);
-        }, 3000);
-        let element = document.getElementById('pdfContent');
-        var opt = {
-            margin: 0.1,
-            filename: 'CrewTimeSheet.pdf',
-            image: { type: 'svg', quality: 0.99 },
-            jsPDF: { unit: 'in', format: 'a3', orientation: 'landscape' }
-        };
-        html2pdf().set({
-            pagebreak: { before: '#copyRight' }
-        });
-        html2pdf(element, opt);
+        console.log("crewName Here", crew)
+        if (JSON.stringify(crew) === "{}") {
+            setMissingName(true);
+            setTimeout(() => {
+                setMissingName(false);
+            }, 5000);
+            return;
+        } else {
+
+            setDisplaySpinner(true);
+            setTimeout(() => {
+                setDisplaySpinner(false);
+            }, 3000);
+            let element = document.getElementById('pdfContent');
+            var opt = {
+                margin: 0.1,
+                filename: `${crew.Fullname}.pdf`,
+                image: { type: 'svg', quality: 0.99 },
+                jsPDF: { unit: 'in', format: 'a3', orientation: 'landscape' }
+            };
+            html2pdf().set({
+                pagebreak: { before: '#copyRight' }
+            });
+            html2pdf(element, opt);
+        }
     };
 
     return (
@@ -151,6 +162,17 @@ const GridBody = ({ user }) => {
             <Button type="button" icon="pi pi-file-pdf" onClick={exportPdf} style={{ float: "right" }} className="p-button-success p-button-raised p-button-text p-mr-6" label="export to PDF" data-pr-tooltip="PDF" />
             <Dialog visible={displaySpinner} style={{ width: '25rem' }} closable={false}>
                 <object type="image/svg+xml" data={Spinner} alt="Spinner"></object>
+            </Dialog>
+            <Dialog visible={missingName} style={{ width: '80vw' }} onHide={() => setMissingName(false)}>
+                <p text-orange-500 text-cyan-500>Please ensure report month and name are selected</p>
+                <div class="card">
+                    <div class="flex flex-wrap align-items-center justify-content-center card-container green-container">
+                        <div class="scalein animation-duration-2000 animation-iteration-infinite flex align-items-center justify-content-center
+    font-bold bg-green-500 text-white border-round m-2 px-5 py-3">Please ensure report month and name are selected</div>
+                    </div>
+                </div>
+                <object type="image/gif" data={SelectCrew} alt="Select Crew animation"></object>
+                {/* <img src={SelectCrew} alt="Select Name animation" /> */}
             </Dialog>
             <div className="datatable-selection" id="pdfContent">
 
@@ -160,8 +182,8 @@ const GridBody = ({ user }) => {
 
                 <div className="card">
                     <div className="p-d-flex p-jc-center p-ai-center">
-                        <section  className="reportMonth">
-                            <Calendar id="monthpicker"  value={dataMonth} onChange={(e) => renderGrid(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" placeholder="Select Month ⏷" /></section>
+                        <section className="reportMonth">
+                            <Calendar id="monthpicker" value={dataMonth} onChange={(e) => renderGrid(e.value)} view="month" dateFormat="MM-yy" yearNavigator yearRange="2020:2030" placeholder="Select Month ⏷" /></section>
                         <div className="p-d-flex p-flex-column p-my-1 ">
                             <div className="p-d-flex p-flex-column p-flex-md-row p-mx-auto ">
                                 <div className="p-mb-2 ">
@@ -212,20 +234,20 @@ const GridBody = ({ user }) => {
                         <Column field="date" style={dateStyle} header="Date ⇩ "></Column>
 
                         {HourRows.map((item, index) => (<Column field={item} key={index} style={cellsStyle} header={item}></Column>))}
-                        {/* <Column style={restTimetStyle} field="restHr" header="Total Rest time in 24-hr" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column> */}
+
                         <Column style={restTimetStyle} field="restHr" header="Total Rest time in 24-hr" body={(data, props) =>
                             <div>
                                 {!isNaN(24 - restTime24SelectedCells[props.rowIndex]) ? (24 - restTime24SelectedCells[props.rowIndex]) : ""}
-                                {/* {JSON.stringify(restTime24SelectedCells) === '{}'? "" : (24 - restTime24SelectedCells[props.rowIndex])} */}
+
                             </div>
                         }></Column>
                         {/* 
                     <Column style={restTimetStyle} field="restHr-7day" header="Total Rest time in 7-day" editor={remarkEditor} onCellEditComplete={onCellEditComplete}></Column> */}
 
-                        <Column style={commentStyle}  field="comment"  header="Comment/Remark" editor={remarkEditor} onCellEditComplete={onCellEditComplete}  ></Column>
+                        <Column style={commentStyle} field="comment" header="Comment/Remark" editor={remarkEditor} onCellEditComplete={onCellEditComplete}  ></Column>
                     </DataTable>
                 </div>
-               
+
             </div>
         </>
     );

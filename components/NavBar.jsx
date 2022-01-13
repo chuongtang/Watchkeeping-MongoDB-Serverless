@@ -60,9 +60,8 @@ const NavBar = () => {
 
             {isAuthenticated && <div> <ConfirmDialog visible={visible} onHide={() => setVisible(false)} message="Do you want to sign out of your account?"
                 header="Signing out" icon="pi pi-exclamation-triangle" accept={accept} reject={reject} />
-                <Button onClick={() => setVisible(true)} icon="pi pi-user" type="button" label={`:   ${user.email}`} className="p-button-raised p-button-rounded p-mr-2"></Button> </div>}
+                <Button onClick={() => setVisible(true)} icon="pi pi-user" type="button" label={`User logged in with email:   ${user.email}`} className="p-button-raised p-button-rounded p-mr-2"></Button> </div>}
             <LoginButton />
-            {/* <LogoutButton /> */}
         </React.Fragment>
     );
 
