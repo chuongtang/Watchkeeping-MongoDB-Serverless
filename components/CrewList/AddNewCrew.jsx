@@ -30,7 +30,7 @@ const AddNewCrew = ({user, appUser}) => {
     let errors = {};
 
     if (!data.fullname) {
-      errors.fullname = 'Fullname is required.';
+      errors.fullname = `Fullname is required.`;
     }
 
     if (!data.email) {

@@ -17,6 +17,8 @@ ReactDOM.render(
       domain={domain}
       clientId={clientID}
       redirectUri={window.location.origin}
+      useRefreshTokens={true}
+      cacheLocation="localstorage"
     >
       <App />
     </Auth0Provider>
