@@ -1,6 +1,6 @@
 
 # Watchkeeping: a timesheet compiling tool for Seafarers
-### 🎉🎇 A runner-up project in 🎁🎆 <img src="https://chuongtang.github.io/sourceStore/GenSources/MongoDBHackathon.jpg" alt="Hackathon Banner" title="Hackathon Runner-up" height="70" /> [Checkh out this Post on dev.to ](https://dev.to/devteam/congrats-to-the-mongodb-atlas-hackathon-winners-4cc0)
+### 🎉🎇 A runner-up project in 🎁🎆 <img src="https://chuongtang.github.io/sourceStore/GenSources/MongoDBHackathon.jpg" alt="Hackathon Banner" title="Hackathon Runner-up" height="70" /> [Check out this Post on dev.to ](https://dev.to/devteam/congrats-to-the-mongodb-atlas-hackathon-winners-4cc0)
 
 One of a great ways to experience all pros and cons of any technologies is using them to build app. In this project, I've dived into a trending tool from MongoDB : Realm serverless functions
 
